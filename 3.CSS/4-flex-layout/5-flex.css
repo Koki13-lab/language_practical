@@ -1,0 +1,13 @@
+.container{
+  display:flex;
+  flex-wrap:wrap;
+  /*gap:20px;*/
+  gap:20px 10px;
+  /*width:500px;*/
+  width: 250px;
+  border:1px solid #000;
+}
+
+.item{
+  border:1px solid #000;
+}

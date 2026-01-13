@@ -1,0 +1,44 @@
+.btn{
+  padding:10px 20px;
+  color:white;
+  background:#34d399;
+  border:none;
+  border-radius:8px;
+}
+
+.btn:hover{
+  background:#2bb07b;
+}
+
+input{
+  padding:8px;
+  outline:none;
+  border:2px solid #ccc;
+  border-radius:6px;
+}
+
+input:focus{
+  border-color:#34d399;
+  box-shadow:0 0 5px #34d399;
+}
+
+li:first-child{
+  color:red;
+}
+
+li:last-child{
+  color:purple;
+}
+
+label{
+  display:inline-flex;
+  gap:4px;
+  align-items:center;
+  border:1px solid transparent;
+}
+
+label:has(input:checked){
+  background:rgb(52 211 153 / 15%);
+  border:1px solid #34d399;
+  border-radius:8px;
+}

@@ -1,0 +1,55 @@
+ul,
+li{
+  list-style:none;
+}
+
+.layout{
+  display:grid;
+  grid-template:
+  	"header header header" auto
+  	". . ."10px
+  	"side . main" minmax(200px,1fr)
+  	". . ."10px
+  	"footer footer footer" auto
+  	/260px 10px 1fr;
+}
+
+.site-header{
+  grid-area:header;
+  background-color:#f28b82;
+}
+
+.sidebar{
+  grid-area:side;
+  background-color:#aecbfa;
+}
+
+.main{
+  grid-area:main;
+  background-color:#ccff90;
+}
+
+.site-footer{
+  grid-area:footer;
+  background-color:#fff475;
+}
+
+@media (width<768px){
+  .site-header{
+  background-color:violet;
+  }
+}
+
+/*----------------------
+メディアクエリ（レスポンシブ対応）
+----------------------*/
+@media(width<768px){
+  .layout{
+    grid-template:
+  	  "header"auto
+  	  "side" auto
+  	  "main" minmax(200px,1fr)
+  	  "footer" auto
+  	  /1fr;
+  }
+}

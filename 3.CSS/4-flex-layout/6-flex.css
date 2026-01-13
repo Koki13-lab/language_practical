@@ -1,0 +1,140 @@
+*{
+  box-sizing:border-box;
+  padding:0;
+  margin:0;
+}
+
+body{
+  color:#1f2530;
+  background:#fff;
+}
+
+.layout{
+  display:grid;
+  grid-template:
+  	"header header header" auto
+  	". . ."10px
+  	"side . main"minmax(200px,1fr)
+  	". . ."10px
+  	"footer footer footer"auto
+  	/260px 10px 1fr;
+}
+
+.site-header{
+  grid-area:header;
+  background-color:#f28b82;
+}
+
+.sidebar{
+  grid-area:side;
+  background-color:#aecbfa;
+}
+
+.main{
+  grid-area:main;
+}
+
+.site-footer{
+  grid-area:footer;
+  background-color:#fff475;
+}
+
+/* ---------------------
+	カードデザイン(box-demo)
+----------------------*/
+	
+.box-demo{
+  display:flex;
+  flex-wrap: wrap;
+  padding:14px;
+  border:1px dashed rgb(217 221 228 / 70%);
+  border-radius:16px;
+}
+
+/* ---------------------
+	カード本体のデザイン(box)
+-----------------------*/
+
+.box{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  width:400px;
+  padding:14px;
+  margin:14px;
+  background:rgb(255 255 255 / 70%);
+  border:2px solid rgb(217 221 228/70%);
+  border-radius:14px;
+  box-shadow:0 10px 30px rgb(4 7 10 / 12%);
+}
+
+/* ---------------------
+	カードタイトル(リボン風)
+-----------------------*/
+
+.ribbon{
+  display:inline-block;
+  padding:4px 8px;
+  color:white;
+  background:#34d399;
+  border-radius:8px;
+}
+
+/* ---------------------
+	ボタン群(clister)
+-----------------------*/
+
+.cluster{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:8px;
+}
+
+/* ---------------------
+	ボタン共通デザイン(btn)
+-----------------------*/
+
+.btn{
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+  justify-content:center;
+  height:40px;
+  padding:0 14px;
+  font-weight:800;
+  color:white;
+  color:white;
+  background:#34d399;
+  border:0;
+  border-radius:999px;
+  box-shadow:0 10px 30px rgb(4 7 10 / 12%);
+  }
+  
+  /* ---------------------
+	ボタンのホバー効果
+-----------------------*/
+
+.btn:hover{
+  translate:0 -1px;
+}
+
+  /* ---------------------
+	無効状態のボタン(disabled)
+-----------------------*/
+
+.btn:disabled{
+  cursor:not-allowed;
+  opacity:0.55;
+}
+
+  /* ---------------------
+	ゴーストボタン(枠のみ)
+-----------------------*/
+
+.btn--ghost{
+  color:#1f2530;
+  background:transparent;
+  border:1px solid rgb(217 221 228 / 70%);
+  box-shadow:none;
+}
