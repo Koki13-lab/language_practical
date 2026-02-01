@@ -1,0 +1,27 @@
+.container{
+  display:grid;
+  grid-template:
+  	"item_A item_B item_C" 180px
+  	"item_A item_D item_D" 100px
+  	/800px 1fr 1fr;
+}
+
+.itemA{
+  grid-area:item_A;
+  background-color:#f28b82;
+}
+
+.itemB{
+  grid-area:item_B;
+  background-color:#aecbfa;
+}
+
+.itemC{
+  grid-area:item_C;
+  background-color:#ccff90;
+}
+
+.itemD{
+  grid-area:item_D;
+  background-color:#fff475;
+}

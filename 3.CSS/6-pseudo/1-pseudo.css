@@ -1,0 +1,21 @@
+p::before{
+  content:"★";
+}
+
+p::after{
+  content:"☆";
+}
+
+.title{
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+
+.title::before,
+.title::after{
+  width:8px;
+  height:34px;
+  content:"";
+  background:#f28b82;
+}
