@@ -6,7 +6,7 @@ public class SixthProgram {
 		// TODO 自動生成されたメソッド・スタブ
 
 		int num1 = 2;
-		String num2 = "12";
+		int num2 = Integer.parseInt("10");
 		System.out.println(num1 + num2);
 	}
 
