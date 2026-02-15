@@ -1,0 +1,38 @@
+〇テーブル制作
+sql_education=# create table status(status_number serial primary key,order_status character(50) not null);
+
+sql_education=# ALTER TABLE status RENAME COLUMN status_number TO status_id;※名前変更しました。
+
+sql_education=# INSERT INTO status(order_status) VALUES('受付済'),('発注済'),('在庫確保済'),('処理済み');
+INSERT 0 4
+
+〇カラム追加
+sql_education=# ALTER TABLE order_info add column status_id integer references status(status_id);
+ALTER TABLE
+
+sql_education=# UPDATE order_info SET status_id = 1;
+UPDATE 5
+
+〇テーブル確認
+sql_education=# SELECT * FROM order_info AS o JOIN status AS s on o.status_id = s.status_id order by order_info_id asc;
+ order_info_id | order_date | account_id | cancel_order | status_id | status_id |                     order_status
+---------------+------------+------------+--------------+-----------+-----------+-------------------------------------------------------
+             1 | 2024-12-30 |          1 | t            |         1 |         1 | 受付済
+             2 | 2025-01-20 |          1 | f            |         1 |         1 | 受付済
+             3 | 2024-12-31 |          2 | t            |         1 |         1 | 受付済
+             4 | 2025-01-20 |          2 | f            |         1 |         1 | 受付済
+             5 | 2025-04-01 |          2 | f            |         1 |         1 | 受付済
+(5 行)
+
+〇注文状態変更
+sql_education=# update order_info set status_id = 2 where order_info_id = 3;
+UPDATE 1
+sql_education=# SELECT * FROM order_info AS o JOIN status AS s on o.status_id = s.status_id order by order_info_id asc;
+ order_info_id | order_date | account_id | cancel_order | status_id | status_id |                     order_status
+---------------+------------+------------+--------------+-----------+-----------+-------------------------------------------------------
+             1 | 2024-12-30 |          1 | t            |         1 |         1 | 受付済
+             2 | 2025-01-20 |          1 | f            |         1 |         1 | 受付済
+             3 | 2024-12-31 |          2 | t            |         2 |         2 | 発注済
+             4 | 2025-01-20 |          2 | f            |         1 |         1 | 受付済
+             5 | 2025-04-01 |          2 | f            |         1 |         1 | 受付済
+(5 行)

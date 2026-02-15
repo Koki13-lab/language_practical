@@ -1,0 +1,58 @@
+〇テーブル制作
+sql_education=# alter table order_info add column cancel boolean default false;
+ALTER TABLE
+sql_education=# alter table order_item add column cancel boolean default false;
+ALTER TABLE
+※名前が被ってわかりにくかったので後に名前変更しました。
+sql_education=# ALTER TABLE order_item RENAME COLUMN cancel TO cancel_item;
+ALTER TABLE
+sql_education=# ALTER TABLE order_info RENAME COLUMN cancel TO cancel_order;
+ALTER TABLE
+
+〇検索
+sql_education=# SELECT * FROM order_info AS oin JOIN order_item AS oit on oin.order_info_id =oit.order_id ORDER BY oin.order_info_id,id;
+ order_info_id | order_date | account_id | cancel_order | id | order_id | item_id | quantity | cancel_item
+---------------+------------+------------+--------------+----+----------+---------+----------+-------------
+             1 | 2024-12-30 |          1 | f            |  1 |        1 |       2 |        2 | t
+             1 | 2024-12-30 |          1 | f            |  2 |        1 |       4 |        1 | f
+             1 | 2024-12-30 |          1 | f            |  3 |        1 |       7 |        2 | f
+             2 | 2025-01-20 |          1 | f            |  4 |        2 |       5 |        4 | f
+             2 | 2025-01-20 |          1 | f            |  5 |        2 |       6 |        5 | f
+             2 | 2025-01-20 |          1 | f            |  6 |        2 |       7 |        6 | f
+             3 | 2024-12-31 |          2 | t            |  7 |        3 |       3 |       10 | f
+             3 | 2024-12-31 |          2 | t            |  8 |        3 |       7 |        5 | f
+             3 | 2024-12-31 |          2 | t            |  9 |        3 |       2 |        5 | f
+             4 | 2025-01-20 |          2 | f            | 10 |        4 |       3 |       10 | f
+             4 | 2025-01-20 |          2 | f            | 11 |        4 |       7 |        1 | f
+             4 | 2025-01-20 |          2 | f            | 12 |        4 |       6 |        2 | f
+             5 | 2025-04-01 |          2 | f            | 13 |        5 |       8 |        2 | f
+             5 | 2025-04-01 |          2 | f            | 14 |        5 |       4 |        2 | f
+             5 | 2025-04-01 |          2 | f            | 15 |        5 |       1 |        2 | f
+(15 行)
+
+〇キャンセル状況変更
+sql_education=# UPDATE order_info SET cancel_order=true WHERE order_info_id=1;
+UPDATE 1
+sql_education=# UPDATE order_item SET cancel_item=true WHERE id=5;
+UPDATE 1
+
+・実行結果
+sql_education=# SELECT * FROM order_info AS oin JOIN order_item AS oit on oin.order_info_id =oit.order_id ORDER BY oin.order_info_id,id;
+ order_info_id | order_date | account_id | cancel_order | id | order_id | item_id | quantity | cancel_item
+---------------+------------+------------+--------------+----+----------+---------+----------+-------------
+             1 | 2024-12-30 |          1 | t            |  1 |        1 |       2 |        2 | t
+             1 | 2024-12-30 |          1 | t            |  2 |        1 |       4 |        1 | f
+             1 | 2024-12-30 |          1 | t            |  3 |        1 |       7 |        2 | f
+             2 | 2025-01-20 |          1 | f            |  4 |        2 |       5 |        4 | f
+             2 | 2025-01-20 |          1 | f            |  5 |        2 |       6 |        5 | t
+             2 | 2025-01-20 |          1 | f            |  6 |        2 |       7 |        6 | f
+             3 | 2024-12-31 |          2 | t            |  7 |        3 |       3 |       10 | f
+             3 | 2024-12-31 |          2 | t            |  8 |        3 |       7 |        5 | f
+             3 | 2024-12-31 |          2 | t            |  9 |        3 |       2 |        5 | f
+             4 | 2025-01-20 |          2 | f            | 10 |        4 |       3 |       10 | f
+             4 | 2025-01-20 |          2 | f            | 11 |        4 |       7 |        1 | f
+             4 | 2025-01-20 |          2 | f            | 12 |        4 |       6 |        2 | f
+             5 | 2025-04-01 |          2 | f            | 13 |        5 |       8 |        2 | f
+             5 | 2025-04-01 |          2 | f            | 14 |        5 |       4 |        2 | f
+             5 | 2025-04-01 |          2 | f            | 15 |        5 |       1 |        2 | f
+(15 行)

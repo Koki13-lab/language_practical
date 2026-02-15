@@ -1,0 +1,13 @@
+sql_education=# insert into account(name) values('ac1');
+INSERT 0 1
+sql_education=# insert into account(name) values('ac2');
+INSERT 0 1
+sql_education=# SELECT * FROM account;
+ account_id | name
+------------+------
+          1 | ac1
+          2 | ac2
+(2 行)
+
+
+sql_education=#

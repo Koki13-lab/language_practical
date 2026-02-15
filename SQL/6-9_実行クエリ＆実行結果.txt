@@ -1,0 +1,6 @@
+sql_education=# SELECT order_date AS 注文日付 FROM order_info WHERE account_id = (select account_id FROM account WHERE name='ac1');
+  注文日付
+------------
+ 2024-12-30
+ 2025-01-20
+(2 行)

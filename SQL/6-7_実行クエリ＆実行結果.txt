@@ -1,0 +1,9 @@
+sql_education=# SELECT item_id AS 製品ID,name AS 製品名,price AS 値段 FROM item WHERE price<200 ORDER BY price DESC;
+ 製品id |     製品名     | 値段
+--------+----------------+------
+      1 | 牛乳           |  198
+      6 | バナナ         |  198
+      2 | 食パン         |  158
+      7 | カップラーメン |  158
+      5 | にんじん       |   58
+(5 行)

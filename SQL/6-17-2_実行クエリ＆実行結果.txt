@@ -1,0 +1,78 @@
+〇テーブル作成
+
+・店舗概要テーブル
+sql_education=# create table store(store_id serial primary key,store_name character varying(50) not null);
+CREATE TABLE
+sql_education=# SELECT * FROM store;
+ store_id | store_name
+----------+------------
+(0 行)
+
+・店舗IDカラム
+sql_education=# alter table item add column store_id integer references store(store_id);
+ALTER TABLE
+sql_education=# SELECT * FROM item;
+ item_id |      name      | price | store_id
+---------+----------------+-------+----------
+       1 | 牛乳           |   198 |
+       2 | 食パン         |   158 |
+       3 | 卵             |   228 |
+       4 | 米             |  1980 |
+       5 | にんじん       |    58 |
+       6 | バナナ         |   198 |
+       7 | カップラーメン |   158 |
+       8 | キャベツ       |   200 |
+(8 行)
+
+
+〇情報追加
+
+・店舗概要テーブル
+sql_education=# INSERT INTO store (store_name) VALUES('Astore'),('Bstore');
+INSERT 0 2
+sql_education=# SELECT * FROM store;
+ store_id | store_name
+----------+------------
+        1 | Astore
+        2 | Bstore
+(2 行)
+
+・店舗IDカラム
+sql_education=# UPDATE item SET store_id = 1;
+UPDATE 8
+sql_education=# UPDATE item SET store_id=2 WHERE item_id=5;
+UPDATE 1
+sql_education=# SELECT * FROM item;
+ item_id |      name      | price | store_id
+---------+----------------+-------+----------
+       1 | 牛乳           |   198 |        1
+       2 | 食パン         |   158 |        1
+       3 | 卵             |   228 |        1
+       4 | 米             |  1980 |        1
+       6 | バナナ         |   198 |        1
+       7 | カップラーメン |   158 |        1
+       8 | キャベツ       |   200 |        1
+       5 | にんじん       |    58 |        2
+(8 行)
+
+
+〇注文製品情報と店舗名を合わせて確認
+sql_education=# SELECT * FROM order_item AS oi JOIN item AS i on oi.item_id=i.item_id JOIN store AS s on i.store_id=s.store_id;
+ id | order_id | item_id | quantity | cancel_item | item_id |      name      | price | store_id | store_id | store_name
+----+----------+---------+----------+-------------+---------+----------------+-------+----------+----------+------------
+  2 |        1 |       4 |        1 | f           |       4 | 米             |  1980 |        1 |        1 | Astore
+  3 |        1 |       7 |        2 | f           |       7 | カップラーメン |   158 |        1 |        1 | Astore
+  4 |        2 |       5 |        4 | f           |       5 | にんじん       |    58 |        2 |        2 | Bstore
+  6 |        2 |       7 |        6 | f           |       7 | カップラーメン |   158 |        1 |        1 | Astore
+  7 |        3 |       3 |       10 | f           |       3 | 卵             |   228 |        1 |        1 | Astore
+  8 |        3 |       7 |        5 | f           |       7 | カップラーメン |   158 |        1 |        1 | Astore
+  9 |        3 |       2 |        5 | f           |       2 | 食パン         |   158 |        1 |        1 | Astore
+ 10 |        4 |       3 |       10 | f           |       3 | 卵             |   228 |        1 |        1 | Astore
+ 11 |        4 |       7 |        1 | f           |       7 | カップラーメン |   158 |        1 |        1 | Astore
+ 12 |        4 |       6 |        2 | f           |       6 | バナナ         |   198 |        1 |        1 | Astore
+ 13 |        5 |       8 |        2 | f           |       8 | キャベツ       |   200 |        1 |        1 | Astore
+ 14 |        5 |       4 |        2 | f           |       4 | 米             |  1980 |        1 |        1 | Astore
+ 15 |        5 |       1 |        2 | f           |       1 | 牛乳           |   198 |        1 |        1 | Astore
+  1 |        1 |       2 |        2 | t           |       2 | 食パン         |   158 |        1 |        1 | Astore
+  5 |        2 |       6 |        5 | t           |       6 | バナナ         |   198 |        1 |        1 | Astore
+(15 行)
