@@ -7,3 +7,15 @@ sql_education=# SELECT order_info_id AS 注文ID,SUM(price*quantity) AS 合計�
       1 |     2612
       2 |     2170
 (5 行)
+
+〇訂正ver
+sql_education=# SELECT order_info_id AS 注文ID,SUM(price*quantity) AS 合計金額 FROM order_info JOIN order_item on order_info.order_info_id=order_item.order_id JOIN item on item.item_id=order_item.item_id GROUP BY order_info_id ORDER BY 合計金額 DESC;
+ 注文id | 合計金額
+--------+----------
+      5 |     5356
+      3 |     3860
+      4 |     2834
+      1 |     2612
+      2 |     2170
+(5 行)
+※キャベツが600円（200円ｘ3）増えました。

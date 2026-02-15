@@ -4,3 +4,12 @@ sql_education=# SELECT a.account_id AS ユーザーID,a.name AS ユーザー名,
           2 | ac2        |    11450
           1 | ac1        |     4782
 (2 行)
+
+〇訂正ver
+sql_education=# SELECT a.account_id AS ユーザーID,a.name AS ユーザー名,SUM(price*quantity) AS 合計金額 FROM account AS a JOIN order_info AS oin on a.account_id=oin.account_id JOIN order_item AS oit on oin.order_info_id=oit.order_id JOIN item AS i on oit.item_id=i.item_id GROUP BY a.account_id ORDER BY 合計金額 DESC;
+ ユーザーid | ユーザー名 | 合計金額
+------------+------------+----------
+          2 | ac2        |    12050
+          1 | ac1        |     4782
+(2 行)
+※キャベツ600円分（200円x3）追加
