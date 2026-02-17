@@ -1,0 +1,27 @@
+sql_education=# SELECT name AS 商品名,SUM(quantity) AS 注文合計数 FROM item join order_item on item.item_id = order_item.item_id GROUP BY name ORDER BY 注文合計数 DESC;
+     商品名     | 注文合計数
+----------------+------------
+ 卵             |         20
+ カップラーメン |         14
+ 食パン         |          7
+ バナナ         |          7
+ にんじん       |          4
+ 米             |          3
+ キャベツ       |          2
+ 牛乳           |          2
+(8 行)
+
+〇訂正ver
+sql_education=# SELECT name AS 商品名,SUM(quantity) AS 注文合計数 FROM item join order_item on item.item_id = order_item.item_id GROUP BY name ORDER BY 注文合計数 DESC;
+     商品名     | 注文合計数
+----------------+------------
+ 卵             |         20
+ カップラーメン |         14
+ 食パン         |          7
+ バナナ         |          7
+ キャベツ       |          5
+ にんじん       |          4
+ 米             |          3
+ 牛乳           |          2
+(8 行)
+※キャベツが3増えました

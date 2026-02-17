@@ -1,0 +1,22 @@
+sql_education=# begin;
+BEGIN
+sql_education=*# insert into account(name) values('ac3'),('ac4');
+INSERT 0 2
+sql_education=*# select * from account;
+ account_id | name
+------------+------
+          1 | ac1
+          2 | ac2
+          3 | ac3
+          4 | ac4
+(4 行)
+
+
+sql_education=*# rollback;
+ROLLBACK
+sql_education=# select * from account;
+ account_id | name
+------------+------
+          1 | ac1
+          2 | ac2
+(2 行)

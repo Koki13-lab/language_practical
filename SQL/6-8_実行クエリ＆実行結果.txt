@@ -1,0 +1,5 @@
+sql_education=# SELECT count(*) AS 注文数 FROM order_info WHERE order_date BETWEEN '2024-01-01' AND '2024-12-31';
+ 注文数
+--------
+      2
+(1 行)

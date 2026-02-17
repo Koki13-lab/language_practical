@@ -1,0 +1,17 @@
+sql_education=# create table account(account_id serial primary key,name character varying(50) not null);
+CREATE TABLE
+sql_education=# create table item(item_id serial primary key,name character varying(50) not null,price integer not null);
+CREATE TABLE
+sql_education=# create table order_info(order_info_id serial primary key,order_date date not null,account_id integer not null,foreign key(account_id)references account(account_id)on delete cascade);
+CREATE TABLE
+sql_education=# create table order_item(id serial primary key,order_id integer not null,item_id integer not null,quantity int not null,foreign key(order_id)references order_info(order_info_id)on delete cascade,foreign key(item_id)references item(item_id) on delete restrict);
+CREATE TABLE
+sql_education=# \dt
+                テーブル一覧
+ スキーマ |    名前    |  タイプ  |  所有者
+----------+------------+----------+----------
+ public   | account    | テーブル | postgres
+ public   | item       | テーブル | postgres
+ public   | order_info | テーブル | postgres
+ public   | order_item | テーブル | postgres
+(4 行)

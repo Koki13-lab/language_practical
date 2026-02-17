@@ -1,0 +1,32 @@
+Server [localhost]:
+Database [postgres]:
+Port [5432]:
+Username [postgres]:
+Client Encoding [SJIS]:
+ユーザー postgres のパスワード:
+
+psql (18.1)
+"help"でヘルプを表示します。
+
+postgres=# select current_database();
+ current_database
+------------------
+ postgres
+(1 行)
+
+
+postgres=# select current_schema();
+ current_schema
+----------------
+ public
+(1 行)
+
+
+postgres=# select current_database(), current_schema();
+ current_database | current_schema
+------------------+----------------
+ postgres         | public
+(1 行)
+
+
+postgres=#

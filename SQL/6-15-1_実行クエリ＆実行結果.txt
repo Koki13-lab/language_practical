@@ -1,0 +1,24 @@
+sql_education=# begin;
+BEGIN
+sql_education=*# insert into account(name) values('ac3'),('ac4');
+INSERT 0 2
+sql_education=*# select * from account;
+ account_id | name
+------------+------
+          1 | ac1
+          2 | ac2
+          5 | ac3
+          6 | ac4
+(4 行)
+
+
+sql_education=*# commit;
+COMMIT
+sql_education=# select * from account;
+ account_id | name
+------------+------
+          1 | ac1
+          2 | ac2
+          5 | ac3
+          6 | ac4
+(4 行)
