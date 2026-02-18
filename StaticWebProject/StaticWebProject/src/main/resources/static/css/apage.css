@@ -1,0 +1,67 @@
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+/*--------------
+レイアウト設定
+--------------*/
+
+.layout {
+	display: grid;
+	row-gap: 1px;
+	background: #a9a9a9;
+	min-height: 100vh;
+	grid-template:
+		"header header header" 50px
+		"main main main" auto
+		"footer footer footer" 80px
+		/1fr 1fr 1fr;
+}
+
+.header {
+	grid-area: header;
+	position: sticky;
+	top: 0;
+	background-color: #dcdcdc;
+	display: flex;
+	align-items: center;
+}
+
+.main {
+	grid-area: main;
+	background-color: white;
+}
+
+.footer {
+	grid-area: footer;
+	background-color: #dcdcdc;
+	display: flex;
+	align-items: center;
+}
+
+/*--------------
+メイン/カード
+--------------*/
+.card-box {
+	display: flex;
+	margin: 20px;
+	padding: 14px;
+	flex-wrap: wrap;
+	width: 100%;
+	justify-content: center;
+	gap: 50px;
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding: 14px;
+	margin: 14px;
+	background-color: white;
+	border: 2px solid rgb(217 221 228 / 70%);
+	border-radius: 14px;
+	box-shadow: 0 10px 30px rgb(4 7 10 / 12%);
+}

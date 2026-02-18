@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<title>株式会社アールピーシー</title>
+	<link rel="stylesheet" href="index.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+	<div class="layout">
+		<header class="site-header" id="top">
+			<h4 class="title" id="to">RPCホーム</h4>
+		</header>
+		<div class="sidearea">
+			<aside class="sidebar2">
+				<h4>ジャンプ先</h4>
+			</aside>
+			<aside class="sidebar">
+				<a href="#cardjump" class="sidebar-item">カード</a>
+				<a href="#formjump" class="sidebar-item"> フォーム</a>
+				<a href="#flexboxjump" class="sidebar-item"> FlexBox</a>
+				<a href="#responsivejump" class="sidebar-item"> レスポンシブ</a>
+			</aside>
+		</div>
+		<main class="main">
+			<h2>デザイン</h2>
+			<div class="card-box" id="cardjump">
+				<article class="card">
+					<h3 class="card-title">カード</h3>
+					<p>margin / border / padding / shadow / radius / background / typography</p>
+					<div class="btn-cluster">
+						<button class="btn">色のあるボタン</button>
+						<button class="btn btn-clear">色の無いボタン</button>
+						<button class="btn" disabled>無効ボタン</button>
+					</div>
+				</article>
+			</div>
+			<div class="form-box" id="formjump">
+				<h2>フォーム</h2>
+				<h4>名前</h4>
+				<input class="form-item" type="text" placeholder="フォーカスで枠を強調" />
+				<div class="form-item">
+					<h4>性別（テキスト部分も選択可、チェックした項目は景色を変化></h4>
+					<label><input type="radio" name="gender" value="male" />男性</label>
+					<label><input type="radio" name="gender" value="female" />女性</label>
+					<label><input type="radio" name="gender" value="other" />その他</label>
+				</div>
+				<h4>都道府県（フォーカスで枠を強調）</h4>
+				<select class="form-item" name="prefecture">
+					<option value="0">選択してください</option>
+					<option value="1">東京都</option>
+					<option value="2">神奈川県</option>
+					<option value="3">千葉県</option>
+					<option value="4">埼玉県</option>
+				</select>
+				<div class="form-item">
+					<h4>完了課題（テキスト部分も選択か、チェックした項目は背景色を変化）</h4>
+					<label><input type="checkbox" name="finish" value="HTML">HTML</label>
+					<label><input type="checkbox" name="finish" value="CSS">CSS</label>
+					<label><input type="checkbox" name="finish" value="JavaScript">JavaScript</label>
+				</div>
+				<h4>自己紹介</h4>
+				<textarea class="form-item" rows="8" name="self" placeholder="フォーカスで枠を強調"></textarea>
+			</div>
+			<h2 id="flexboxjump">FlexBox</h2>
+			<div class="container">
+				<div class="flex-item">#css</div>
+				<div class="flex-item">#html</div>
+				<div class="flex-item">#javascript</div>
+				<div class="flex-item">#Flexbox</div>
+				<div class="flex-item">#Grid</div>
+				<div class="flex-item">#MediaQueries</div>
+				<div class="flex-item">#ContainerQueries</div>
+			</div>
+			<h2 id="responsivejump">カードアウトでレスポンシブ</h2>
+			<article class="cardout-box">
+				<div class="cardout">
+					<h3>Card A</h3>
+					<p>space-betweenで等間隔</p>
+				</div>
+				<div class="cardout">
+					<h3>Card B</h3>
+					<p>720pxで並び変化</p>
+				</div>
+				<div class="cardout">
+					<h3>Card C</h3>
+					<p>フォーカスで枠を強調</p>
+				</div>
+				<div class="cardout">
+					<h3>Card D</h3>
+					<p>影と角丸でおしゃれに</p>
+				</div>
+			</article>
+		</main>
+		<footer class="site-footer">
+			<span>Ⓒ RPC</span>
+			<a href="#top">ページ上部へ</a>
+		</footer>
+	</div>
+</body>
+
+</html>
