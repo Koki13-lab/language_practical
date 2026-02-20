@@ -1,13 +1,9 @@
-let count = 0;
-
 $(document).ready(function() {
     $("#add-date").click(function() {
 
-        count++;
-
         let adddate = `
 			<tr>
-				<td>${count}</td>
+				<td></td>
 				<td>
 					<input type="checkbox">
 				</td>
@@ -20,9 +16,17 @@ $(document).ready(function() {
 			</tr>
 			`;
         $("#tbody").append(adddate);
+		reNumbers();
     });
 });
 
 $("#tbody").on("click", ".delete", function() {
     $(this).closest("tr").remove();
+	reNumbers();
 });
+
+function reNumbers(){
+    $("#tbody tr").each(function(index) {
+        $(this).find("td:first").text(index + 1);
+    });
+}
