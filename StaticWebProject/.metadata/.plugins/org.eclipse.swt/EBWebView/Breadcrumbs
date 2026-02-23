@@ -1,0 +1,34 @@
+26:41:40 Microsoft.Shutdown.TabStripModel.CloseTabs
+26:41:40 Microsoft.Shutdown.TabStripModel.CloseTabs_EdgeBeforeClosingAllTabs
+26:41:40 Microsoft.Shutdown.TabStripModel.InternalCloseTabsImpl
+26:41:40 Microsoft.Shutdown.TabStripModel.InternalCloseTabsImpl_TabClosable
+26:41:40 Microsoft.Shutdown.TabStripModel.InternalCloseTabsImpl_ClosingAll
+26:41:40 Microsoft.Shutdown.TabStripModel.CloseWebContentses
+26:41:40 Microsoft.Shutdown.TabStripModel.CloseWebContentses_FastShutdown
+26:41:40 Microsoft.Shutdown.TabStripModel.ShouldRunUnloadListenerBeforeClosing_false
+26:41:40 Tab409 RenderProcessGone
+26:41:40 Microsoft.UnloadController.ClearUnloadState
+26:41:40 Microsoft.Shutdown.TabStripModel.RunUnloadListenerBeforeClosing_false
+26:41:40 Microsoft.Shutdown.TabStripModel.InternalCloseTabsImpl_ClosedAll
+26:41:40 Microsoft.Shutdown.TabStripModel.SendDetachWebContentsNotifications
+26:41:40 Microsoft.UnloadController.ClearUnloadState
+26:41:40 Browser409 Close Tab409 at 0
+26:41:40 Tab409 WebContentsDestroyed
+26:41:40 Microsoft.UnloadController.TabStripEmpty
+26:41:40 Microsoft.UnloadController.IsUnclosableApp_IsNotWebApp
+26:41:40 Microsoft.UnloadController.HasCompletedUnloadProcessing_True
+26:41:40 Microsoft.Shutdown.OnWindowClosing
+26:41:40 Microsoft.UnloadController.IsUnclosableApp_IsNotWebApp
+26:41:40 Microsoft.UnloadController.HasCompletedUnloadProcessing_True
+26:41:40 Microsoft.Shutdown.OnWindowClosing_MaybeClearBrowsingDataOnExit
+26:41:40 Microsoft.Shutdown.OnWindowClosing_ClearBrowsingDataOnExitNotInProgress
+26:41:40 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
+26:41:40 Widget Closed: BrowserWidget
+26:41:40 Microsoft.UnloadController.HasCompletedUnloadProcessing_True
+26:41:40 Microsoft.Shutdown.OnWindowClosing
+26:41:40 Microsoft.Shutdown.OnWindowClosing_DeleteScheduled
+26:41:40 Microsoft.Browser_Removed
+26:41:43 Tab346 StartNav3932 #typed
+26:41:43 Tab346 FinishNav3932
+26:41:43 Tab346 PageLoad
+26:41:46 Microsoft.UnloadController.IsUnclosableApp_IsNotWebApp

@@ -1,0 +1,20 @@
+/*--------------
+メイン
+--------------*/
+
+th {
+	padding: 5px;
+	width: 170px;
+	background-color: #dcdcdc;
+	text-align: center;
+}
+
+td {
+	padding: 10px;
+	text-align: center;
+}
+
+button {
+	padding: 5px 15px;
+	border-radius: 5px;
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<title>ページB</title>
+	<link rel="stylesheet" href="/css/common.css">
+	<link rel="stylesheet" href="/css/bpage.css">
+</head>
+
+<body>
+	<div class="layout">
+		<header class="header">ヘッダー
+			<div class="header-return">
+				<a href="/apage.html">A画面に戻る</a>
+			</div>
+		</header>
+		<main class="main">メイン
+			<div class="form-box">
+				<h1>入力ゾーン</h1>
+				<h3>〇テキストフォーム</h3>
+				<input type="text" id="text-form" name="text-form" placeholder="入力してね">
+				<button id="text-form-submit">登録</button>
+				<h3>〇テキストエリア</h3>
+				<textarea id="textarea" name="textarea" rows="5" placeholder="入力してね"></textarea>
+				<button id="textarea-submit">登録</button>
+				<h3>〇ラジオボタン</h3>
+				<div class="font-flex">
+					<input type="radio" id="ra" name="radio" value="ら">
+					<label for="ra">ら</label>
+					<input type="radio" id="di" name="radio" value="じ">
+					<label for="di">じ</label>
+					<input type="radio" id="o" name="radio" value="お">
+					<label for="o">お</label>
+				</div>
+				<button id="radio-submit">登録</button>
+				<h3>〇チェックボックス</h3>
+				<div class="font-flex">
+					<input type="checkbox" id="che" name="checkbox" value="チェ">
+					<label for="che">チェ</label>
+					<input type="checkbox" id="ck" name="checkbox" value="ック">
+					<label for="ck">ック</label>
+				</div>
+				<button id="checkbox-submit">登録</button>
+				<h3>〇セレクトボックス</h3>
+				<select id="selectbox" name="selectbox">
+					<option value="選んでね">選んでね</option>
+					<option value="セレ">セレ</option>
+					<option value="クト">クト</option>
+					<option value="ボッ">ボッ</option>
+					<option value="クス">クス</option>
+				</select>
+				<button id="selectbox-submit">登録</button>
+			</div>
+			<div class="result-box">
+				<h1>出力ゾーン</h1>
+				<h3>☆テキストフォーム</h3>
+				<div id="text-form-result" class="red-text">テキストフォームの結果はここに表示されます</div>
+				<h3>☆テキストエリア</h3>
+				<div id="textarea-result" class="red-text">テキストエリアの結果はここに表示されます</div>
+				<h3>☆ラジオボタン</h3>
+				<div id="radio-result" class="red-text">ラジオボタンの結果はここに表示されます</div>
+				<h3>☆チェックボックス</h3>
+				<div id="checkbox-result" class="red-text">チェックボックスの結果はここに表示されます</div>
+				<h3>☆セレクトボックス</h3>
+				<div id="selectbox-result" class="red-text">セレクトボックス結果はここに表示されます</div>
+			</div>
+		</main>
+		<footer class="footer">フッター
+			<div class="footer-return">
+				<a href="/apage.html">A画面に戻る</a>
+			</div>
+		</footer>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+		integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous">
+		</script>
+	<script src="js/bpage.js"></script>
+</body>
+
+</html>
