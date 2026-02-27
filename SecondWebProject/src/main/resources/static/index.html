@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="css/index.css">
+	<title>ユーザーリスト</title>
+</head>
+
+<body>
+	<div class="sector-box">
+		<h1>〇ユーザー管理</h1>
+		<div class="operation-box">
+			<div class="action-box">
+				<button id="getUsers">ユーザーリストを取得</button>
+				<div class="condition-row">
+					<label>絞り込み : </label>
+					<input type="text" id="nameKeyword" placeholder="名前を入力すると絞り込みができます">
+				</div>
+			</div>
+			<table border="1">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>名前</th>
+						<th>削除ボタン</th>
+					</tr>
+				</thead>
+				<tbody id="tbody">
+				</tbody>
+			</table>
+			<div class="action-box">
+				<button id="insertUsers">ユーザーを登録</button>
+				<div class="condition-row">
+					<label>名前 : </label>
+					<input type="text" id="userName" placeholder="名前を入力してください">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="sector-box">
+		<h1>〇ユーザースキル管理</h1>
+		<div class="operation-box">
+			<div class="action-box">
+				<button id="getSkills">ユーザースキルリストを取得</button>
+				<div class="condition-row">
+					<label>絞り込み : </label>
+					<input type="text" id="skillKeyword" placeholder="スキルを入力すると絞り込みが行えます">
+				</div>
+				<div class="condition-row">
+					<label>ソート :</label>
+					<select id="skillSort">
+						<option value="">指定なし</option>
+						<option value="name">名前順</option>
+						<option value="skill">スキル順</option>
+					</select>
+				</div>
+			</div>
+			<table border="1">
+				<thead>
+					<tr>
+						<th>名前</th>
+						<th>スキル</th>
+						<th>削除ボタン</th>
+					</tr>
+				</thead>
+				<tbody id="tbodyS">
+				</tbody>
+			</table>
+			<div class="action-box">
+				<button id="insertSkill">スキルを登録</button>
+				<div class="condition-row">
+					<label>ユーザーID : </label>
+					<input type="text" id="userId" placeholder="ユーザーIDを入力してください">
+				</div>
+				<div class="condition-row">
+					<label>スキル : </label>
+					<input type="textarea" id="userSkill" placeholder="スキルを入力してください">
+				</div>
+				
+			</div>
+			<div id="error" style="color: red;"></div>
+		</div>
+	</div>
+	<script src="js/index.js"></script>
+</body>
+
+</html>
