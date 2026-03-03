@@ -12,11 +12,11 @@
 		<h1>〇ユーザー管理</h1>
 		<div class="operation-box">
 			<div class="action-box">
-				<button id="getUsers">ユーザーリストを取得</button>
 				<div class="condition-row">
-					<label>絞り込み : </label>
+					<label>ユーザー検索 : </label>
 					<input type="text" id="nameKeyword" placeholder="名前を入力すると絞り込みができます">
 				</div>
+				<button id="getUsers">ユーザーリストを取得</button>
 			</div>
 			<table border="1">
 				<thead>
@@ -30,21 +30,22 @@
 				</tbody>
 			</table>
 			<div class="action-box">
-				<button id="insertUsers">ユーザーを登録</button>
 				<div class="condition-row">
-					<label>名前 : </label>
-					<input type="text" id="userName" placeholder="名前を入力してください">
+					<label>ユーザー登録 : </label>
+					<input type="text" id="userName" class="input" placeholder="名前を入力してください">
 				</div>
+				<button id="insertUsers">ユーザーを登録</button>
+				
 			</div>
+			<div id="uresult" class="result" style="color: red;"></div>
 		</div>
 	</div>
 	<div class="sector-box">
 		<h1>〇ユーザースキル管理</h1>
 		<div class="operation-box">
 			<div class="action-box">
-				<button id="getSkills">ユーザースキルリストを取得</button>
 				<div class="condition-row">
-					<label>絞り込み : </label>
+					<label>スキルリスト検索 : </label>
 					<input type="text" id="skillKeyword" placeholder="スキルを入力すると絞り込みが行えます">
 				</div>
 				<div class="condition-row">
@@ -55,6 +56,7 @@
 						<option value="skill">スキル順</option>
 					</select>
 				</div>
+				<button id="getSkills">ユーザースキルリストを取得</button>
 			</div>
 			<table border="1">
 				<thead>
@@ -68,18 +70,17 @@
 				</tbody>
 			</table>
 			<div class="action-box">
-				<button id="insertSkill">スキルを登録</button>
-				<div class="condition-row">
-					<label>ユーザーID : </label>
-					<input type="text" id="userId" placeholder="ユーザーIDを入力してください">
-				</div>
-				<div class="condition-row">
-					<label>スキル : </label>
-					<input type="textarea" id="userSkill" placeholder="スキルを入力してください">
-				</div>
 				
+				<div class="condition-row">
+					<label>スキル登録 : </label>
+					<input type="text" id="userId" class="input" placeholder="ユーザーIDを入力してください">
+				</div>
+				<div class="condition-row">
+					<input type="textarea" id="userSkill" class="input" placeholder="スキルを入力してください">
+				</div>
+				<button id="insertSkill">スキルを登録</button>
 			</div>
-			<div id="error" style="color: red;"></div>
+			<div id="sresult" class="result" style="color: red;"></div>
 		</div>
 	</div>
 	<script src="js/index.js"></script>

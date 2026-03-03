@@ -30,12 +30,12 @@ box設定
 .action-box{
 	display: flex;
 	flex-direction: row;
-	gap: 10px;
+	gap: 15px;
 }
 
 .condition-row{
 	display: flex;
-	gap: 8px;
+	gap: 15px;
 	align-items: center; 
 }
 

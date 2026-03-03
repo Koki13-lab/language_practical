@@ -24,9 +24,14 @@ document.getElementById("getUsers").addEventListener("click", () => {
                 btn.addEventListener("click", () => {
                     fetch(`http://localhost:8080/api/users/${users.id}`, {
                         method: "DELETE"
-                    }).then(() => {
-                        tr.remove();
-                    });
+                    }).then(response => response.text()
+                        .then(msg => {
+                            if (response.ok) {
+                                tr.remove();
+                            }
+                            document.getElementById("uresult").textContent = msg;
+                        })
+                    );
                 });
                 tdDelete.appendChild(btn);
 
@@ -50,10 +55,14 @@ document.getElementById("insertUsers").addEventListener("click", () => {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({ name: name })
+    })
+        .then(response => {
+            return response.text().then(msg => {
+                document.getElementById("uresult").textContent = msg;
 
-    });
+            })
+        });
 });
-
 
 document.getElementById("getSkills").addEventListener("click", () => {
 
@@ -86,9 +95,14 @@ document.getElementById("getSkills").addEventListener("click", () => {
                 btn.addEventListener("click", () => {
                     fetch(`http://localhost:8080/api/skills/${skills.id}`, {
                         method: "DELETE"
-                    }).then(() => {
-                        tr.remove();
-                    });
+                    }).then(response => response.text()
+                        .then(msg => {
+                            if (response.ok) {
+                                tr.remove();
+                            }
+                            document.getElementById("sresult").textContent = msg;
+                        })
+                    );
                 });
                 tdDelete.appendChild(btn);
 
@@ -113,21 +127,20 @@ document.getElementById("insertSkill").addEventListener("click", () => {
 
     })
         .then(response => {
-            if (!response.ok) {
-                return response.text()
-                    .then(msg => {
-                        document.getElementById("error").textContent = msg;
-                    });
-            }
-        })
-});
+            return response.text().then(msg => {
+                document.getElementById("sresult").textContent = msg;
+            })
+
+        });
+})
 
 document.querySelectorAll("button").forEach(btn => {
     btn.addEventListener("click", () => {
-        const errorDiv = document.getElementById("error");
-        if (errorDiv) {
-            errorDiv.textContent = "";
-        }
+        document.querySelectorAll(".result").forEach(div => {
+            div.textContent = "";
+        });
+        document.querySelectorAll(".input").forEach(input => {
+            input.value = "";
+        });
     })
 })
-
