@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="css/index.css">
+	<title>ユーザーリスト</title>
+</head>
+
+<body>
+	<div class="sector-box">
+		<h1>〇ユーザー管理</h1>
+		<div class="operation-box">
+			<div class="action-box">
+				<div class="condition-row">
+					<label>ユーザー検索 : </label>
+					<input type="text" id="nameKeyword" placeholder="名前を入力すると絞り込みができます">
+				</div>
+				<button id="getUsers">ユーザーリストを取得</button>
+			</div>
+			<table border="1">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>名前</th>
+						<th>削除ボタン</th>
+					</tr>
+				</thead>
+				<tbody id="tbody">
+				</tbody>
+			</table>
+			<div class="action-box">
+				<div class="condition-row">
+					<label>ユーザー登録 : </label>
+					<input type="text" id="userName" class="input" placeholder="名前を入力してください">
+				</div>
+				<button id="insertUsers">ユーザーを登録</button>
+				
+			</div>
+			<div id="uresult" class="result" style="color: red;"></div>
+		</div>
+	</div>
+	<div class="sector-box">
+		<h1>〇ユーザースキル管理</h1>
+		<div class="operation-box">
+			<div class="action-box">
+				<div class="condition-row">
+					<label>スキルリスト検索 : </label>
+					<input type="text" id="skillKeyword" placeholder="スキルを入力すると絞り込みが行えます">
+				</div>
+				<div class="condition-row">
+					<label>ソート :</label>
+					<select id="skillSort">
+						<option value="">指定なし</option>
+						<option value="name">名前順</option>
+						<option value="skill">スキル順</option>
+					</select>
+				</div>
+				<button id="getSkills">ユーザースキルリストを取得</button>
+			</div>
+			<table border="1">
+				<thead>
+					<tr>
+						<th>名前</th>
+						<th>スキル</th>
+						<th>削除ボタン</th>
+					</tr>
+				</thead>
+				<tbody id="tbodyS">
+				</tbody>
+			</table>
+			<div class="action-box">
+				
+				<div class="condition-row">
+					<label>スキル登録 : </label>
+					<input type="text" id="userId" class="input" placeholder="ユーザーIDを入力してください">
+				</div>
+				<div class="condition-row">
+					<input type="textarea" id="userSkill" class="input" placeholder="スキルを入力してください">
+				</div>
+				<button id="insertSkill">スキルを登録</button>
+			</div>
+			<div id="sresult" class="result" style="color: red;"></div>
+		</div>
+	</div>
+	<script src="js/index.js"></script>
+</body>
+
+</html>
