@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/css/users.css">
+	<title>ユーザーリスト</title>
+</head>
+
+<body>
+	<div class="sector-box">
+		<h1>〇ユーザーリスト</h1>
+		<div class="operation-box">
+			<div class="action-box">
+				<div class="condition-row">
+					<label>ユーザー検索　: </label>
+					<form th:action="@{/users}" method="get">
+						<input type="text" name="uKeyword" placeholder="名前を入力してください">
+						<button type="submit">ユーザーを絞り込んで検索</button>
+					</form>
+				</div>
+			</div>
+			<table border="1">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>名前</th>
+						<th>削除ボタン</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="user : ${userList}">
+						<td th:text="${user.id}"></td>
+						<td th:text="${user.name}"></td>
+						<td>
+							<form th:action="@{/deleteUser}" method="post">
+								<input type="hidden" name="id" th:value="${user.id}">
+								<button type="submit">削除</button>
+							</form>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="action-box">
+				<div class="condition-row">
+					<label>ユーザー登録　: </label>
+					<form th:action="@{/addUser}" method="post">
+						<input type="text" name="name" placeholder="名前を入力してください">
+						<button type="submit">ユーザーを登録</button>
+					</form>
+				</div>
+			</div>
+			<div class="condition-row">
+				<span>UsersInfomation　: </span>
+				<span th:if="${dateU}" th:text="${dateU}" style="color: red;"></span>
+				<span th:if="${messageU}" th:text="${messageU}" style="color: red;"></span>
+			</div>
+		</div>
+	</div>
+	<div class="sector-box">
+		<h1>〇ユーザースキルリスト</h1>
+		<div class="operation-box">
+			<div class="action-box">
+				<div class="condition-row">
+					<label>スキル検索　: </label>
+					<form th:action="@{/users}" method="get">
+						<input type="text" name="sKeyword" placeholder="名前を入力してください">
+						<label>ソート:</label>
+						<select name="sort">
+							<option value="">指定なし</option>
+							<option value="name">名前順</option>
+							<option value="skill">スキル順</option>
+						</select>
+						<button type="submit">ユーザーを絞り込んで検索</button>
+					</form>
+				</div>
+			</div>
+			<table border="1">
+				<thead>
+					<tr>
+						<th>名前</th>
+						<th>スキル</th>
+						<th>削除ボタン</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="skills : ${skillsList}">
+						<td th:text="${skills.name}"></td>
+						<td th:text="${skills.skill}"></td>
+						<td>
+							<form th:action="@{/deleteSkill}" method="post">
+								<input type="hidden" name="id" th:value="${skills.id}">
+								<button type="submit">削除</button>
+							</form>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="action-box">
+				<div class="condition-row">
+					<label>スキル登録　: </label>
+					<form th:action="@{/addSkill}" th:object="${skills}" method="post">
+						<input type="text" th:field="*{userId}" placeholder="ユーザーIDを入力してください">
+						<input type="text" th:field="*{skill}" placeholder="スキルを入力してください">
+						<button type="submit">スキルを登録</button>
+					</form>
+				</div>
+			</div>
+			<div class="condition-row">
+				<span>SkillsInfomation　: </span>
+				<span th:if="${dateS}" th:text="${dateS}" style="color: red;"></span>
+				<span th:if="${messageS}" th:text="${messageS}" style="color: red;"></span>
+			</div>
+		</div>
+	</div>
+</body>
