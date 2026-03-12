@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="/css/users.css">
+	<link rel="stylesheet" th:href="@{/css/users.css}">
 	<title>ユーザーリスト</title>
 </head>
 
@@ -13,9 +13,9 @@
 		<div class="operation-box">
 			<div class="action-box">
 				<div class="condition-row">
-					<label>ユーザー検索　: </label>
-					<form th:action="@{/users}" method="get">
-						<input type="text" name="uKeyword" placeholder="名前を入力してください">
+					<form th:action="@{/users/search}" method="get">
+						<label>ユーザー検索　: </label>
+						<input type="text" name="uKeyword"  th:value="${uKeyword}" placeholder="検索したい名前を入力してください">
 						<button type="submit">ユーザーを絞り込んで検索</button>
 					</form>
 				</div>
@@ -43,16 +43,17 @@
 			</table>
 			<div class="action-box">
 				<div class="condition-row">
-					<label>ユーザー登録　: </label>
+					
 					<form th:action="@{/addUser}" method="post">
+						<label>ユーザー登録　: </label>
 						<input type="text" name="name" placeholder="名前を入力してください">
 						<button type="submit">ユーザーを登録</button>
 					</form>
 				</div>
 			</div>
 			<div class="condition-row">
-				<span>UsersInfomation　: </span>
-				<span th:if="${dateU}" th:text="${dateU}" style="color: red;"></span>
+				<span>ステータス　: </span>
+				<span th:if="${dataU}" th:text="${dataU}" style="color: red;"></span>
 				<span th:if="${messageU}" th:text="${messageU}" style="color: red;"></span>
 			</div>
 		</div>
@@ -62,14 +63,14 @@
 		<div class="operation-box">
 			<div class="action-box">
 				<div class="condition-row">
-					<label>スキル検索　: </label>
-					<form th:action="@{/users}" method="get">
-						<input type="text" name="sKeyword" placeholder="名前を入力してください">
+					<form th:action="@{/skills/search}" method="get">
+						<label>スキル検索　: </label>
+						<input type="text" name="sKeyword" th:value="${sKeyword}" placeholder="検索したいスキルを入力してください。">
 						<label>ソート:</label>
 						<select name="sort">
-							<option value="">指定なし</option>
-							<option value="name">名前順</option>
-							<option value="skill">スキル順</option>
+							<option value="" th:selected="${sort == null}">指定なし</option>
+							<option value="name" th:selected="${sort == 'name'}">名前順</option>
+							<option value="skill" th:selected="${sort == 'skill'}">スキル順</option>
 						</select>
 						<button type="submit">ユーザーを絞り込んで検索</button>
 					</form>
@@ -84,12 +85,12 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="skills : ${skillsList}">
-						<td th:text="${skills.name}"></td>
-						<td th:text="${skills.skill}"></td>
+					<tr th:each="skill : ${skillList}">
+						<td th:text="${skill.name}"></td>
+						<td th:text="${skill.skill}"></td>
 						<td>
 							<form th:action="@{/deleteSkill}" method="post">
-								<input type="hidden" name="id" th:value="${skills.id}">
+								<input type="hidden" name="id" th:value="${skill.id}">
 								<button type="submit">削除</button>
 							</form>
 						</td>
@@ -98,8 +99,8 @@
 			</table>
 			<div class="action-box">
 				<div class="condition-row">
-					<label>スキル登録　: </label>
 					<form th:action="@{/addSkill}" th:object="${skills}" method="post">
+						<label>スキル登録　: </label>
 						<input type="text" th:field="*{userId}" placeholder="ユーザーIDを入力してください">
 						<input type="text" th:field="*{skill}" placeholder="スキルを入力してください">
 						<button type="submit">スキルを登録</button>
@@ -107,8 +108,8 @@
 				</div>
 			</div>
 			<div class="condition-row">
-				<span>SkillsInfomation　: </span>
-				<span th:if="${dateS}" th:text="${dateS}" style="color: red;"></span>
+				<span>ステータス　: </span>
+				<span th:if="${dataS}" th:text="${dataS}" style="color: red;"></span>
 				<span th:if="${messageS}" th:text="${messageS}" style="color: red;"></span>
 			</div>
 		</div>

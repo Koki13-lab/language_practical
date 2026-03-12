@@ -22,10 +22,70 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class ExampleTemplates {
 
 	@GetMapping("/users")
-	public String users(@RequestParam(required = false, name = "uKeyword") String uKeyword,
-			@RequestParam(required = false, name = "sKeyword") String sKeyword,
-			@RequestParam(required = false, name = "sort") String sort, Model model) throws SQLException {
+	public String users(Model model) throws SQLException {
 
+		String sql = "SELECT id, name FROM users";
+
+		try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/sql_education",
+				"postgres", "yosino1919"); PreparedStatement statement1 = connection.prepareStatement(sql);) {
+			
+			try (ResultSet resultSet1 = statement1.executeQuery();) {
+
+				List<Users> userList = new ArrayList<>();
+				
+				while (resultSet1.next()) {
+
+					BigDecimal id = resultSet1.getBigDecimal("id");
+					String name = resultSet1.getString("name");
+
+					Users user = new Users(id, name);
+
+					userList.add(user);
+				}
+				
+				if(userList.isEmpty()) {
+					String noneU = "ユーザーのデータはありません。　";
+					model.addAttribute("dataU",noneU);
+				}
+
+				String sql2 = "SELECT s.id,u.name,s.skill FROM users AS u JOIN skills AS s on u.id = s.user_id";
+
+				try (PreparedStatement statement2 = connection.prepareStatement(sql2);) {
+
+					try (ResultSet resultSet2 = statement2.executeQuery();) {
+
+						List<Skills> skillList = new ArrayList<>();
+						
+						while (resultSet2.next()) {
+
+							BigDecimal id = resultSet2.getBigDecimal("id");
+							String name = resultSet2.getString("name");
+							String skill = resultSet2.getString("skill");
+
+							Skills skills = new Skills(id, name, skill);
+
+							skillList.add(skills);
+						}
+						
+						if(skillList.isEmpty()) {
+							String noneS = "ユーザースキルのデータはありません。　";
+							model.addAttribute("dataS",noneS);
+						}
+
+						model.addAttribute("userList", userList);
+						model.addAttribute("skillList", skillList);
+						model.addAttribute("skills", new Skills());
+						
+
+						return "users";
+					}
+				}
+			}
+		}
+	}
+	
+	@GetMapping("users/search")
+	public String uSearch(@RequestParam(required = false, name = "uKeyword") String uKeyword,Model model) throws SQLException{
 		String sql = "SELECT id, name FROM users WHERE(? IS NULL OR name ~ ?)";
 
 		try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/sql_education",
@@ -50,7 +110,73 @@ public class ExampleTemplates {
 				
 				if(userList.isEmpty()) {
 					String noneU = "ユーザーのデータはありません。　";
-					model.addAttribute("dateU",noneU);
+					model.addAttribute("dataU",noneU);
+				}
+
+				String sql2 = "SELECT s.id,u.name,s.skill FROM users AS u JOIN skills AS s on u.id = s.user_id";
+
+				try (PreparedStatement statement2 = connection.prepareStatement(sql2);) {
+
+					try (ResultSet resultSet2 = statement2.executeQuery();) {
+
+						List<Skills> skillList = new ArrayList<>();
+						
+						while (resultSet2.next()) {
+
+							BigDecimal id = resultSet2.getBigDecimal("id");
+							String name = resultSet2.getString("name");
+							String skill = resultSet2.getString("skill");
+
+							Skills skills = new Skills(id, name, skill);
+
+							skillList.add(skills);
+						}
+						
+						if(skillList.isEmpty()) {
+							String noneS = "ユーザースキルのデータはありません。　";
+							model.addAttribute("dataS",noneS);
+						}
+
+						model.addAttribute("userList", userList);
+						model.addAttribute("skillList", skillList);
+						model.addAttribute("skills", new Skills());
+						model.addAttribute("uKeyword", uKeyword);
+						
+
+						return "users";
+					}
+				}
+			}
+		}
+	}
+	
+	@GetMapping("skills/search")
+	public String sSearch(@RequestParam(required = false, name = "sKeyword") String sKeyword,
+			@RequestParam(required = false, name = "sort") String sort,Model model ) throws SQLException{
+
+
+		String sql = "SELECT id, name FROM users";
+
+		try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/sql_education",
+				"postgres", "yosino1919"); PreparedStatement statement1 = connection.prepareStatement(sql);) {
+			
+			try (ResultSet resultSet1 = statement1.executeQuery();) {
+
+				List<Users> userList = new ArrayList<>();
+				
+				while (resultSet1.next()) {
+
+					BigDecimal id = resultSet1.getBigDecimal("id");
+					String name = resultSet1.getString("name");
+
+					Users user = new Users(id, name);
+
+					userList.add(user);
+				}
+				
+				if(userList.isEmpty()) {
+					String noneU = "ユーザーのデータはありません。　";
+					model.addAttribute("dataU",noneU);
 				}
 
 				String sql2 = "SELECT s.id,u.name,s.skill FROM users AS u JOIN skills AS s on u.id = s.user_id WHERE(? IS NULL OR skill ~ ?)";
@@ -68,7 +194,7 @@ public class ExampleTemplates {
 
 					try (ResultSet resultSet2 = statement2.executeQuery();) {
 
-						List<Skills> skillsList = new ArrayList<>();
+						List<Skills> skillList = new ArrayList<>();
 						
 						while (resultSet2.next()) {
 
@@ -78,17 +204,19 @@ public class ExampleTemplates {
 
 							Skills skills = new Skills(id, name, skill);
 
-							skillsList.add(skills);
+							skillList.add(skills);
 						}
 						
-						if(skillsList.isEmpty()) {
+						if(skillList.isEmpty()) {
 							String noneS = "ユーザースキルのデータはありません。　";
-							model.addAttribute("dateS",noneS);
+							model.addAttribute("dataS",noneS);
 						}
 
 						model.addAttribute("userList", userList);
-						model.addAttribute("skillsList", skillsList);
+						model.addAttribute("skillList", skillList);
 						model.addAttribute("skills", new Skills());
+						model.addAttribute("sKeyword", sKeyword);
+						model.addAttribute("sort", sort);
 						
 
 						return "users";
@@ -99,7 +227,7 @@ public class ExampleTemplates {
 	}
 
 	@PostMapping("addUser")
-	public String uinsert(@RequestParam("name") String name,RedirectAttributes redirectAttributes) throws SQLException {
+	public String uInsert(@RequestParam("name") String name,RedirectAttributes redirectAttributes) throws SQLException {
 		String userName = name;
 		
 		if (name == null || name.isBlank()) {
@@ -134,7 +262,7 @@ public class ExampleTemplates {
 	}
 
 	@PostMapping("addSkill")
-	public String sinsert(@ModelAttribute Skills skills,RedirectAttributes redirectAttributes) throws SQLException {
+	public String sInsert(@ModelAttribute Skills skills,RedirectAttributes redirectAttributes) throws SQLException {
 
 		BigDecimal userId = skills.getUserId();
 		String userSkill = skills.getSkill();
@@ -178,7 +306,7 @@ public class ExampleTemplates {
 	}
 
 	@PostMapping("deleteUser")
-	public String udelete(@RequestParam("id") int id,RedirectAttributes redirectAttributes) throws SQLException {
+	public String uDelete(@RequestParam("id") int id,RedirectAttributes redirectAttributes) throws SQLException {
 		try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/sql_education",
 				"postgres", "yosino1919");
 				PreparedStatement statement = connection.prepareStatement("DELETE FROM users WHERE id = ?");) {
@@ -203,7 +331,7 @@ public class ExampleTemplates {
 	}
 
 	@PostMapping("deleteSkill")
-	public String sdelete(@RequestParam("id") int id,RedirectAttributes redirectAttributes) throws SQLException {
+	public String sDelete(@RequestParam("id") int id,RedirectAttributes redirectAttributes) throws SQLException {
 		try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/sql_education",
 				"postgres", "yosino1919");
 				PreparedStatement statement = connection.prepareStatement("DELETE FROM skills WHERE id = ?");) {
