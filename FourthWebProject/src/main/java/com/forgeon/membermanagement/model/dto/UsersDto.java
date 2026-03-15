@@ -1,4 +1,4 @@
-package com.example.demo.model.dto;
+package com.forgeon.membermanagement.model.dto;
 
 import java.math.BigDecimal;
 

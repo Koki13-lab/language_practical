@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.forgeon.membermanagement.controller;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -17,9 +17,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.demo.model.dto.SkillsDto;
-import com.example.demo.model.dto.UsersDto;
-import com.example.demo.model.servuce.UsersService;
+import com.forgeon.membermanagement.model.dto.SkillsDto;
+import com.forgeon.membermanagement.model.dto.UsersDto;
+import com.forgeon.membermanagement.model.servuce.SkillsService;
+import com.forgeon.membermanagement.model.servuce.UsersService;
 
 @Controller
 public class UsersController {
@@ -27,11 +28,14 @@ public class UsersController {
 	@Autowired
 	private UsersService usersService;
 
+	@Autowired
+	private SkillsService skillsService;
+
 	@GetMapping("/users")
 	public String users(Model model) throws SQLException {
 
 		List<UsersDto> userList = usersService.getUsers();
-		List<SkillsDto> skillList = usersService.getSkills();
+		List<SkillsDto> skillList = skillsService.getSkills();
 
 		if (userList.isEmpty()) {
 			String noneU = "ユーザーのデータはありません。　";
@@ -55,7 +59,7 @@ public class UsersController {
 			throws SQLException {
 
 		List<UsersDto> userList = usersService.searchUsers(uKeyword);
-		List<SkillsDto> skillList = usersService.getSkills();
+		List<SkillsDto> skillList = skillsService.getSkills();
 
 		if (userList.isEmpty()) {
 			String noneU = "ユーザーのデータはありません。　";
@@ -81,7 +85,7 @@ public class UsersController {
 			@RequestParam(required = false, name = "sort") String sort, Model model) throws SQLException {
 
 		List<UsersDto> userList = usersService.getUsers();
-		List<SkillsDto> skillList = usersService.searchSkills(sKeyword,sort);
+		List<SkillsDto> skillList = skillsService.searchSkills(sKeyword,sort);
 
 		if (userList.isEmpty()) {
 			String noneU = "ユーザーのデータはありません。　";
@@ -145,7 +149,7 @@ public class UsersController {
 			return "redirect:/users";
 		}
 
-		try {usersService.insertSkill(userId,userSkill);
+		try {skillsService.insertSkill(userId,userSkill);
 			redirectAttributes.addFlashAttribute("messageS", "登録に成功しました");
 
 			return "redirect:/users";
@@ -195,7 +199,7 @@ public class UsersController {
 	@PostMapping("deleteSkill")
 	public String sDelete(@RequestParam("id") int id, RedirectAttributes redirectAttributes) throws SQLException {
 		
-			try{usersService.deleteSkill(id);
+			try{skillsService.deleteSkill(id);
 				redirectAttributes.addFlashAttribute("messageS", "削除に成功しました。");
 
 			return "redirect:/users";
