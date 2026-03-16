@@ -24,7 +24,7 @@ public class SkillsDao {
 
 	public List<SkillsDto> getSkills() throws SQLException {
 
-		String sql2 = "SELECT s.id,(SELECT u.name FROM users AS u WHERE u.id = s.user_id) AS name,s.skill FROM skills AS s";
+		String sql2 = "SELECT s.id,u.name,s.skill FROM skills AS s JOIN users AS u on u.id = s.user_id";
 		List<SkillsDto> skillList = new ArrayList<>();
 
 		try (Connection connection = getConnection();
@@ -49,7 +49,7 @@ public class SkillsDao {
 
 	public List<SkillsDto> searchSkills(String sKeyword, String sort) throws SQLException {
 
-		String sql2 = "SELECT s.id,(SELECT u.name FROM users AS u WHERE u.id = s.user_id) AS name,s.skill FROM skills AS s WHERE(? IS NULL OR skill ~ ?)";
+		String sql2 = "SELECT s.id,u.name,s.skill FROM skills AS s JOIN users AS u on u.id = s.user_id WHERE(? IS NULL OR skill ~ ?)";
 		List<SkillsDto> skillList = new ArrayList<>();
 
 		if ("skill".equals(sort)) {
