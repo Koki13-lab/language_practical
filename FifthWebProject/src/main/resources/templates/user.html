@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>ユーザーページ</title>
+	<link rel="stylesheet" th:href="@{/css/common.css}">
+	<link rel="stylesheet" th:href="@{/css/user.css}">
+</head>
+
+<body>
+	<div class="layout">
+		<header class="header">
+			<div class="title">スキル管理</div>
+			<div class="header-return">
+				<p>アカウント : <span th:text="${username}"></span>さん</p>
+			</div>
+		</header>
+		<main class="main">
+			<div class="sector-box">
+				<h1>〇あなたのスキル一覧</h1>
+				<div class="operation-box">
+					<div class="action-box">
+						<div class="condition-row">
+							<table border="1">
+								<thead>
+									<tr>
+										<th>スキル</th>
+										<th>削除</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="skill : ${myskilllist}">
+										<td th:text="${skill.skill}"></td>
+										<td>
+											<form th:action="@{/user/skill/delete}" method="post">
+												<input type="hidden" name="id" th:value="${skill.id}">
+												<button type="submit">削除</button>
+											</form>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="action-box">
+						<div class="condition-row">
+							<form th:action="@{/user/skill/insert}" method="post">
+								<label>スキル登録　: </label>
+								<input type="text" name="skill" placeholder="スキルを入力してください">
+								<button type="submit">登録</button>
+							</form>
+						</div>
+					</div>
+					<div class="condition-row">
+						<span>ステータス　: </span>
+						<span th:if="${dataS}" th:text="${dataS}" style="color: red;"></span>
+						<span th:if="${messageS}" th:text="${messageS}" style="color: red;"></span>
+					</div>
+				</div>
+			</div>
+		</main>
+		<footer class="footer">
+			<div class="header-return">
+				<form method="post" th:action="@{/logout}">
+					<button type="submit">ログアウト</button>
+				</form>
+				<div class="header-return">
+		</footer>
+	</div>
+</body>

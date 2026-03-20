@@ -1,0 +1,24 @@
+package com.forgeon.membermanagement.mapper;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.postgresql.util.PSQLException;
+
+import com.forgeon.membermanagement.dto.Skill;
+
+@Mapper
+public interface SkillMapper {
+
+	List<Skill> getSkills();
+	
+	List<Skill> getMySkills(Integer id);
+
+	List<Skill> searchSkills(@Param("sKeyword") String sKeyword, @Param("sort") String sort);
+
+	void insertSkill(Skill skil) throws PSQLException;
+	
+	void deleteSkill(Skill skill)throws PSQLException;
+
+}
