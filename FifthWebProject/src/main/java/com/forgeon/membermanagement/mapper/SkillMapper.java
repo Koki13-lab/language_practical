@@ -19,6 +19,8 @@ public interface SkillMapper {
 
 	void insertSkill(Skill skil) throws PSQLException;
 	
-	void deleteSkill(Skill skill)throws PSQLException;
+	int deleteSkill(Integer id)throws PSQLException;
+	
+	int deleteMySkill(@Param("id") Integer id, @Param("loginUserId") Integer loginUserId)throws PSQLException;
 
 }

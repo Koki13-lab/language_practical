@@ -47,15 +47,6 @@ table{
 	width: 100%;
 }
 
-table th:nth-child(1),
-table th:nth-child(1){
-	width: 100px;
-}
-table th:nth-child(2),
-table th:nth-child(2){
-	width: 600px;
-}
-
 th{
 	text-align: center;
 	padding: 5px;

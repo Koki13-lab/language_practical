@@ -3,7 +3,7 @@ package com.forgeon.membermanagement.dto;
 public class Skill {
 	
 	private Integer id;
-	private Integer user_id;
+	private Integer userId;
 	private String skill; 
 	private String name; 
 
@@ -18,12 +18,12 @@ public class Skill {
 		return id;
 	}
 	
-	public void setUser_id(Integer user_id) {
-		this.user_id = user_id;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
-	public Integer getUser_id() {
-		return user_id;
+	public Integer getUserId() {
+		return userId;
 	}
 	
 	public void setSkill(String skill) {

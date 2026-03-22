@@ -13,7 +13,8 @@
 	<select id="searchSkills"
 		resultType="com.forgeon.membermanagement.dto.Skill"> 
 		SELECT s.id,u.name,s.skill FROM skills AS s JOIN users AS u on u.id = s.user_id
-		WHERE name LIKE CONCAT('%', #{sKeyword}, '%') <choose>
+		WHERE s.skill LIKE CONCAT('%', #{sKeyword}, '%')
+		<choose>
 			<when test="sort == 'name'">
 				ORDER BY u.name ASC
 			</when>
@@ -29,7 +30,7 @@
 	<insert id="insertSkill"
 		parameterType="com.forgeon.membermanagement.dto.Skill">
 		INSERT INTO skills(user_id,skill)
-		VALUES(#{user_id},#{skill})
+		VALUES(#{userId},#{skill})
 	</insert>
 	
 	<delete id="deleteUser" parameterType="int">
@@ -37,8 +38,14 @@
 		WHERE id = #{id}
 	</delete>
 	
-	<delete id="deleteSkill" parameterType="int">
+	<delete id="deleteSkill">
 		DELETE FROM skills
 		WHERE id = #{id}
+	</delete>
+	
+	<delete id="deleteMySkill">
+		DELETE FROM skills
+		WHERE id = #{id}
+		AND user_id = #{loginUserId}
 	</delete>
 </mapper>

@@ -44,7 +44,7 @@
 								<td th:text="${user.name}"></td>
 								<td th:text="${user.role == 'ROLE_ADMIN' ? '管理者' : '一般ユーザー'}"></td>
 								<td>
-									<form th:action="@{/admin/delete}" method="post">
+									<form th:action="@{/admin/user/delete}" method="post">
 										<input type="hidden" name="id" th:value="${user.id}">
 										<button type="submit">削除</button>
 									</form>
@@ -54,7 +54,7 @@
 					</table>
 					<div class="action-box">
 						<div class="condition-row">
-							<form th:action="@{/admin/insert}" method="post">
+							<form th:action="@{/admin/user/insert}" method="post">
 								<label>ユーザー名　: </label>
 								<input type="text" name="name" placeholder="名前を入力してください">
 								<label>パスワード : </label>
@@ -99,15 +99,32 @@
 							<tr>
 								<th>名前</th>
 								<th>スキル</th>
+								<th>削除ボタン</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr th:each="skill : ${skillList}">
 								<td th:text="${skill.name}"></td>
 								<td th:text="${skill.skill}"></td>
+								<td>
+									<form th:action="@{/admin/skill/delete}" method="post">
+										<input type="hidden" name="id" th:value="${skill.id}">
+										<button type="submit">削除</button>
+									</form>
+								</td>
 							</tr>
 						</tbody>
 					</table>
+					<div class="action-box">
+									<div class="condition-row">
+										<form th:action="@{/admin/skill/insert}" th:object="${skill}" method="post">
+											<label>スキル登録　: </label>
+											<input type="text" th:field="*{userId}" placeholder="ユーザーIDを入力してください">
+											<input type="text" th:field="*{skill}" placeholder="スキルを入力してください">
+											<button type="submit">スキルを登録</button>
+										</form>
+									</div>
+								</div>
 					<div class="condition-row">
 						<span>ステータス　: </span>
 						<span th:if="${dataS}" th:text="${dataS}" style="color: red;"></span>
@@ -117,7 +134,7 @@
 			</div>
 		</main>
 		<footer class="footer">
-			<div class="header-return">
+			<div class="footer-return">
 				<form method="post" th:action="@{/logout}">
 					<button type="submit">ログアウト</button>
 				</form>

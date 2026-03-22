@@ -17,10 +17,43 @@
 		</header>
 		<main class="main">
 			<div class="sector-box">
+				<h1>〇ユーザーリスト</h1>
+					<div class="operation-box">
+						<div class="action-box">
+							<div class="condition-row">
+								<form th:action="@{/users/users/search}" method="get">
+									<label>ユーザー検索　: </label>
+									<input type="text" name="uKeyword" th:value="${uKeyword}"
+										placeholder="検索したい名前を入力してください">
+									<button type="submit">ユーザーを絞り込んで検索</button>
+								</form>
+							</div>
+						</div>	
+						<table border="1">
+						<thead>
+								<tr>
+									<th>ID</th>
+									<th>名前</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="user : ${userList}">
+									<td th:text="${user.id}"></td>
+									<td th:text="${user.name}"></td>
+								</tr>
+								</tbody>
+						</table>
+						<div class="condition-row">
+									<span>ステータス　: </span>
+							<span th:if="${dataU}" th:text="${dataU}" style="color: red;"></span>
+							<span th:if="${messageU}" th:text="${messageU}" style="color: red;"></span>
+						</div>
+					</div>
+				</div>
+			<div class="sector-box">
 				<h1>〇あなたのスキル一覧</h1>
 				<div class="operation-box">
 					<div class="action-box">
-						<div class="condition-row">
 							<table border="1">
 								<thead>
 									<tr>
@@ -40,7 +73,6 @@
 									</tr>
 								</tbody>
 							</table>
-						</div>
 					</div>
 					<div class="action-box">
 						<div class="condition-row">
@@ -60,11 +92,11 @@
 			</div>
 		</main>
 		<footer class="footer">
-			<div class="header-return">
+			<div class="footer-return">
 				<form method="post" th:action="@{/logout}">
 					<button type="submit">ログアウト</button>
 				</form>
-				<div class="header-return">
+			</div>
 		</footer>
 	</div>
 </body>
