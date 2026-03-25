@@ -43,8 +43,28 @@ box設定
 テーブル設定
 --------------*/
 
-table{
-	width: 100%;
+.table-a{
+	width: 170px;
+}
+
+.table-a td:nth-child(1) {
+	width: 70px;
+}
+.table-a td:nth-child(2) {
+	width: 100px;
+}
+
+
+.table-b{
+	width: 700px;
+}
+
+.table-b td:nth-child(1) {
+	width: 600px;
+	word-break: break-word;
+}
+.table-b td:nth-child(2) {
+	width: 100px;
 }
 
 th{
@@ -54,7 +74,7 @@ th{
 
 td{
 	text-align: center;
-	padding: 5px;
+	padding: 20px;
 }
 
 td form{

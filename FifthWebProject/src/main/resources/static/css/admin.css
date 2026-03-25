@@ -43,8 +43,36 @@ box設定
 テーブル設定
 --------------*/
 
-table{
-	width: 100%;
+.table-a{
+	width: 650px;
+}
+
+.table-a td:nth-child(1) {
+	width: 70px;
+}
+.table-a td:nth-child(2) {
+	width: 100px;
+}
+.table-a td:nth-child(3) {
+	width: 380px;
+}
+.table-a td:nth-child(4) {
+	width: 100px;
+}
+
+.table-b{
+	width: 800px;
+}
+
+.table-b td:nth-child(1) {
+	width: 100px;
+}
+.table-b td:nth-child(2) {
+	width: 600px;
+	word-break: break-word;
+}
+.table-b td:nth-child(3) {
+	width: 100px;
 }
 
 th{
