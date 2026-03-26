@@ -44,37 +44,37 @@ box設定
 --------------*/
 
 .table-a{
-	width: 170px;
+	width: 100%;
 }
 
 .table-a td:nth-child(1) {
-	width: 70px;
+	width: 20%;
 }
 .table-a td:nth-child(2) {
-	width: 100px;
+	width: 80%;
 }
 
 
 .table-b{
-	width: 700px;
+	width: 100%;
 }
 
 .table-b td:nth-child(1) {
-	width: 600px;
+	width: 70%;
 	word-break: break-word;
 }
 .table-b td:nth-child(2) {
-	width: 100px;
+	width: 40%;
 }
 
 th{
 	text-align: center;
-	padding: 5px;
+	padding: 3px;
 }
 
 td{
 	text-align: center;
-	padding: 20px;
+	padding: 8px;
 }
 
 td form{

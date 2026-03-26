@@ -44,45 +44,45 @@ box設定
 --------------*/
 
 .table-a{
-	width: 650px;
+	width: 100%;
 }
 
 .table-a td:nth-child(1) {
-	width: 70px;
+	width: 10%;
 }
 .table-a td:nth-child(2) {
-	width: 100px;
+	width: 40%;
 }
 .table-a td:nth-child(3) {
-	width: 380px;
+	width: 25%;
 }
 .table-a td:nth-child(4) {
-	width: 100px;
+	width: 25%;
 }
 
 .table-b{
-	width: 800px;
+	width: 100%;
 }
 
 .table-b td:nth-child(1) {
-	width: 100px;
+	width: 20%;
 }
 .table-b td:nth-child(2) {
-	width: 600px;
+	width: 40%;
 	word-break: break-word;
 }
 .table-b td:nth-child(3) {
-	width: 100px;
+	width: 40%;
 }
 
 th{
 	text-align: center;
-	padding: 5px;
+	padding: 3px;
 }
 
 td{
 	text-align: center;
-	padding: 20px;
+	padding: 8px;
 	box-sizing: border-box;
 }
 
