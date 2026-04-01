@@ -1,0 +1,105 @@
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+
+/*--------------
+box設定
+--------------*/
+
+.sector-box{
+
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+}
+
+.operation-box {
+	display: flex;
+	flex-direction: column;
+	border: 2px solid orangered;
+	border-radius: 16px;
+	width: 830px;
+	padding: 15px;
+	margin-left: 5px;
+	gap: 30px;
+}
+
+.action-box{
+	display: flex;
+	flex-direction: row;
+	gap: 15px;
+}
+
+.condition-row{
+	display: flex;
+	gap: 15px;
+	align-items: center; 
+}
+
+/*--------------
+テーブル設定
+--------------*/
+
+.table-a{
+	width: 100%;
+}
+
+.table-a td:nth-child(1) {
+	width: 20%;
+}
+.table-a td:nth-child(2) {
+	width: 80%;
+}
+
+
+.table-b{
+	width: 100%;
+}
+
+.table-b td:nth-child(1) {
+	width: 70%;
+	word-break: break-word;
+}
+.table-b td:nth-child(2) {
+	width: 40%;
+}
+
+th{
+	text-align: center;
+	padding: 3px;
+}
+
+td{
+	text-align: center;
+	padding: 8px;
+}
+
+td form{
+	display:flex;
+	justify-content:center;
+}
+
+/*--------------
+その他要素設定
+--------------*/
+
+button{
+	padding: 5px;
+}
+
+form{
+	display: flex;
+	gap: 10px;
+}
+
+input{
+	width: 250px;
+	padding: 5px;
+}
+
+h1{
+	margin:15px;
+}

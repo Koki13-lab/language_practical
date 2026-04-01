@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>トップページ</title>
+	<link rel="stylesheet" th:href="@{/css/common.css}">
+	<link rel="stylesheet" th:href="@{/css/top.css}">
+</head>
+
+<body>
+	<div class="layout">
+		<header class="header">
+			<div class="title">トップページ
+			</div>
+		</header>
+		<main class="main">
+			<h1>ようこそ</h1>
+			<form method="GET" th:action="@{/login}">
+				<button type="submit">ログイン画面へ</button>
+			</form>
+		</main>
+		<footer class="footer"></footer>
+
+</body>

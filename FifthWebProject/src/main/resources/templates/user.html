@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>ユーザーページ</title>
+	<link rel="stylesheet" th:href="@{/css/common.css}">
+	<link rel="stylesheet" th:href="@{/css/user.css}">
+</head>
+
+<body>
+	<div class="layout">
+		<header class="header">
+			<div class="title">スキル管理</div>
+			<div class="header-return">
+				<p>アカウント : <span th:text="${username}"></span>さん</p>
+			</div>
+		</header>
+		<main class="main">
+			<div class="sector-box">
+				<h1>〇ユーザーリスト</h1>
+					<div class="operation-box">
+						<div class="action-box">
+							<div class="condition-row">
+								<form th:action="@{/users/users/search}" method="get">
+									<label>ユーザー検索　: </label>
+									<input type="text" name="uKeyword" th:value="${uKeyword}"
+										placeholder="検索したい名前を入力してください">
+									<button type="submit">ユーザーを絞り込んで検索</button>
+								</form>
+							</div>
+						</div>	
+						<table border="1" class="table-a">
+						<thead>
+								<tr>
+									<th>ID</th>
+									<th>名前</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="user : ${userList}">
+									<td th:text="${user.id}"></td>
+									<td th:text="${user.name}"></td>
+								</tr>
+								</tbody>
+						</table>
+						<div class="condition-row">
+									<span>ステータス　: </span>
+							<span th:if="${dataU}" th:text="${dataU}" style="color: red;"></span>
+							<span th:if="${messageU}" th:text="${messageU}" style="color: red;"></span>
+						</div>
+					</div>
+				</div>
+			<div class="sector-box">
+				<h1>〇あなたのスキル一覧</h1>
+				<div class="operation-box">
+					<div class="action-box">
+							<table border="1" class="table-b">
+								<thead>
+									<tr>
+										<th>スキル</th>
+										<th>削除</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="skill : ${myskilllist}">
+										<td th:text="${skill.skill}"></td>
+										<td>
+											<form th:action="@{/user/skill/delete}" method="post">
+												<input type="hidden" name="id" th:value="${skill.id}">
+												<button type="submit">削除</button>
+											</form>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+					</div>
+					<div class="action-box">
+						<div class="condition-row">
+							<form th:action="@{/user/skill/insert}" method="post">
+								<label>スキル登録　: </label>
+								<input type="text" name="skill" placeholder="スキルを入力してください">
+								<button type="submit">登録</button>
+							</form>
+						</div>
+					</div>
+					<div class="condition-row">
+						<span>ステータス　: </span>
+						<span th:if="${dataS}" th:text="${dataS}" style="color: red;"></span>
+						<span th:if="${messageS}" th:text="${messageS}" style="color: red;"></span>
+					</div>
+				</div>
+			</div>
+		</main>
+		<footer class="footer">
+			<div class="footer-return">
+				<form method="post" th:action="@{/logout}">
+					<button type="submit">ログアウト</button>
+				</form>
+			</div>
+		</footer>
+	</div>
+</body>

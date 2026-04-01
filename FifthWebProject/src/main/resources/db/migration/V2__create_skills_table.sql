@@ -1,0 +1,5 @@
+CREATE TABLE skills(
+	id SERIAL PRIMARY KEY,
+	user_id INTEGER NOT NULL REFERENCES users(id),
+	skill VARCHAR NOT NULL
+)
