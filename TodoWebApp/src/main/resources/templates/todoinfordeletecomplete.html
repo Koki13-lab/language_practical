@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>ホーム</title>
+	<meta http-equiv="refresh" content="5;url=/todo/list">
+	<link rel="stylesheet" th:href="@{/css/common.css}">
+</head>
+
+<body>
+	<div class="layout">
+		<header class="header">
+			<div class="title">アカウント - <span th:text="${loginName}"></span></div>
+		</header>
+		<main class="main">
+			<p>削除完了ました。</p>
+			<p>画面が遷移します。少々お待ちください。</p>
+		</main>
+		<footer class="footer">
+			<p>Ⓒ 2026 RPC Inc.</p>
+		</footer>
+	</div>
+</body>

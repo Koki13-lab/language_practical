@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>ホーム</title>
+	<link rel="stylesheet" th:href="@{/css/common.css}">
+	<link rel="stylesheet" th:href="@{/css/userinforupdate.css}">
+</head>
+
+<body>
+	<div class="layout">
+		<header class="header">
+			<div class="title">アカウント - <span th:text="${loginName}"></span></div>
+		</header>
+		<main class="main">
+			<h1>〇ユーザー情報更新</h1>
+			<div class="main-area">
+				<table border="1" class="table-a">
+					<tr>
+						<th>id</th>
+						<td th:text="${userInfor.id}"></td>
+					</tr>
+					<tr>
+						<th>名前</th>
+						<td th:text="${userInfor.name}"></td>
+					</tr>
+					<tr>
+						<th>メールアドレス</th>
+						<td th:text="${userInfor.mail}"></td>
+					</tr>
+					<tr>
+						<th>権限</th>
+						<td th:text="${userInfor.role}"></td>
+					</tr>
+					<tr>
+						<th>備考</th>
+						<td th:text="${userInfor.remarks}"></td>
+					</tr>
+				</table>
+				<form th:action="@{/user/infor/update/Complete}" th:object="${user}" method="post">
+					<input type="hidden" th:field="*{id}">
+					<div class="row">
+						<label>名前 :</label>
+						<input type="text" th:field="*{name}" placeholder="名前を入力してください">
+						<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red;">
+						</div>
+					</div>
+					<div class="row">
+						<label>メールアドレス :</label>
+						<input type="text" th:field="*{mail}" placeholder="メールアドレスを入力してください">
+						<div th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}" style="color:red;">
+						</div>
+					</div>
+					<div th:if="${!isSelf}">
+						<div class="row">
+							<label>権限 :</label>
+							<select th:field="*{role}">
+								<option value="ROLE_ADMIN">管理者</option>
+								<option value="ROLE_USER">ユーザー</option>
+								<option value="ROLE_TODO">TODO管理者</option>
+							</select>
+						</div>
+					</div>
+					<div class="row">
+						<label>備考 :</label>
+						<textarea th:field="*{remarks}" maxlength="2000" rows="20" cols="100"
+							placeholder="備考がある場合は入力"></textarea>
+					</div>
+					<button class="action-button" type="submit">更新する</button>
+				</form>
+			</div>
+		</main>
+		<footer class="footer">
+			<p>Ⓒ 2026 RPC Inc.</p>
+			<div class="footer-button">
+				<form th:action="@{/user/infor}" method="get">
+					<input type="hidden" name="id" th:value="${userInfor.id}">
+					<button type="submit">前のページへ戻る </button>
+				</form>
+				<form th:action="@{/todo/list}" method="get">
+					<button type="submit">todoリストへ</button>
+				</form>
+				<form th:action="@{/home}" method="get">
+					<button type="submit">ホームへ戻る</button>
+				</form>
+				<form th:action="@{/logout}" method="post">
+					<button type="submit">ログアウト</button>
+				</form>
+			</div>
+		</footer>
+	</div>
+</body>

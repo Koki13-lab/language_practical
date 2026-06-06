@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forgeon.todo.mapper.TodoMapper">
+
+	<select id="getTodo" resultType="com.forgeon.todo.dto.Todo">
+		SELECT t.id,t.title,t.priority,t.due_date AS
+		dueDate,c.category,t.content FROM todo AS t JOIN category AS c on
+		t.category_id = c.id
+		WHERE t.deleted != true
+		ORDER BY id ASC
+	</select>
+
+	<select id="searchTodo" resultType="com.forgeon.todo.dto.Todo"> SELECT
+		DISTINCT t.id,t.title,t.priority,t.due_date AS
+		dueDate,c.category,t.content FROM todo AS t JOIN category AS c on
+		t.category_id = c.id LEFT JOIN user_todo AS ut ON t.id = ut.todo_id LEFT
+		JOIN users AS u ON ut.user_id = u.id <where>
+
+			<if test="title != null and title != ''">
+				AND t.title ILIKE '%' || #{title} || '%'
+			</if>
+
+			<if
+				test="priority != null">
+				AND t.priority = #{priority}
+			</if>
+
+			<if
+				test="dueDateFrom != null">
+				AND t.due_date &gt;= #{dueDateFrom}
+			</if>
+
+			<if
+				test="dueDateTo != null">
+				AND t.due_date &lt;= #{dueDateTo}
+			</if>
+
+			<if
+				test="categoryId != null">
+				AND t.category_id = #{categoryId}
+			</if>
+
+			<if
+				test="userId != null">
+				AND ut.user_id = #{userId}
+			</if>
+
+			<if
+				test="name != null and name != ''">
+				AND u.name ILIKE '%' || #{name} || '%'
+			</if> AND t.deleted
+		!= true </where> ORDER BY id ASC </select>
+
+	<insert id="insertTodo" parameterType="com.forgeon.todo.dto.Todo">
+		INSERT INTO todo(title,priority,due_Date,category_id,content,created_by)
+		VALUES(#{title},#{priority},#{dueDate},#{categoryId},#{content},#{createdBy})
+	</insert>
+
+	<select id="pickTodo" resultType="com.forgeon.todo.dto.Todo">
+		SELECT t.id,t.title,t.priority,t.due_date AS
+		dueDate,c.category,t.content FROM todo AS t JOIN category AS c on
+		t.category_id = c.id
+		WHERE t.id = #{id} AND t.deleted != true;
+	</select>
+
+	<update id="updateTodo" parameterType="com.forgeon.todo.dto.Todo">
+		UPDATE todo SET
+		title=#{title},priority=#{priority},category_id=#{categoryId},due_date=#{dueDate},content=#{content},updated_at=#{updatedAt},updated_by=#{updatedBy}
+		WHERE id=#{id}
+	</update>
+
+	<update id="deleteTodo" parameterType="com.forgeon.todo.dto.Todo">
+		UPDATE todo SET
+		deleted_at = #{deletedAt},deleted_by = #{deletedBy},deleted = #{deleted}
+		Where id = #{id}
+	</update>
+
+</mapper>

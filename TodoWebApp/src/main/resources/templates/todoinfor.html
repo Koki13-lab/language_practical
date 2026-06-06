@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>ホーム</title>
+	<link rel="stylesheet" th:href="@{/css/common.css}">
+	<link rel="stylesheet" th:href="@{/css/todoinfor.css}">
+</head>
+
+<body>
+	<div class="layout">
+		<header class="header">
+			<div class="title">アカウント - <span th:text="${loginName}"></span> さん </div>
+		</header>
+		<main class="main">
+			<h1>〇TODO詳細画面</h1>
+			<div class="main-area">
+				<div class="row">
+					<div class="table-wrapper">
+						<div class="table-header">
+							<h3>TODO詳細</h3>
+						</div>
+						<div class=" table-area">
+							<table border="1" class="table-a">
+								<tr>
+									<th>id</th>
+									<td th:text="${todoInfor.id}"></td>
+								</tr>
+								<tr>
+									<th>題名</th>
+									<td th:text="${todoInfor.title}"></td>
+								</tr>
+								<tr>
+									<th>優先度</th>
+									<td th:text="${todoInfor.priority == 1 ? '低' :
+													todoInfor.priority == 2 ? '中' : '高'}"></td>
+								</tr>
+								<tr>
+									<th>期日</th>
+									<td th:text="${todoInfor.dueDate}"></td>
+								</tr>
+								<tr>
+									<th>カテゴリー</th>
+									<td th:text="${todoInfor.category}"></td>
+								</tr>
+								<tr>
+									<th>内容</th>
+									<td th:text="${todoInfor.content}"></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="table-wrapper">
+						<div class="table-header">
+							<p>担当ユーザー</p>
+							<form th:action="@{/todo/infor/user/add}" th:object="${userTodo}" method="post">
+								<input type="hidden" name="todoId" th:value="${todoInfor.id}">
+								<input type="text" th:field="*{userId}" placeholder="追加したいユーザーidを指定">
+								<button type="submit">ユーザー追加</button>
+							</form>
+						</div>
+						<div class="table-area">
+							<table border="1" class="table-b">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>名前</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="userTodo : ${userTodoList}">
+										<td th:text="${userTodo.userId}"></td>
+										<td><a th:href="@{/user/infor(id=${userTodo.userId})}"
+												th:text="${userTodo.name}"></a>
+										</td>
+										<td>
+											<form th:action="@{/todo/infor/user/delete}" method="post">
+												<input type="hidden" name="id" th:value="${userTodo.id}">
+												<input type="hidden" name="todoId" th:value="${todoInfor.id}">
+												<button type="submit">登録解除</button>
+											</form>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="table-wrapper">
+						<div class="table-header">
+							<p>参照 : ユーザー検索</p>
+							<form th:action="@{/todo/infor/user/search}" th:object="${user}" method="get">
+								<input type="hidden" name="todoId" th:value="${todoInfor.id}">
+								<input type="text" name="name" th:value="${name}" placeholder="検索したい名前を指定">
+								<button type="submit">絞り込み検索</button>
+							</form>
+						</div>
+						<div class="table-area">
+							<table border="1" class="table-c">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>名前</th>
+										<th>メールアドレス</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="user : ${userList}">
+										<td th:text="${user.id}"></td>
+										<td th:text="${user.name}"></td>
+										<td t:text="${user.mail}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="row button-row">
+					<form th:action="@{/todo/infor/update}" method="get">
+						<input type="hidden" name="id" th:value="${todoInfor.id}">
+						<button class="action-button" type="submit">todo情報更新</button>
+					</form>
+					<form th:action="@{/todo/infor/delete}" method="get">
+						<input type="hidden" name="id" th:value="${todoInfor.id}">
+						<button class="action-button" type="submit">todo削除</button>
+					</form>
+					<form th:action="@{/todo/list}" method="get">
+						<button class="action-button" type="submit">todoリストへ戻る</button>
+					</form>
+				</div>
+				<span>ステータス　: </span>
+				<span th:if="${dataT}" th:text="${dataT}" style="color: red;"></span>
+				<span th:if="${messageT}" th:text="${messageT}" style="color: red;"></span>
+			</div>
+		</main>
+		<footer class="footer">
+			<p>Ⓒ 2026 RPC Inc.</p>
+			<div class="footer-button">
+				<form th:action="@{/user/list}" method="get">
+					<button type="submit">一つ前へ戻る</button>
+				</form>
+				<form th:action="@{/home}" method="get">
+					<button type="submit">ホームへ戻る</button>
+				</form>
+				<form th:action="@{/logout}" method="post">
+					<button type="submit">ログアウト</button>
+				</form>
+			</div>
+		</footer>
+	</div>
+</body>

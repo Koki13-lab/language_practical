@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>ホーム</title>
+	<link rel="stylesheet" th:href="@{/css/common.css}">
+	<link rel="stylesheet" th:href="@{/css/userlist.css}">
+</head>
+
+<body>
+	<div class="layout">
+		<header class="header">
+			<div class="title">アカウント - <span th:text="${loginName}"></span></div>
+		</header>
+		<main class="main">
+			<h1>〇ユーザーリスト</h1>
+			<div class="main-area">
+				<form th:action="@{/user/list/search}" method="get">
+					<label>ユーザー検索　: </label>
+					<input type="text" name="name" th:value="${name}" placeholder="検索したい名前を入力してください">
+					<button type="submit">ユーザーを絞り込んで検索</button>
+				</form>
+				<div class="table-area">
+					<table border="1" class="table-a">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>名前</th>
+								<th>メールアドレス</th>
+								<th>詳細情報</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="user : ${userList}">
+								<td th:text="${user.id}"></td>
+								<td th:text="${user.name}"></td>
+								<td th:text="${user.mail}"></td>
+								<td>
+									<form th:action="@{/user/infor}" method="get">
+										<input type="hidden" name="id" th:value="${user.id}">
+										<button type="submit">詳細情報</button>
+									</form>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<form th:action="@{/user/add}" method="get">
+					<button class="action-button" type="submit">ユーザー追加</button>
+				</form>
+				<div class="row">
+					<span>ステータス　: </span>
+					<span th:if="${dataU}" th:text="${dataU}" style="color: red;"></span>
+					<span th:if="${messageU}" th:text="${messageU}" style="color: red;"></span>
+				</div>
+			</div>
+		</main>
+		<footer class="footer">
+			<p>Ⓒ 2026 RPC Inc.</p>
+			<div class="footer-button">
+				<form th:action="@{/todo/list}" method="get">
+					<button type="submit">todoリストへ</button>
+				</form>
+				<form th:action="@{/home}" method="get">
+					<button type="submit">ホームへ戻る</button>
+				</form>
+				<form th:action="@{/logout}" method="post">
+					<button type="submit">ログアウト</button>
+				</form>
+			</div>
+		</footer>
+	</div>
+</body>

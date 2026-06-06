@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>ホーム</title>
+	<link rel="stylesheet" th:href="@{/css/common.css}">
+	<link rel="stylesheet" th:href="@{/css/todoinforupdate.css}">
+</head>
+
+<body>
+	<div class="layout">
+		<header class="header">
+			<div class="title">アカウント - <span th:text="${loginName}"></span></div>
+		</header>
+		<main class="main">
+			<h1>〇TODO情報更新</h1>
+			<div class="main-area">
+				<table border="1" class="table-a">
+					<tr>
+						<th>id</th>
+						<td th:text="${todo.id}"></td>
+					</tr>
+					<tr>
+						<th>題名</th>
+						<td th:text="${todo.title}"></td>
+					</tr>
+					<tr>
+						<th>優先度</th>
+						<td th:text="${todo.priority == 1 ? '低' :
+										todo.priority == 2 ? '中' : '高'}"></td>
+					</tr>
+					<tr>
+						<th>期日</th>
+						<td th:text="${todo.dueDate}"></td>
+					</tr>
+					<tr>
+						<th>カテゴリー</th>
+						<td th:text="${todo.category}"></td>
+					</tr>
+					<tr>
+						<th>　内容</th>
+						<td th:text="${todo.content}"></td>
+					</tr>
+				</table>
+				<div class="row">
+					<form th:action="@{/todo/infor/update}" th:object="${todo}" method="post">
+						<input type="hidden" th:field="*{id}">
+						<div class="row">
+							<label>題名 :</label>
+							<input type="text" th:field="*{title}">
+						</div>
+						<div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color:red;">
+						</div>
+						<div class="row">
+							<label>優先度 :</label>
+							<select th:field="*{priority}">
+								<option value="1">低</option>
+								<option value="2">中</option>
+								<option value="3">高</option>
+							</select>
+						</div>
+						<div class="row">
+							<label>カテゴリ :</label>
+							<select th:field="*{categoryId}">
+								<option value="">カテゴリを選択</option>
+								<option th:each="category : ${categoryList}" th:value="${category.id}"
+									th:text="${category.category}">
+								</option>
+							</select>
+						</div>
+						<div th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}" style="color:red;">
+							</div>
+						<div class="row">
+							<label>期限 :</label>
+							<input type="date" th:field="*{dueDate}">
+						</div>
+						<div class="row">
+							<label>内容 :</label>
+							<textarea th:field="*{content}" maxlength="2000" rows="20" cols="100" placeholder="内容がある場合は入力してください。"></textarea>
+						</div>
+						<button class="action-button" type="submit">更新する</button>
+					</form>
+				</div>
+			</div>
+		</main>
+		<footer class="footer">
+			<p>Ⓒ 2026 RPC Inc.</p>
+			<div class="footer-button">
+				<form th:action="@{/todo/infor}" method="get">
+					<input type="hidden" name="id" th:value="${todo.id}">
+					<button type="submit">前のページへ戻る</button>
+				</form>
+				<form th:action="@{/user/list}" method="get">
+					<button type="submit">ユーザーリストへ</button>
+				</form>
+				<form th:action="@{/home}" method="get">
+					<button type="submit">ホームへ戻る</button>
+				</form>
+				<form th:action="@{/logout}" method="post">
+					<button type="submit">ログアウト</button>
+				</form>
+			</div>
+		</footer>
+	</div>
+</body>

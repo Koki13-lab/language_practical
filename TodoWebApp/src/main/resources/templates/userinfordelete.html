@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>ホーム</title>
+	<link rel="stylesheet" th:href="@{/css/common.css}">
+	<link rel="stylesheet" th:href="@{/css/userinfordelete.css}">
+</head>
+
+<body>
+	<div class="layout">
+		<header class="header">
+			<div class="title">アカウント - <span th:text="${loginName}"></span></div>
+		</header>
+		<main class="main">
+			<h1>〇ユーザー詳細画面</h1>
+			<div class="main-area">
+				<h1>本当に削除しますか？</h1>
+				<table border="1" class="table-a">
+					<tr>
+						<th>id</th>
+						<td th:text="${userInfor.id}"></td>
+					</tr>
+					<tr>
+						<th>名前</th>
+						<td th:text="${userInfor.name}"></td>
+					</tr>
+					<tr>
+						<th>メールアドレス</th>
+						<td th:text="${userInfor.mail}"></td>
+					</tr>
+					<tr>
+						<th>権限</th>
+						<td th:text="${userInfor.role}"></td>
+					</tr>
+					<tr>
+						<th>備考</th>
+						<td th:text="${userInfor.remarks}"></td>
+					</tr>
+				</table>
+				<form th:action="@{/user/infor/delete}" method="post">
+					<input type="hidden" name="id" th:value="${userInfor.id}">
+					<button class="action-button" type="submit">ユーザー情報削除 </button>
+				</form>
+			</div>
+		</main>
+		<footer class="footer">
+			<p>Ⓒ 2026 RPC Inc.</p>
+			<div class="footer-button">
+				<form th:action="@{/user/infor}" method="get">
+					<input type="hidden" name="id" th:value="${userInfor.id}">
+					<button type="submit">前のページへ戻る</button>
+				</form>
+				<form th:action="@{/todo/list}" method="get">
+					<button type="submit">todoリストへ</button>
+				</form>
+				<form th:action="@{/home}" method="get">
+					<button type="submit">ホームへ戻る</button>
+				</form>
+				<form th:action="@{/logout}" method="post">
+					<button type="submit">ログアウト</button>
+				</form>
+			</div>
+		</footer>
+	</div>
+</body>
