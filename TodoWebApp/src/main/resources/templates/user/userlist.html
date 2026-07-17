@@ -3,14 +3,19 @@
 
 <head>
 	<title>ホーム</title>
-	<link rel="stylesheet" th:href="@{/css/common.css}">
-	<link rel="stylesheet" th:href="@{/css/userlist.css}">
+	<link rel="stylesheet" th:href="@{/css/common/common.css}">
+	<link rel="stylesheet" th:href="@{/css/user/userlist.css}">
 </head>
 
 <body>
 	<div class="layout">
 		<header class="header">
 			<div class="title">アカウント - <span th:text="${loginName}"></span></div>
+			<div class="header-button">
+				<form th:action="@{/todo/list}" method="get">
+					<button type="submit">todoリストへ</button>
+				</form>
+			</div>
 		</header>
 		<main class="main">
 			<h1>〇ユーザーリスト</h1>
@@ -27,6 +32,8 @@
 								<th>ID</th>
 								<th>名前</th>
 								<th>メールアドレス</th>
+								<th>権限</th>
+								<th>備考</th>
 								<th>詳細情報</th>
 							</tr>
 						</thead>
@@ -35,6 +42,8 @@
 								<td th:text="${user.id}"></td>
 								<td th:text="${user.name}"></td>
 								<td th:text="${user.mail}"></td>
+								<td th:text="${user.role == 'ROLE_ADMIN' ? '管理者' : user.role == 'ROLE_TODO' ? 'TODO管理者' : 'ユーザー'}"></td>
+								<td th:text="${user.remarks}"></td>
 								<td>
 									<form th:action="@{/user/infor}" method="get">
 										<input type="hidden" name="id" th:value="${user.id}">
@@ -58,9 +67,6 @@
 		<footer class="footer">
 			<p>Ⓒ 2026 RPC Inc.</p>
 			<div class="footer-button">
-				<form th:action="@{/todo/list}" method="get">
-					<button type="submit">todoリストへ</button>
-				</form>
 				<form th:action="@{/home}" method="get">
 					<button type="submit">ホームへ戻る</button>
 				</form>

@@ -3,15 +3,13 @@
 
 <head>
 	<title>ホーム</title>
-	<link rel="stylesheet" th:href="@{/css/common.css}">
-	<link rel="stylesheet" th:href="@{/css/todoinforupdate.css}">
+	<link rel="stylesheet" th:href="@{/css/common/common.css}">
+	<link rel="stylesheet" th:href="@{/css/todo/todoinforupdate.css}">
 </head>
 
 <body>
 	<div class="layout">
-		<header class="header">
-			<div class="title">アカウント - <span th:text="${loginName}"></span></div>
-		</header>
+		<div th:replace="~{common/header :: header}"></div>
 		<main class="main">
 			<h1>〇TODO情報更新</h1>
 			<div class="main-area">
@@ -47,8 +45,9 @@
 						<input type="hidden" th:field="*{id}">
 						<div class="row">
 							<label>題名 :</label>
-							<input type="text" th:field="*{title}">
+							<input type="text" th:field="*{title}" maxlength="50" placeholder="題名を入力してください。">
 						</div>
+						<div id="titleError" style="color: red;"></div>
 						<div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color:red;">
 						</div>
 						<div class="row">
@@ -78,28 +77,16 @@
 							<label>内容 :</label>
 							<textarea th:field="*{content}" maxlength="2000" rows="20" cols="100" placeholder="内容がある場合は入力してください。"></textarea>
 						</div>
+						<div id="contentError" style="color: red;"></div>
+						<div th:if="${#fields.hasErrors('content')}" th:errors="*{content}" style="color:red;">
+						</div>
 						<button class="action-button" type="submit">更新する</button>
 					</form>
 				</div>
 			</div>
 		</main>
-		<footer class="footer">
-			<p>Ⓒ 2026 RPC Inc.</p>
-			<div class="footer-button">
-				<form th:action="@{/todo/infor}" method="get">
-					<input type="hidden" name="id" th:value="${todo.id}">
-					<button type="submit">前のページへ戻る</button>
-				</form>
-				<form th:action="@{/user/list}" method="get">
-					<button type="submit">ユーザーリストへ</button>
-				</form>
-				<form th:action="@{/home}" method="get">
-					<button type="submit">ホームへ戻る</button>
-				</form>
-				<form th:action="@{/logout}" method="post">
-					<button type="submit">ログアウト</button>
-				</form>
-			</div>
-		</footer>
+		<div th:replace="~{common/footer :: footer}"></div>
 	</div>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script th:src="@{/js/todo/todoinforupdate.js}"></script>
 </body>

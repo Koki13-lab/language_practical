@@ -33,18 +33,27 @@ table{
 }
 
 table td:nth-child(1) {
-	width: 5%;
+	white-space: nowrap;
 }
 table td:nth-child(2) {
-	width: 25%;
+	white-space: nowrap;
 }
 
 table td:nth-child(3) {
-	width: 55%;
+	white-space: nowrap;
 }
 
 table td:nth-child(4) {
-	width: 15%;
+	white-space: nowrap;
+}
+
+table td:nth-child(5) {
+	width :100%;
+	overflow-wrap: break-word;
+}
+
+table td:nth-child(6) {
+	white-space: nowrap;
 }
 
 

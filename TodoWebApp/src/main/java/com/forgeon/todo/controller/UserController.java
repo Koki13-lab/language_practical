@@ -42,7 +42,7 @@ public class UserController {
 		model.addAttribute("userList", userList);
 		model.addAttribute("loginName", loginName);
 
-		return "userlist";
+		return "user/userlist";
 	}
 
 	@GetMapping("user/list/search")
@@ -61,7 +61,7 @@ public class UserController {
 		model.addAttribute("userList", userList);
 		model.addAttribute("loginName", loginName);
 
-		return "userlist";
+		return "user/userlist";
 
 	}
 
@@ -77,7 +77,7 @@ public class UserController {
 		model.addAttribute("userInfor", userInfor);
 		model.addAttribute("loginName", loginName);
 
-		return "userinfor";
+		return "user/userinfor";
 	}
 
 	@GetMapping("/user/infor/update")
@@ -101,7 +101,7 @@ public class UserController {
 		model.addAttribute("isSelf", id.equals(loginUser.getUser().getId()));
 		model.addAttribute("loginName", loginName);
 
-		return "userinforupdate";
+		return "user/userinforupdate";
 	}
 
 	@PostMapping("/user/infor/update/Complete")
@@ -114,10 +114,12 @@ public class UserController {
 
 			User userInfor = userService.getUserInfor(user.getId());
 
+			model.addAttribute("user", user);
 			model.addAttribute("userInfor", userInfor);
+			model.addAttribute("isSelf", user.getId().equals(loginUser.getUser().getId()));
 			model.addAttribute("loginName", loginName);
 
-			return "userinforupdate";
+			return "user/userinforupdate";
 		}
 
 		user.setUpdatedAt(LocalDateTime.now());
@@ -132,11 +134,11 @@ public class UserController {
 
 		User userInfor = userService.getUserInfor(user.getId());
 
-		model.addAttribute("user", new User());
+		model.addAttribute("user", user);
 		model.addAttribute("userInfor", userInfor);
 		model.addAttribute("loginName", loginName);
 
-		return "userinforupdate";
+		return "user/userinforupdate";
 
 	}
 
@@ -157,7 +159,7 @@ public class UserController {
 		model.addAttribute("userInfor", userInfor);
 		model.addAttribute("loginName", loginName);
 
-		return "userinfordelete";
+		return "user/userinfordelete";
 
 	}
 
@@ -183,7 +185,7 @@ public class UserController {
 
 		model.addAttribute("loginName", loginName);
 
-		return "userinfordeleteconmplete";
+		return "user/userinfordeleteconmplete";
 
 	}
 
@@ -192,10 +194,11 @@ public class UserController {
 
 		String loginName = loginUser.getUser().getName();
 
+		model.addAttribute("isAdmin", "ROLE_ADMIN".equals(loginUser.getUser().getRole()));
 		model.addAttribute("user", new User());
 		model.addAttribute("loginName", loginName);
 
-		return "userAdd";
+		return "user/userAdd";
 
 	}
 
@@ -203,13 +206,21 @@ public class UserController {
 	public String userSubmit(@Valid @ModelAttribute User user, BindingResult result,
 			@AuthenticationPrincipal CustomUserDetails loginUser, RedirectAttributes redirectAttributes, Model model) {
 
+		if (user.getPassword() == null || user.getPassword().isBlank()) {
+			result.rejectValue("password", null, "パスワードを入力してください");
+		}
+
+		if ("ROLE_ADMIN".equals(user.getRole()) && !"ROLE_ADMIN".equals(loginUser.getUser().getRole())) {
+			result.rejectValue("role", null, "管理者のみ管理者を登録できます。");
+		}
+
 		if (result.hasErrors()) {
 
 			String loginName = loginUser.getUser().getName();
 
 			model.addAttribute("loginName", loginName);
 
-			return "userAdd";
+			return "user/userAdd";
 		}
 
 		user.setCreatedBy(loginUser.getId());

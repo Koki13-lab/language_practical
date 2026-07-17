@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:fragment="header" class="header">
+	<div class="title">アカウント - <span th:text="${loginName}"></span></div>
+	<div class="header-button">
+		<form th:action="@{/user/list}" method="get">
+			<button type="submit">ユーザーリストへ</button>
+		</form>
+		<form th:action="@{/todo/list}" method="get">
+			<button type="submit">todoリストへ</button>
+		</form>
+	</div>
+</header>
+</body>
+</html>

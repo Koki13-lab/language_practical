@@ -3,11 +3,11 @@
 <mapper namespace="com.forgeon.todo.mapper.UserMapper">
 
 	<select id="findByName" resultType="com.forgeon.todo.dto.User">
-		SELECT * FROM users WHERE mail = #{name}
+		SELECT * FROM users WHERE name = #{name}
 	</select>
 
 	<select id="getUsers" resultType="com.forgeon.todo.dto.User">
-		SELECT id,name,mail,password FROM users WHERE deleted != true ORDER BY
+		SELECT id,name,mail,password,role,remarks FROM users WHERE deleted != true ORDER BY
 		id ASC
 	</select>
 

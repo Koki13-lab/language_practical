@@ -3,15 +3,13 @@
 
 <head>
 	<title>TODO追加</title>
-	<link rel="stylesheet" th:href="@{/css/common.css}">
-	<link rel="stylesheet" th:href="@{/css/todoadd.css}">
+	<link rel="stylesheet" th:href="@{/css/common/common.css}">
+	<link rel="stylesheet" th:href="@{/css/todo/todoadd.css}">
 </head>
 
 <body>
 	<div class="layout">
-		<header class="header">
-			<div class="title">アカウント - <span th:text="${loginName}"></span></div>
-		</header>
+		<div th:replace="~{common/header :: header}"></div>
 		<main class="main">
 			<h1>〇TODO追加画面</h1>
 			<div class="main-area">
@@ -19,8 +17,9 @@
 					<form th:action="@{/todo/add}" th:object="${todo}" method="post">
 						<div class="row">
 							<label>題名 :</label>
-							<input type="text" th:field="*{title}" placeholder="題名を入力してください">
+							<input type="text" th:field="*{title}" maxlength="50" placeholder="題名を入力してください">
 						</div>
+						<div id="titleError" style="color: red;"></div>
 						<div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color:red;">
 						</div>
 						<div class="row">
@@ -51,24 +50,16 @@
 							<textarea th:field="*{content}" maxlength="2000" rows="20" cols="100"
 								placeholder="内容がある場合は入力してください。"></textarea>
 						</div>
+						<div id="contentError" style="color: red;"></div>
+						<div th:if="${#fields.hasErrors('content')}" th:errors="*{content}" style="color:red;">
+						</div>
 						<button class="action-button" type="submit">登録する</button>
 					</form>
 				</div>
 			</div>
 		</main>
-		<footer class="footer">
-			<p>Ⓒ 2026 RPC Inc.</p>
-			<div class="footer-button">
-				<form th:action="@{/todo/list}" method="get">
-					<button type="submit">一つ前へ戻る</button>
-				</form>
-				<form th:action="@{/home}" method="get">
-					<button type="submit">ホームへ戻る</button>
-				</form>
-				<form th:action="@{/logout}" method="post">
-					<button type="submit">ログアウト</button>
-				</form>
-			</div>
-		</footer>
+		<div th:replace="~{common/footer :: footer}"></div>
 	</div>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script th:src="@{/js/todo/todoadd.js}"></script>
 </body>

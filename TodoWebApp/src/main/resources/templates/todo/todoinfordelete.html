@@ -3,15 +3,13 @@
 
 <head>
 	<title>ホーム</title>
-	<link rel="stylesheet" th:href="@{/css/common.css}">
-	<link rel="stylesheet" th:href="@{/css/todoinfordelete.css}">
+	<link rel="stylesheet" th:href="@{/css/common/common.css}">
+	<link rel="stylesheet" th:href="@{/css/todo/todoinfordelete.css}">
 </head>
 
 <body>
 	<div class="layout">
-		<header class="header">
-			<div class="title">アカウント - <span th:text="${loginName}"></span></div>
-		</header>
+		<div th:replace="~{common/header :: header}"></div>
 		<main class="main">
 			<h1>〇TODO削除画面</h1>
 			<div class="main-area">
@@ -77,23 +75,6 @@
 				</form>
 			</div>
 		</main>
-		<footer class="footer">
-			<p>Ⓒ 2026 RPC Inc.</p>
-			<div class="footer-button">
-				<form th:action="@{/todo/infor}" method="get">
-					<input type="hidden" name="id" th:value="${todoInfor.id}">
-					<button type="submit">一つ前へ戻る</button>
-				</form>
-				<form th:action="@{/user/list}" method="get">
-					<button type="submit">ユーザーリストへ</button>
-				</form>
-				<form th:action="@{/home}" method="get">
-					<button type="submit">ホームへ戻る</button>
-				</form>
-				<form th:action="@{/logout}" method="post">
-					<button type="submit">ログアウト</button>
-				</form>
-			</div>
-		</footer>
+		<div th:replace="~{common/footer :: footer}"></div>
 	</div>
 </body>

@@ -3,15 +3,13 @@
 
 <head>
 	<title>ホーム</title>
-	<link rel="stylesheet" th:href="@{/css/common.css}">
-	<link rel="stylesheet" th:href="@{/css/userinforupdate.css}">
+	<link rel="stylesheet" th:href="@{/css/common/common.css}">
+	<link rel="stylesheet" th:href="@{/css/user/userinforupdate.css}">
 </head>
 
 <body>
 	<div class="layout">
-		<header class="header">
-			<div class="title">アカウント - <span th:text="${loginName}"></span></div>
-		</header>
+		<div th:replace="~{common/header :: header}"></div>
 		<main class="main">
 			<h1>〇ユーザー情報更新</h1>
 			<div class="main-area">
@@ -30,7 +28,7 @@
 					</tr>
 					<tr>
 						<th>権限</th>
-						<td th:text="${userInfor.role}"></td>
+						<td th:text="${userInfor.role == 'ROLE_ADMIN' ? '管理者' : userInfor.role == 'ROLE_TODO' ? 'TODO管理者' : 'ユーザー'}"></td>
 					</tr>
 					<tr>
 						<th>備考</th>
@@ -41,15 +39,17 @@
 					<input type="hidden" th:field="*{id}">
 					<div class="row">
 						<label>名前 :</label>
-						<input type="text" th:field="*{name}" placeholder="名前を入力してください">
-						<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red;">
-						</div>
+						<input type="text" th:field="*{name}" maxlength="50" placeholder="名前を入力してください">
+					</div>
+					<div id="nameError" style="color: red;"></div>
+					<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red;">
 					</div>
 					<div class="row">
 						<label>メールアドレス :</label>
-						<input type="text" th:field="*{mail}" placeholder="メールアドレスを入力してください">
-						<div th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}" style="color:red;">
-						</div>
+						<input type="text" th:field="*{mail}" maxlength="256" placeholder="メールアドレスを入力してください">
+					</div>
+					<div id="mailError" style="color: red;"></div>
+					<div th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}" style="color:red;">
 					</div>
 					<div th:if="${!isSelf}">
 						<div class="row">
@@ -66,27 +66,15 @@
 						<textarea th:field="*{remarks}" maxlength="2000" rows="20" cols="100"
 							placeholder="備考がある場合は入力"></textarea>
 					</div>
+					<div id="remarksError" style="color: red;"></div>
 					<button class="action-button" type="submit">更新する</button>
 				</form>
+				<span>ステータス　: </span>
+				<span th:if="${messageU}" th:text="${messageU}" style="color: red;"></span>
 			</div>
 		</main>
-		<footer class="footer">
-			<p>Ⓒ 2026 RPC Inc.</p>
-			<div class="footer-button">
-				<form th:action="@{/user/infor}" method="get">
-					<input type="hidden" name="id" th:value="${userInfor.id}">
-					<button type="submit">前のページへ戻る </button>
-				</form>
-				<form th:action="@{/todo/list}" method="get">
-					<button type="submit">todoリストへ</button>
-				</form>
-				<form th:action="@{/home}" method="get">
-					<button type="submit">ホームへ戻る</button>
-				</form>
-				<form th:action="@{/logout}" method="post">
-					<button type="submit">ログアウト</button>
-				</form>
-			</div>
-		</footer>
+		<div th:replace="~{common/footer :: footer}"></div>
 	</div>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script th:src="@{/js/user/userinforupdate.js}"></script>
 </body>

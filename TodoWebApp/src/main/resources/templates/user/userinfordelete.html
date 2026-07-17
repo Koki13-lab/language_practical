@@ -3,15 +3,13 @@
 
 <head>
 	<title>ホーム</title>
-	<link rel="stylesheet" th:href="@{/css/common.css}">
-	<link rel="stylesheet" th:href="@{/css/userinfordelete.css}">
+	<link rel="stylesheet" th:href="@{/css/common/common.css}">
+	<link rel="stylesheet" th:href="@{/css/user/userinfordelete.css}">
 </head>
 
 <body>
 	<div class="layout">
-		<header class="header">
-			<div class="title">アカウント - <span th:text="${loginName}"></span></div>
-		</header>
+		<div th:replace="~{common/header :: header}"></div>
 		<main class="main">
 			<h1>〇ユーザー詳細画面</h1>
 			<div class="main-area">
@@ -31,7 +29,7 @@
 					</tr>
 					<tr>
 						<th>権限</th>
-						<td th:text="${userInfor.role}"></td>
+						<td th:text="${userInfor.role == 'ROLE_ADMIN' ? '管理者' : userInfor.role == 'ROLE_TODO' ? 'TODO管理者' : 'ユーザー'}"></td>
 					</tr>
 					<tr>
 						<th>備考</th>
@@ -44,23 +42,6 @@
 				</form>
 			</div>
 		</main>
-		<footer class="footer">
-			<p>Ⓒ 2026 RPC Inc.</p>
-			<div class="footer-button">
-				<form th:action="@{/user/infor}" method="get">
-					<input type="hidden" name="id" th:value="${userInfor.id}">
-					<button type="submit">前のページへ戻る</button>
-				</form>
-				<form th:action="@{/todo/list}" method="get">
-					<button type="submit">todoリストへ</button>
-				</form>
-				<form th:action="@{/home}" method="get">
-					<button type="submit">ホームへ戻る</button>
-				</form>
-				<form th:action="@{/logout}" method="post">
-					<button type="submit">ログアウト</button>
-				</form>
-			</div>
-		</footer>
+		<div th:replace="~{common/footer :: footer}"></div>
 	</div>
 </body>

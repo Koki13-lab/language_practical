@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<footer th:fragment="footer" class="footer">
+		<p>Ⓒ 2026 RPC Inc.</p>
+		<div class="footer-button">
+			<form th:action="@{/home}" method="get">
+				<button type="submit">ホームへ戻る</button>
+			</form>
+			<form th:action="@{/logout}" method="post">
+				<button type="submit">ログアウト</button>
+			</form>
+		</div>
+	</footer>
+</body>
+</html>

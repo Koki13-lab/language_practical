@@ -44,14 +44,12 @@ public class TodoController {
 			model.addAttribute("dataT", noneT);
 		}
 
-		System.out.println(todoList);
-
 		model.addAttribute("categoryList", todoService.getCategory());
 		model.addAttribute("todo", new Todo());
 		model.addAttribute("todoList", todoList);
 		model.addAttribute("loginName", loginName);
 
-		return "todolist";
+		return "todo/todolist";
 	}
 
 	@GetMapping("/todo/list/search")
@@ -68,7 +66,7 @@ public class TodoController {
 		model.addAttribute("loginName", loginName);
 		model.addAttribute("todo", todo);
 
-		return "todolist";
+		return "todo/todolist";
 
 	}
 
@@ -81,7 +79,7 @@ public class TodoController {
 		model.addAttribute("todo", new Todo());
 		model.addAttribute("loginName", loginName);
 
-		return "todoadd";
+		return "todo/todoadd";
 
 	}
 
@@ -96,7 +94,7 @@ public class TodoController {
 			model.addAttribute("categoryList", todoService.getCategory());
 			model.addAttribute("loginName", loginName);
 
-			return "todoadd";
+			return "todo/todoadd";
 		}
 		todo.setCreatedBy(loginUser.getId());
 
@@ -133,7 +131,7 @@ public class TodoController {
 		model.addAttribute("userTodo", new UserTodo());
 		model.addAttribute("user", new User());
 
-		return "todoInfor";
+		return "todo/todoInfor";
 
 	}
 
@@ -156,7 +154,7 @@ public class TodoController {
 		model.addAttribute("loginName", loginName);
 		model.addAttribute("todo", todo);
 		model.addAttribute("categoryList", todoService.getCategory());
-		return "todoinforupdate";
+		return "todo/todoinforupdate";
 
 	}
 
@@ -171,7 +169,7 @@ public class TodoController {
 			model.addAttribute("loginName", loginName);
 			model.addAttribute("categoryList", todoService.getCategory());
 
-			return "todoinforupdate";
+			return "todo/todoinforupdate";
 		}
 
 		todo.setUpdatedAt(LocalDateTime.now());
@@ -190,7 +188,7 @@ public class TodoController {
 		model.addAttribute("todo", todoinfor);
 		model.addAttribute("categoryList", todoService.getCategory());
 
-		return "todoinforupdate";
+		return "todo/todoinforupdate";
 	}
 
 	@GetMapping("/todo/infor/delete")
@@ -215,7 +213,7 @@ public class TodoController {
 		model.addAttribute("userTodoList", userTodoList);
 		model.addAttribute("loginName", loginName);
 
-		return "todoinfordelete";
+		return "todo/todoinfordelete";
 	}
 
 	@PostMapping("/todo/infor/delete")
@@ -235,7 +233,7 @@ public class TodoController {
 
 		model.addAttribute("loginName", loginName);
 
-		return "todoinfordeletecomplete";
+		return "todo/todoinfordeletecomplete";
 	}
 
 	@PostMapping("/todo/infor/user/add")
@@ -248,7 +246,7 @@ public class TodoController {
 		
 		redirectAttributes.addFlashAttribute("messageT", message);
 
-		return "redirect:/todo/infor?id=" + userTodo.getTodoId();
+		return "redirect:/todo/todo/infor?id=" + userTodo.getTodoId();
 	}
 
 	@GetMapping("/todo/infor/user/search")
@@ -276,7 +274,7 @@ public class TodoController {
 		model.addAttribute("userTodo", new UserTodo());
 		model.addAttribute("user", new User());
 
-		return "todoInfor";
+		return "todo/todoInfor";
 	}
 
 	@PostMapping("/todo/infor/user/delete")
