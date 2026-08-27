@@ -18,7 +18,7 @@ public class User {
 	@Email(message = "メールアドレス形式で入力してください")
 	@Size(max = 256, message = "メールアドレスは256文字以内で入力してください")
 	private String mail;
-	@Size(max = 255, message = "パスワードは255文字以内で入力してください")
+	@Size(max = 50, message = "パスワードは50文字以内で入力してください")
 	private String password;
 	private String role;
 	@Size(max = 2000, message = "備考は2000文字以内で入力してください")

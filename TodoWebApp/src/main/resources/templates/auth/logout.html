@@ -16,6 +16,9 @@
 			<main class="main">
 				<p>ログアウトしました。</p>
 				<p>画面が遷移します。少々お待ちください。</p>
+				<form th:action="@{/login}" method="get">
+					<button type="submit">画面が遷移しない場合は押してください。</button>
+				</form>
 			</main>
 			<footer class="footer"></footer>
 		</div>

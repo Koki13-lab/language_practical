@@ -3,7 +3,7 @@
 
 <head>
 	<title>ホーム</title>
-	<meta http-equiv="refresh" content="5;url=/user/list">
+	<meta http-equiv="refresh" content="5;url=/todo/list">
 	<link rel="stylesheet" th:href="@{/css/common/common.css}">
 </head>
 
@@ -15,6 +15,9 @@
 		<main class="main">
 			<p>削除完了ました。</p>
 			<p>画面が遷移します。少々お待ちください。</p>
+			<form th:action="@{/todo/list}" method="get">
+				<button type="submit">画面が遷移しない場合は押してください。</button>
+			</form>
 		</main>
 		<footer class="footer">
 			<p>Ⓒ 2026 RPC Inc.</p>

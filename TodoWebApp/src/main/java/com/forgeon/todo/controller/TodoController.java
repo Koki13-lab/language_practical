@@ -48,6 +48,7 @@ public class TodoController {
 		model.addAttribute("todo", new Todo());
 		model.addAttribute("todoList", todoList);
 		model.addAttribute("loginName", loginName);
+		model.addAttribute("hideTodoList", true);
 
 		return "todo/todolist";
 	}
@@ -65,6 +66,7 @@ public class TodoController {
 		model.addAttribute("categoryList", todoService.getCategory());
 		model.addAttribute("loginName", loginName);
 		model.addAttribute("todo", todo);
+		model.addAttribute("hideTodoList", true);
 
 		return "todo/todolist";
 
@@ -106,13 +108,13 @@ public class TodoController {
 
 	}
 
-	@GetMapping("/todo/infor")
+	@GetMapping("/todo/info")
 	public String todoSubmit(@RequestParam("id") Integer id, @AuthenticationPrincipal CustomUserDetails loginUser,
 			Model model) {
 
 		String loginName = loginUser.getUser().getName();
 
-		Todo todoInfor = todoService.pickTodo(id);
+		Todo todoInfo = todoService.pickTodo(id);
 
 		List<User> userList = userService.getUsers();
 
@@ -126,24 +128,24 @@ public class TodoController {
 		model.addAttribute("userTodoList", userTodoList);
 
 		model.addAttribute("userList", userList);
-		model.addAttribute("todoInfor", todoInfor);
+		model.addAttribute("todoInfo", todoInfo);
 		model.addAttribute("loginName", loginName);
 		model.addAttribute("userTodo", new UserTodo());
 		model.addAttribute("user", new User());
 
-		return "todo/todoInfor";
+		return "todo/todoinfo";
 
 	}
 
-	@GetMapping("/todo/infor/update")
-	public String todoInforUpdate(@RequestParam("id") Integer id, @AuthenticationPrincipal CustomUserDetails loginUser,
+	@GetMapping("/todo/info/update")
+	public String todoInfoUpdate(@RequestParam("id") Integer id, @AuthenticationPrincipal CustomUserDetails loginUser,
 			RedirectAttributes redirectAttributes, Model model) {
 
 		if (!todoService.existsUserTodo(id, loginUser.getId(), loginUser.getUser().getRole())) {
 
 			redirectAttributes.addFlashAttribute("messageT", "自分が所属していないTODOは編集できません。");
 
-			return "redirect:/todo/infor?id=" + id;
+			return "redirect:/todo/info?id=" + id;
 
 		}
 
@@ -154,12 +156,12 @@ public class TodoController {
 		model.addAttribute("loginName", loginName);
 		model.addAttribute("todo", todo);
 		model.addAttribute("categoryList", todoService.getCategory());
-		return "todo/todoinforupdate";
+		return "todo/todoinfoupdate";
 
 	}
 
-	@PostMapping("/todo/infor/update")
-	public String todoInforUpdateComplete(@Valid @ModelAttribute Todo todo, BindingResult result,
+	@PostMapping("/todo/info/update")
+	public String todoInfoUpdateComplete(@Valid @ModelAttribute Todo todo, BindingResult result,
 			@AuthenticationPrincipal CustomUserDetails loginUser, RedirectAttributes redirectAttributes, Model model) {
 
 		String loginName = loginUser.getUser().getName();
@@ -169,7 +171,7 @@ public class TodoController {
 			model.addAttribute("loginName", loginName);
 			model.addAttribute("categoryList", todoService.getCategory());
 
-			return "todo/todoinforupdate";
+			return "todo/todoinfoupdate";
 		}
 
 		todo.setUpdatedAt(LocalDateTime.now());
@@ -182,42 +184,42 @@ public class TodoController {
 			return "redirect:/todo/list";
 		}
 
-		Todo todoinfor = todoService.pickTodo(todo.getId());
+		Todo todoinfo = todoService.pickTodo(todo.getId());
 
 		model.addAttribute("loginName", loginName);
-		model.addAttribute("todo", todoinfor);
+		model.addAttribute("todo", todoinfo);
 		model.addAttribute("categoryList", todoService.getCategory());
 
-		return "todo/todoinforupdate";
+		return "todo/todoinfoupdate";
 	}
 
-	@GetMapping("/todo/infor/delete")
-	public String todoInforDelete(@RequestParam("id") Integer id, @AuthenticationPrincipal CustomUserDetails loginUser,
+	@GetMapping("/todo/info/delete")
+	public String todoInfoDelete(@RequestParam("id") Integer id, @AuthenticationPrincipal CustomUserDetails loginUser,
 			RedirectAttributes redirectAttributes, Model model) {
 
 		if (!todoService.existsUserTodo(id, loginUser.getId(), loginUser.getUser().getRole())) {
 
-			redirectAttributes.addFlashAttribute("messageU", "自分が所属していないTODOは編集できません。");
+			redirectAttributes.addFlashAttribute("messageT", "自分が所属していないTODOは編集できません。");
 
-			return "redirect:/todo/infor?id=" + id;
+			return "redirect:/todo/info?id=" + id;
 
 		}
 
 		String loginName = loginUser.getUser().getName();
 
-		Todo todoInfor = todoService.pickTodo(id);
+		Todo todoInfo = todoService.pickTodo(id);
 
 		List<UserTodo> userTodoList = todoService.getUserTodo(id);
 
-		model.addAttribute("todoInfor", todoInfor);
+		model.addAttribute("todoInfo", todoInfo);
 		model.addAttribute("userTodoList", userTodoList);
 		model.addAttribute("loginName", loginName);
 
-		return "todo/todoinfordelete";
+		return "todo/todoinfodelete";
 	}
 
-	@PostMapping("/todo/infor/delete")
-	public String todoInforDeleteComplete(@RequestParam("id") Integer id,
+	@PostMapping("/todo/info/delete")
+	public String todoInfoDeleteComplete(@RequestParam("id") Integer id,
 			@AuthenticationPrincipal CustomUserDetails loginUser, Model model) {
 
 		String loginName = loginUser.getUser().getName();
@@ -233,10 +235,10 @@ public class TodoController {
 
 		model.addAttribute("loginName", loginName);
 
-		return "todo/todoinfordeletecomplete";
+		return "todo/todoinfodeletecomplete";
 	}
 
-	@PostMapping("/todo/infor/user/add")
+	@PostMapping("/todo/info/user/add")
 	public String todoUserAdd(@ModelAttribute UserTodo userTodo, @AuthenticationPrincipal CustomUserDetails loginUser,
 			RedirectAttributes redirectAttributes, Model model) {
 
@@ -246,16 +248,16 @@ public class TodoController {
 		
 		redirectAttributes.addFlashAttribute("messageT", message);
 
-		return "redirect:/todo/todo/infor?id=" + userTodo.getTodoId();
+		return "redirect:/todo/info?id=" + userTodo.getTodoId();
 	}
 
-	@GetMapping("/todo/infor/user/search")
+	@GetMapping("/todo/info/user/search")
 	public String todoUserSearch(@ModelAttribute User user, @AuthenticationPrincipal CustomUserDetails loginUser,
 			Model model) {
 
 		String loginName = loginUser.getUser().getName();
 
-		Todo todoInfor = todoService.pickTodo(user.getTodoId());
+		Todo todoInfo = todoService.pickTodo(user.getTodoId());
 
 		List<User> userList = todoService.searchUsers(user.getName());
 
@@ -269,16 +271,16 @@ public class TodoController {
 		model.addAttribute("userTodoList", userTodoList);
 
 		model.addAttribute("userList", userList);
-		model.addAttribute("todoInfor", todoInfor);
+		model.addAttribute("todoInfo", todoInfo);
 		model.addAttribute("loginName", loginName);
 		model.addAttribute("userTodo", new UserTodo());
 		model.addAttribute("user", new User());
 
-		return "todo/todoInfor";
+		return "todo/todoinfo";
 	}
 
-	@PostMapping("/todo/infor/user/delete")
-	public String todoINforUserDelete(@ModelAttribute UserTodo userTodo,
+	@PostMapping("/todo/info/user/delete")
+	public String todoInForUserDelete(@ModelAttribute UserTodo userTodo,
 			@AuthenticationPrincipal CustomUserDetails loginUser, Model model) {
 
 		userTodo.setDeletedAt(LocalDateTime.now());
@@ -287,7 +289,7 @@ public class TodoController {
 
 		todoService.deleteUserTodo(userTodo);
 
-		return "redirect:/todo/infor?id=" + userTodo.getTodoId();
+		return "redirect:/todo/info?id=" + userTodo.getTodoId();
 	}
 
 }

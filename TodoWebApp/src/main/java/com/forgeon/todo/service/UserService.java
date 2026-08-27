@@ -28,12 +28,12 @@ public class UserService {
 		return userMapper.getUsers();
 	}
 
-	public List<User> searchUsers(String name) {
-		return userMapper.searchUsers(name);
+	public List<User> searchUsers(User user) {
+		return userMapper.searchUsers(user);
 	}
 
-	public User getUserInfor(Integer id) {
-		return userMapper.getUserInfor(id);
+	public User getUserInfo(Integer id) {
+		return userMapper.getUserInfo(id);
 	}
 
 	public boolean existsUser(Integer id, Integer loginId, String role) {
@@ -41,12 +41,20 @@ public class UserService {
 		return !("ROLE_TODO".equals(role) && !(id.equals(loginId)));
 
 	}
+	
+	public boolean existsByName(Integer id,String name) {
+	    return userMapper.existsByName(id,name);
+	}
+	
+	public boolean existsByMail(Integer id,String mail) {
+	    return userMapper.existsByMail(id,mail);
+	}
 
 	public String updateUser(User user, CustomUserDetails loginUser) {
 		try {
 
 			String loginRole = loginUser.getUser().getRole();
-			User dbUser = userMapper.getUserInfor(user.getId());
+			User dbUser = userMapper.getUserInfo(user.getId());
 
 			if (!"ROLE_ADMIN".equals(loginRole) && !dbUser.getRole().equals(user.getRole())) {
 				return "不正な操作です。";

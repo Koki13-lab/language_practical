@@ -24,7 +24,7 @@
 						</div>
 						<div class="row">
 							<label>パスワード :</label>
-							<input type="password" th:field="*{password}" maxlength="255" placeholder="パスワードを入力してください">
+							<input type="password" th:field="*{password}" maxlength="50" placeholder="パスワードを入力してください">
 						</div>
 						<div id="passwordError" style="color: red;"></div>
 						<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color:red;">

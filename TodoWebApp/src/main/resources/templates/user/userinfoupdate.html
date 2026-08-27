@@ -4,7 +4,7 @@
 <head>
 	<title>ホーム</title>
 	<link rel="stylesheet" th:href="@{/css/common/common.css}">
-	<link rel="stylesheet" th:href="@{/css/user/userinforupdate.css}">
+	<link rel="stylesheet" th:href="@{/css/user/userinfoupdate.css}">
 </head>
 
 <body>
@@ -16,26 +16,26 @@
 				<table border="1" class="table-a">
 					<tr>
 						<th>id</th>
-						<td th:text="${userInfor.id}"></td>
+						<td th:text="${userInfo.id}"></td>
 					</tr>
 					<tr>
 						<th>名前</th>
-						<td th:text="${userInfor.name}"></td>
+						<td th:text="${userInfo.name}"></td>
 					</tr>
 					<tr>
 						<th>メールアドレス</th>
-						<td th:text="${userInfor.mail}"></td>
+						<td th:text="${userInfo.mail}"></td>
 					</tr>
 					<tr>
 						<th>権限</th>
-						<td th:text="${userInfor.role == 'ROLE_ADMIN' ? '管理者' : userInfor.role == 'ROLE_TODO' ? 'TODO管理者' : 'ユーザー'}"></td>
+						<td th:text="${userInfo.role == 'ROLE_ADMIN' ? '管理者' : userInfo.role == 'ROLE_TODO' ? 'TODO管理者' : 'ユーザー'}"></td>
 					</tr>
 					<tr>
 						<th>備考</th>
-						<td th:text="${userInfor.remarks}"></td>
+						<td th:text="${userInfo.remarks}"></td>
 					</tr>
 				</table>
-				<form th:action="@{/user/infor/update/Complete}" th:object="${user}" method="post">
+				<form th:action="@{/user/info/update/Complete}" th:object="${user}" method="post">
 					<input type="hidden" th:field="*{id}">
 					<div class="row">
 						<label>名前 :</label>
@@ -76,5 +76,5 @@
 		<div th:replace="~{common/footer :: footer}"></div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-	<script th:src="@{/js/user/userinforupdate.js}"></script>
+	<script th:src="@{/js/user/userinfoupdate.js}"></script>
 </body>

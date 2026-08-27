@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.forgeon.todo.security.CustomUserDetails;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @Controller
 public class HomeController {
 	
@@ -16,6 +18,8 @@ public class HomeController {
 		String loginName = loginUser.getUser().getName();
 		
 		model.addAttribute("loginName", loginName);
+		model.addAttribute("hideUserList", true);
+		model.addAttribute("hideTodoList", true);
 		
 		return "home/home";
 	}

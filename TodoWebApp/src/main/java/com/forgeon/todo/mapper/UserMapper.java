@@ -4,6 +4,7 @@ package com.forgeon.todo.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.postgresql.util.PSQLException;
 
 import com.forgeon.todo.dto.User;
@@ -17,9 +18,9 @@ public interface UserMapper {
 	
 	List<User> getUsers();
 	
-	List<User> searchUsers(String name);
+	List<User> searchUsers(User user);
 	
-	User getUserInfor(Integer id);
+	User getUserInfo(Integer id);
 	
 	int updateUser(User user)throws PSQLException;
 	
@@ -28,5 +29,9 @@ public interface UserMapper {
 	void deleteUser(User user)throws PSQLException;
 	
 	boolean existsActiveUser(Integer id);
+	
+	boolean existsByName(@Param("id") Integer id,@Param("name")String name);
+	
+	boolean existsByMail(@Param("id")Integer id,@Param("mail")String mail);
 	
 }

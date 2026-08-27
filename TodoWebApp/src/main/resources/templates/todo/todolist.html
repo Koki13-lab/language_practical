@@ -9,14 +9,7 @@
 
 <body>
 	<div class="layout">
-		<header class="header">
-			<div class="title">アカウント - <span th:text="${loginName}"></span></div>
-			<div class="header-button">
-				<form th:action="@{/user/list}" method="get">
-					<button type="submit">ユーザーリストへ</button>
-				</form>
-			</div>
-		</header>
+		<div th:replace="~{common/header :: header}"></div>
 		<main class="main">
 			<h1>〇TODOリスト</h1>
 			<div class="main-area">
@@ -28,6 +21,7 @@
 					</div>
 					<div class="row">
 						<label>TODOの項目で絞込 : </label>
+						<input type="text" th:field="*{id}" placeholder="Todoidを指定">
 						<input type="text" th:field="*{title}" placeholder="検索したい題名を指定">
 						<select th:field="*{priority}">
 							<option value="">優先度を選択</option>
@@ -44,6 +38,7 @@
 								th:text="${category.category}">
 							</option>
 						</select>
+						<input type="text" th:field="*{content}" placeholder="備考で指定">
 						<button type="submit">ユーザーを絞込んで検索</button>
 					</div>
 				</form>
@@ -71,7 +66,7 @@
 								<td th:text="${todo.category}"></td>
 								<td th:text="${todo.content}"></td>
 								<td>
-									<form th:action="@{/todo/infor}" method="get">
+									<form th:action="@{/todo/info}" method="get">
 										<input type="hidden" name="id" th:value="${todo.id}">
 										<button type="submit">詳細情報</button>
 									</form>
@@ -90,16 +85,7 @@
 				</div>
 			</div>
 		</main>
-		<footer class="footer">
-			<p>Ⓒ 2026 RPC Inc.</p>
-			<div class="footer-button">
-				<form th:action="@{/home}" method="get">
-					<button type="submit">ホームへ戻る</button>
-				</form>
-				<form th:action="@{/logout}" method="post">
-					<button type="submit">ログアウト</button>
-				</form>
-			</div>
-		</footer>
+		<div th:replace="~{common/footer :: footer}"></div>
 	</div>
 </body>
+</html>

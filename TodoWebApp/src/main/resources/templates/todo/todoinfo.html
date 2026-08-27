@@ -4,7 +4,7 @@
 <head>
 	<title>ホーム</title>
 	<link rel="stylesheet" th:href="@{/css/common/common.css}">
-	<link rel="stylesheet" th:href="@{/css/todo/todoinfor.css}">
+	<link rel="stylesheet" th:href="@{/css/todo/todoinfo.css}">
 </head>
 
 <body>
@@ -22,28 +22,28 @@
 							<table border="1" class="table-a">
 								<tr>
 									<th>id</th>
-									<td th:text="${todoInfor.id}"></td>
+									<td th:text="${todoInfo.id}"></td>
 								</tr>
 								<tr>
 									<th>題名</th>
-									<td th:text="${todoInfor.title}"></td>
+									<td th:text="${todoInfo.title}"></td>
 								</tr>
 								<tr>
 									<th>優先度</th>
-									<td th:text="${todoInfor.priority == 1 ? '低' :
-													todoInfor.priority == 2 ? '中' : '高'}"></td>
+									<td th:text="${todoInfo.priority == 1 ? '低' :
+													todoInfo.priority == 2 ? '中' : '高'}"></td>
 								</tr>
 								<tr>
 									<th>期日</th>
-									<td th:text="${todoInfor.dueDate}"></td>
+									<td th:text="${todoInfo.dueDate}"></td>
 								</tr>
 								<tr>
 									<th>カテゴリー</th>
-									<td th:text="${todoInfor.category}"></td>
+									<td th:text="${todoInfo.category}"></td>
 								</tr>
 								<tr>
 									<th>内容</th>
-									<td th:text="${todoInfor.content}"></td>
+									<td th:text="${todoInfo.content}"></td>
 								</tr>
 							</table>
 						</div>
@@ -53,8 +53,8 @@
 					<div class="table-wrapper">
 						<div class="table-header">
 							<p>担当ユーザー</p>
-							<form th:action="@{/todo/infor/user/add}" th:object="${userTodo}" method="post">
-								<input type="hidden" name="todoId" th:value="${todoInfor.id}">
+							<form th:action="@{/todo/info/user/add}" th:object="${userTodo}" method="post">
+								<input type="hidden" name="todoId" th:value="${todoInfo.id}">
 								<input type="text" th:field="*{userId}" placeholder="追加したいユーザーidを指定">
 								<button type="submit">ユーザー追加</button>
 							</form>
@@ -71,13 +71,13 @@
 								<tbody>
 									<tr th:each="userTodo : ${userTodoList}">
 										<td th:text="${userTodo.userId}"></td>
-										<td><a th:href="@{/user/infor(id=${userTodo.userId})}"
+										<td><a th:href="@{/user/info(id=${userTodo.userId})}"
 												th:text="${userTodo.name}"></a>
 										</td>
 										<td>
-											<form th:action="@{/todo/infor/user/delete}" method="post">
+											<form th:action="@{/todo/info/user/delete}" method="post">
 												<input type="hidden" name="id" th:value="${userTodo.id}">
-												<input type="hidden" name="todoId" th:value="${todoInfor.id}">
+												<input type="hidden" name="todoId" th:value="${todoInfo.id}">
 												<button type="submit">登録解除</button>
 											</form>
 										</td>
@@ -89,8 +89,8 @@
 					<div class="table-wrapper">
 						<div class="table-header">
 							<p>参照 : ユーザー検索</p>
-							<form th:action="@{/todo/infor/user/search}" th:object="${user}" method="get">
-								<input type="hidden" name="todoId" th:value="${todoInfor.id}">
+							<form th:action="@{/todo/info/user/search}" th:object="${user}" method="get">
+								<input type="hidden" name="todoId" th:value="${todoInfo.id}">
 								<input type="text" name="name" th:value="${name}" placeholder="検索したい名前を指定">
 								<button type="submit">絞り込み検索</button>
 							</form>
@@ -108,7 +108,7 @@
 									<tr th:each="user : ${userList}">
 										<td th:text="${user.id}"></td>
 										<td th:text="${user.name}"></td>
-										<td t:text="${user.mail}"></td>
+										<td th:text="${user.mail}"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -118,12 +118,12 @@
 				</div>
 
 				<div class="row button-row">
-					<form th:action="@{/todo/infor/update}" method="get">
-						<input type="hidden" name="id" th:value="${todoInfor.id}">
+					<form th:action="@{/todo/info/update}" method="get">
+						<input type="hidden" name="id" th:value="${todoInfo.id}">
 						<button class="action-button" type="submit">todo情報更新</button>
 					</form>
-					<form th:action="@{/todo/infor/delete}" method="get">
-						<input type="hidden" name="id" th:value="${todoInfor.id}">
+					<form th:action="@{/todo/info/delete}" method="get">
+						<input type="hidden" name="id" th:value="${todoInfo.id}">
 						<button class="action-button" type="submit">todo削除</button>
 					</form>
 				</div>

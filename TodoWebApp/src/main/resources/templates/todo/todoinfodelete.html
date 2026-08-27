@@ -4,7 +4,7 @@
 <head>
 	<title>ホーム</title>
 	<link rel="stylesheet" th:href="@{/css/common/common.css}">
-	<link rel="stylesheet" th:href="@{/css/todo/todoinfordelete.css}">
+	<link rel="stylesheet" th:href="@{/css/todo/todoinfodelete.css}">
 </head>
 
 <body>
@@ -20,28 +20,28 @@
 							<table border="1" class="table-a">
 								<tr>
 									<th>id</th>
-									<td th:text="${todoInfor.id}"></td>
+									<td th:text="${todoInfo.id}"></td>
 								</tr>
 								<tr>
 									<th>題名</th>
-									<td th:text="${todoInfor.title}"></td>
+									<td th:text="${todoInfo.title}"></td>
 								</tr>
 								<tr>
 									<th>優先度</th>
-									<td th:text="${todoInfor.priority == 1 ? '低' :
-									todoInfor.priority == 2 ? '中' : '高'}"></td>
+									<td th:text="${todoInfo.priority == 1 ? '低' :
+									todoInfo.priority == 2 ? '中' : '高'}"></td>
 								</tr>
 								<tr>
 									<th>期日</th>
-									<td th:text="${todoInfor.dueDate}"></td>
+									<td th:text="${todoInfo.dueDate}"></td>
 								</tr>
 								<tr>
 									<th>カテゴリー</th>
-									<td th:text="${todoInfor.category}"></td>
+									<td th:text="${todoInfo.category}"></td>
 								</tr>
 								<tr>
 									<th>　内容</th>
-									<td th:text="${todoInfor.content}"></td>
+									<td th:text="${todoInfo.content}"></td>
 								</tr>
 							</table>
 						</div>
@@ -61,7 +61,7 @@
 
 									<tr th:each="userTodo : ${userTodoList}">
 										<td th:text="${userTodo.userId}"></td>
-										<td><a th:href="@{/user/infor(id=${userTodo.userId})}"
+										<td><a th:href="@{/user/info(id=${userTodo.userId})}"
 												th:text="${userTodo.name}"></a></td>
 									</tr>
 								</tbody>
@@ -69,8 +69,8 @@
 						</div>
 					</div>
 				</div>
-				<form th:action="@{/todo/infor/delete}" method="post">
-					<input type="hidden" name="id" th:value="${todoInfor.id}">
+				<form th:action="@{/todo/info/delete}" method="post">
+					<input type="hidden" name="id" th:value="${todoInfo.id}">
 					<button class="action-button" type="submit">todo削除</button>
 				</form>
 			</div>

@@ -15,38 +15,40 @@
 		dueDate,c.category,t.content FROM todo AS t JOIN category AS c on
 		t.category_id = c.id LEFT JOIN user_todo AS ut ON t.id = ut.todo_id LEFT
 		JOIN users AS u ON ut.user_id = u.id <where>
+		
+			<if test="id != null">
+				AND t.id = #{id}
+			</if>
 
 			<if test="title != null and title != ''">
 				AND t.title ILIKE '%' || #{title} || '%'
 			</if>
 
-			<if
-				test="priority != null">
+			<if test="priority != null">
 				AND t.priority = #{priority}
 			</if>
 
-			<if
-				test="dueDateFrom != null">
+			<if test="dueDateFrom != null">
 				AND t.due_date &gt;= #{dueDateFrom}
 			</if>
 
-			<if
-				test="dueDateTo != null">
+			<if test="dueDateTo != null">
 				AND t.due_date &lt;= #{dueDateTo}
 			</if>
 
-			<if
-				test="categoryId != null">
+			<if test="categoryId != null">
 				AND t.category_id = #{categoryId}
 			</if>
+			
+			<if test="content != null and content != ''">
+				AND t.content ILIKE '%' || #{content} || '%'
+			</if>
 
-			<if
-				test="userId != null">
+			<if test="userId != null">
 				AND ut.user_id = #{userId}
 			</if>
 
-			<if
-				test="name != null and name != ''">
+			<if test="name != null and name != ''">
 				AND u.name ILIKE '%' || #{name} || '%'
 			</if> AND t.deleted
 		!= true </where> ORDER BY id ASC </select>
@@ -58,7 +60,7 @@
 
 	<select id="pickTodo" resultType="com.forgeon.todo.dto.Todo">
 		SELECT t.id,t.title,t.priority,t.due_date AS
-		dueDate,c.category,t.content FROM todo AS t JOIN category AS c on
+		dueDate,t.category_id AS categoryId,c.category,t.content FROM todo AS t JOIN category AS c on
 		t.category_id = c.id
 		WHERE t.id = #{id} AND t.deleted != true;
 	</select>

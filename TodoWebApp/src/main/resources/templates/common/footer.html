@@ -4,6 +4,10 @@
 	<footer th:fragment="footer" class="footer">
 		<p>Ⓒ 2026 RPC Inc.</p>
 		<div class="footer-button">
+			<form th:if="${from == 'userinfor'}" th:action="@{/user/infor}" method="get">
+				<input type="hidden" name="id" th:value="${todo.userId}">
+				<button type="submit">ユーザー詳細へ戻る</button>
+			</form>
 			<form th:action="@{/home}" method="get">
 				<button type="submit">ホームへ戻る</button>
 			</form>

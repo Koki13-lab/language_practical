@@ -9,20 +9,22 @@
 
 <body>
 	<div class="layout">
-		<header class="header">
-			<div class="title">アカウント - <span th:text="${loginName}"></span></div>
-			<div class="header-button">
-				<form th:action="@{/todo/list}" method="get">
-					<button type="submit">todoリストへ</button>
-				</form>
-			</div>
-		</header>
+		<div th:replace="~{common/header :: header}"></div>
 		<main class="main">
 			<h1>〇ユーザーリスト</h1>
 			<div class="main-area">
-				<form th:action="@{/user/list/search}" method="get">
+				<form th:action="@{/user/list/search}" th:object="${user}" method="get">
 					<label>ユーザー検索　: </label>
-					<input type="text" name="name" th:value="${name}" placeholder="検索したい名前を入力してください">
+					<input type="text" th:field="*{id}" placeholder="検索したいidを入力してください">
+					<input type="text" th:field="*{name}" placeholder="検索したい名前を入力してください">
+					<input type="text" th:field="*{mail}" placeholder="検索したいメールアドレスを入力してください">
+					<select th:field="*{role}">
+						<option value="">検索したい権限を選択</option>
+						<option value="ROLE_ADMIN">管理者</option>
+						<option value="ROLE_USER">ユーザー</option>
+						<option value="ROLE_TODO">Todo管理者</option>
+					</select>
+					<input type="text" th:field="*{remarks}" placeholder="検索したい備考を入力してください">
 					<button type="submit">ユーザーを絞り込んで検索</button>
 				</form>
 				<div class="table-area">
@@ -45,7 +47,7 @@
 								<td th:text="${user.role == 'ROLE_ADMIN' ? '管理者' : user.role == 'ROLE_TODO' ? 'TODO管理者' : 'ユーザー'}"></td>
 								<td th:text="${user.remarks}"></td>
 								<td>
-									<form th:action="@{/user/infor}" method="get">
+									<form th:action="@{/user/info}" method="get">
 										<input type="hidden" name="id" th:value="${user.id}">
 										<button type="submit">詳細情報</button>
 									</form>
@@ -64,16 +66,6 @@
 				</div>
 			</div>
 		</main>
-		<footer class="footer">
-			<p>Ⓒ 2026 RPC Inc.</p>
-			<div class="footer-button">
-				<form th:action="@{/home}" method="get">
-					<button type="submit">ホームへ戻る</button>
-				</form>
-				<form th:action="@{/logout}" method="post">
-					<button type="submit">ログアウト</button>
-				</form>
-			</div>
-		</footer>
+		<div th:replace="~{common/footer :: footer}"></div>
 	</div>
 </body>

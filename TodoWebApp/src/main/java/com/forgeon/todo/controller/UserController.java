@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.forgeon.todo.dto.Todo;
 import com.forgeon.todo.dto.User;
 import com.forgeon.todo.security.CustomUserDetails;
 import com.forgeon.todo.service.UserService;
@@ -28,7 +29,7 @@ public class UserController {
 	UserService userService;
 
 	@GetMapping("user/list")
-	public String userList(@AuthenticationPrincipal CustomUserDetails loginUser, Model model) {
+	public String userList(@AuthenticationPrincipal CustomUserDetails loginUser,Model model) {
 
 		String loginName = loginUser.getUser().getName();
 
@@ -38,20 +39,22 @@ public class UserController {
 			String noneU = "ユーザーのデータはありません。　";
 			model.addAttribute("dataU", noneU);
 		}
-
+		
+		model.addAttribute("user", new User());
 		model.addAttribute("userList", userList);
 		model.addAttribute("loginName", loginName);
+		model.addAttribute("hideUserList", true);
 
 		return "user/userlist";
 	}
 
 	@GetMapping("user/list/search")
-	public String userSearch(@RequestParam("name") String name, @AuthenticationPrincipal CustomUserDetails loginUser,
+	public String userSearch(@ModelAttribute User user, @AuthenticationPrincipal CustomUserDetails loginUser,
 			Model model) {
 
 		String loginName = loginUser.getUser().getName();
 
-		List<User> userList = userService.searchUsers(name);
+		List<User> userList = userService.searchUsers(user);
 
 		if (userList.isEmpty()) {
 			String noneU = "ユーザーのデータはありません。　";
@@ -60,66 +63,75 @@ public class UserController {
 
 		model.addAttribute("userList", userList);
 		model.addAttribute("loginName", loginName);
+		model.addAttribute("hideUserList", true);
 
 		return "user/userlist";
 
 	}
 
-	@GetMapping("user/infor")
-	public String userInfor(@RequestParam("id") Integer id, @AuthenticationPrincipal CustomUserDetails loginUser,
+	@GetMapping("user/info")
+	public String userInfo(@RequestParam("id") Integer id, @AuthenticationPrincipal CustomUserDetails loginUser,
 			Model model) {
 
 		String loginName = loginUser.getUser().getName();
 
-		User userInfor = userService.getUserInfor(id);
+		User userInfo = userService.getUserInfo(id);
 
 		model.addAttribute("user", new User());
-		model.addAttribute("userInfor", userInfor);
+		model.addAttribute("userInfo", userInfo);
 		model.addAttribute("loginName", loginName);
 
-		return "user/userinfor";
+		return "user/userinfo";
 	}
 
-	@GetMapping("/user/infor/update")
-	public String userInforUpdate(@RequestParam("id") Integer id, @AuthenticationPrincipal CustomUserDetails loginUser,
+	@GetMapping("/user/info/update")
+	public String userInfoUpdate(@RequestParam("id") Integer id, @AuthenticationPrincipal CustomUserDetails loginUser,
 			RedirectAttributes redirectAttributes, Model model) {
 
-		User userInfor = userService.getUserInfor(id);
-		User user = userService.getUserInfor(id);
+		User userInfo = userService.getUserInfo(id);
+		User user = userService.getUserInfo(id);
 
 		if (!userService.existsUser(id, loginUser.getId(), loginUser.getUser().getRole())) {
 
 			redirectAttributes.addFlashAttribute("messageU", "他ユーザーの情報は編集できません。");
 
-			return "redirect:/user/infor?id=" + id;
+			return "redirect:/user/info?id=" + id;
 		}
 
 		String loginName = loginUser.getUser().getName();
 
 		model.addAttribute("user", user);
-		model.addAttribute("userInfor", userInfor);
+		model.addAttribute("userInfo", userInfo);
 		model.addAttribute("isSelf", id.equals(loginUser.getUser().getId()));
 		model.addAttribute("loginName", loginName);
 
-		return "user/userinforupdate";
+		return "user/userinfoupdate";
 	}
 
-	@PostMapping("/user/infor/update/Complete")
-	public String userInforUpdateComplete(@Valid @ModelAttribute User user, BindingResult result,
+	@PostMapping("/user/info/update/Complete")
+	public String userInfoUpdateComplete(@Valid @ModelAttribute User user, BindingResult result,
 			@AuthenticationPrincipal CustomUserDetails loginUser, RedirectAttributes redirectAttributes, Model model) {
 
 		String loginName = loginUser.getUser().getName();
+		
+		if (userService.existsByName(user.getId(),user.getName())) {
+	        result.rejectValue("name", null, "既に登録されている名前です。");
+	    }
+		
+		if (userService.existsByMail(user.getId(),user.getMail())) {
+	        result.rejectValue("mail", null, "既に登録されているメールアドレスです。");
+	    }
 
 		if (result.hasErrors()) {
 
-			User userInfor = userService.getUserInfor(user.getId());
+			User userInfo = userService.getUserInfo(user.getId());
 
 			model.addAttribute("user", user);
-			model.addAttribute("userInfor", userInfor);
+			model.addAttribute("userInfo", userInfo);
 			model.addAttribute("isSelf", user.getId().equals(loginUser.getUser().getId()));
 			model.addAttribute("loginName", loginName);
 
-			return "user/userinforupdate";
+			return "user/userinfoupdate";
 		}
 
 		user.setUpdatedAt(LocalDateTime.now());
@@ -132,39 +144,41 @@ public class UserController {
 			return "redirect:/user/list";
 		}
 
-		User userInfor = userService.getUserInfor(user.getId());
+		User userInfo = userService.getUserInfo(user.getId());
 
 		model.addAttribute("user", user);
-		model.addAttribute("userInfor", userInfor);
+		model.addAttribute("userInfo", userInfo);
+		model.addAttribute("isSelf", user.getId().equals(loginUser.getUser().getId()));
 		model.addAttribute("loginName", loginName);
+		model.addAttribute("messageU",message);
 
-		return "user/userinforupdate";
+		return "user/userinfoupdate";
 
 	}
 
-	@GetMapping("/user/infor/delete")
-	public String userInforDelete(@RequestParam("id") Integer id, @AuthenticationPrincipal CustomUserDetails loginUser,
+	@GetMapping("/user/info/delete")
+	public String userInfoDelete(@RequestParam("id") Integer id, @AuthenticationPrincipal CustomUserDetails loginUser,
 			RedirectAttributes redirectAttributes, Model model) {
 
 		if (!userService.existsUser(id, loginUser.getId(), loginUser.getUser().getRole())) {
 
 			redirectAttributes.addFlashAttribute("messageU", "他ユーザーの情報は編集できません。");
 
-			return "redirect:/user/infor?id=" + id;
+			return "redirect:/user/info?id=" + id;
 		}
 
 		String loginName = loginUser.getUser().getName();
-		User userInfor = userService.getUserInfor(id);
+		User userInfo = userService.getUserInfo(id);
 
-		model.addAttribute("userInfor", userInfor);
+		model.addAttribute("userInfo", userInfo);
 		model.addAttribute("loginName", loginName);
 
-		return "user/userinfordelete";
+		return "user/userinfodelete";
 
 	}
 
-	@PostMapping("/user/infor/delete")
-	public String userInforDeleteComplete(@RequestParam("id") Integer id,
+	@PostMapping("/user/info/delete")
+	public String userInfoDeleteComplete(@RequestParam("id") Integer id,
 			@AuthenticationPrincipal CustomUserDetails loginUser, HttpServletRequest request, Model model) {
 
 		String loginName = loginUser.getUser().getName();
@@ -185,7 +199,7 @@ public class UserController {
 
 		model.addAttribute("loginName", loginName);
 
-		return "user/userinfordeleteconmplete";
+		return "user/userinfodeleteconmplete";
 
 	}
 
@@ -198,7 +212,7 @@ public class UserController {
 		model.addAttribute("user", new User());
 		model.addAttribute("loginName", loginName);
 
-		return "user/userAdd";
+		return "user/useradd";
 
 	}
 
@@ -213,6 +227,14 @@ public class UserController {
 		if ("ROLE_ADMIN".equals(user.getRole()) && !"ROLE_ADMIN".equals(loginUser.getUser().getRole())) {
 			result.rejectValue("role", null, "管理者のみ管理者を登録できます。");
 		}
+		
+		if (userService.existsByName(user.getId(),user.getName())) {
+	        result.rejectValue("name", null, "既に登録されている名前です。");
+	    }
+		
+		if (userService.existsByMail(user.getId(),user.getMail())) {
+	        result.rejectValue("mail", null, "既に登録されているメールアドレスです。");
+	    }
 
 		if (result.hasErrors()) {
 
@@ -220,7 +242,7 @@ public class UserController {
 
 			model.addAttribute("loginName", loginName);
 
-			return "user/userAdd";
+			return "user/useradd";
 		}
 
 		user.setCreatedBy(loginUser.getId());

@@ -4,7 +4,7 @@
 <head>
 	<title>ホーム</title>
 	<link rel="stylesheet" th:href="@{/css/common/common.css}">
-	<link rel="stylesheet" th:href="@{/css/todo/todoinforupdate.css}">
+	<link rel="stylesheet" th:href="@{/css/todo/todoinfoupdate.css}">
 </head>
 
 <body>
@@ -41,7 +41,7 @@
 					</tr>
 				</table>
 				<div class="row">
-					<form th:action="@{/todo/infor/update}" th:object="${todo}" method="post">
+					<form th:action="@{/todo/info/update}" th:object="${todo}" method="post">
 						<input type="hidden" th:field="*{id}">
 						<div class="row">
 							<label>題名 :</label>
@@ -88,5 +88,5 @@
 		<div th:replace="~{common/footer :: footer}"></div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-	<script th:src="@{/js/todo/todoinforupdate.js}"></script>
+	<script th:src="@{/js/todo/todoinfoupdate.js}"></script>
 </body>

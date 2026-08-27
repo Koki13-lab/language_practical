@@ -9,9 +9,7 @@
 
 <body>
 	<div class="layout">
-		<header class="header">
-			<div class="title">アカウント - <span th:text="${loginName}"></span></div>
-		</header>
+		<div th:replace="~{common/header :: header}"></div>
 		<main class="main">
 			<div class="form-area">
 				<h1>ようこそ <span th:text="${loginName}"></span> さん</h1>
@@ -25,13 +23,6 @@
 				</div>
 			</div>
 		</main>
-		<footer class="footer">
-			<p>Ⓒ 2026 RPC Inc.</p>
-			<div class="footer-button">
-				<form th:action="@{/logout}" method="post">
-					<button type="submit">ログアウト</button>
-				</form>
-			</div>
-		</footer>
+		<div th:replace="~{common/footer :: footer}"></div>
 	</div>
 </body>

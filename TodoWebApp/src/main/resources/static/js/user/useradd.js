@@ -7,8 +7,8 @@ $("#name").on("input", function() {
 });
 
 $("#password").on("input", function() {
-    if ($(this).val().length >= 255) {
-        $("#passwordError").text("パスワードは255文字までです。");
+    if ($(this).val().length >= 50) {
+        $("#passwordError").text("パスワードは50文字までです。");
     } else {
         $("#passwordError").text("");
     }
