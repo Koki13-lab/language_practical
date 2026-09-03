@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>ホーム</title>
+	<link rel="stylesheet" th:href="@{/css/common/common.css}">
+	<link rel="stylesheet" th:href="@{/css/todo/todoinfo.css}">
+</head>
+
+<body>
+	<div class="layout">
+		<div th:replace="~{common/header :: header}"></div>
+		<main class="main">
+			<h1>〇TODO詳細画面</h1>
+			<div class="main-area">
+				<div class="row">
+					<div class="table-wrapper">
+						<div class="table-header">
+							<h3>TODO詳細</h3>
+						</div>
+						<div class=" table-area">
+							<table border="1" class="table-a">
+								<tr>
+									<th>id</th>
+									<td th:text="${todoInfo.id}"></td>
+								</tr>
+								<tr>
+									<th>題名</th>
+									<td th:text="${todoInfo.title}"></td>
+								</tr>
+								<tr>
+									<th>優先度</th>
+									<td th:text="${todoInfo.priority == 1 ? '低' :
+													todoInfo.priority == 2 ? '中' : '高'}"></td>
+								</tr>
+								<tr>
+									<th>期日</th>
+									<td th:text="${todoInfo.dueDate}"></td>
+								</tr>
+								<tr>
+									<th>カテゴリー</th>
+									<td th:text="${todoInfo.category}"></td>
+								</tr>
+								<tr>
+									<th>内容</th>
+									<td th:text="${todoInfo.content}"></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="table-wrapper">
+						<div class="table-header">
+							<p>担当ユーザー</p>
+							<form th:action="@{/todo/info/user/add}" th:object="${userTodo}" method="post">
+								<input type="hidden" name="todoId" th:value="${todoInfo.id}">
+								<input type="text" th:field="*{userId}" placeholder="追加したいユーザーidを指定">
+								<button type="submit">ユーザー追加</button>
+							</form>
+						</div>
+						<div class="table-area">
+							<table border="1" class="table-b">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>名前</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="userTodo : ${userTodoList}">
+										<td th:text="${userTodo.userId}"></td>
+										<td><a th:href="@{/user/info(id=${userTodo.userId})}"
+												th:text="${userTodo.name}"></a>
+										</td>
+										<td>
+											<form th:action="@{/todo/info/user/delete}" method="post">
+												<input type="hidden" name="id" th:value="${userTodo.id}">
+												<input type="hidden" name="todoId" th:value="${todoInfo.id}">
+												<button type="submit">登録解除</button>
+											</form>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="table-wrapper">
+						<div class="table-header">
+							<p>参照 : ユーザー検索</p>
+							<form th:action="@{/todo/info/user/search}" th:object="${user}" method="get">
+								<input type="hidden" name="todoId" th:value="${todoInfo.id}">
+								<input type="text" name="name" th:value="${name}" placeholder="検索したい名前を指定">
+								<button type="submit">絞り込み検索</button>
+							</form>
+						</div>
+						<div class="table-area">
+							<table border="1" class="table-c">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>名前</th>
+										<th>メールアドレス</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="user : ${userList}">
+										<td th:text="${user.id}"></td>
+										<td th:text="${user.name}"></td>
+										<td th:text="${user.mail}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="row button-row">
+					<form th:action="@{/todo/info/update}" method="get">
+						<input type="hidden" name="id" th:value="${todoInfo.id}">
+						<button class="action-button" type="submit">todo情報更新</button>
+					</form>
+					<form th:action="@{/todo/info/delete}" method="get">
+						<input type="hidden" name="id" th:value="${todoInfo.id}">
+						<button class="action-button" type="submit">todo削除</button>
+					</form>
+				</div>
+				<span>ステータス　: </span>
+				<span th:if="${dataT}" th:text="${dataT}" style="color: red;"></span>
+				<span th:if="${messageT}" th:text="${messageT}" style="color: red;"></span>
+			</div>
+		</main>
+		<div th:replace="~{common/footer :: footer}"></div>
+	</div>
+</body>

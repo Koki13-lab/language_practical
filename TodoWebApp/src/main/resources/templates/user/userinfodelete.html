@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>ホーム</title>
+	<link rel="stylesheet" th:href="@{/css/common/common.css}">
+	<link rel="stylesheet" th:href="@{/css/user/userinfodelete.css}">
+</head>
+
+<body>
+	<div class="layout">
+		<div th:replace="~{common/header :: header}"></div>
+		<main class="main">
+			<h1>〇ユーザー詳細画面</h1>
+			<div class="main-area">
+				<h1>本当に削除しますか？</h1>
+				<table border="1" class="table-a">
+					<tr>
+						<th>id</th>
+						<td th:text="${userInfo.id}"></td>
+					</tr>
+					<tr>
+						<th>名前</th>
+						<td th:text="${userInfo.name}"></td>
+					</tr>
+					<tr>
+						<th>メールアドレス</th>
+						<td th:text="${userInfo.mail}"></td>
+					</tr>
+					<tr>
+						<th>権限</th>
+						<td th:text="${userInfo.role == 'ROLE_ADMIN' ? '管理者' : userInfo.role == 'ROLE_TODO' ? 'TODO管理者' : 'ユーザー'}"></td>
+					</tr>
+					<tr>
+						<th>備考</th>
+						<td th:text="${userInfo.remarks}"></td>
+					</tr>
+				</table>
+				<form th:action="@{/user/info/delete}" method="post">
+					<input type="hidden" name="id" th:value="${userInfo.id}">
+					<button class="action-button" type="submit">ユーザー情報削除 </button>
+				</form>
+			</div>
+		</main>
+		<div th:replace="~{common/footer :: footer}"></div>
+	</div>
+</body>

@@ -1,0 +1,24 @@
+package com.forgeon.todo.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class LoginController {
+	
+	@GetMapping("/")
+	public String start() {
+		return "redirect:/login";
+	}
+	
+	@GetMapping("/login")
+	public String login() {
+		return "auth/login";
+	}
+	
+	@GetMapping("/logout-complete")
+	public String logout() {
+		return "auth/logout";
+	}
+
+}

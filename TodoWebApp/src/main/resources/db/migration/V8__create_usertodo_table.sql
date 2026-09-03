@@ -1,0 +1,9 @@
+CREATE TABLE user_todo(
+	id SERIAL PRIMARY KEY,
+	
+	user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+	todo_id INT NOT NULL REFERENCES todo(id) ON DELETE CASCADE,
+	
+	UNIQUE(user_id, todo_id)
+
+)

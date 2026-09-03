@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>ユーザー追加</title>
+	<link rel="stylesheet" th:href="@{/css/common/common.css}">
+	<link rel="stylesheet" th:href="@{/css/user/useradd.css}">
+</head>
+
+<body>
+	<div class="layout">
+		<div th:replace="~{common/header :: header}"></div>
+		<main class="main">
+			<h1>〇ユーザー追加画面</h1>
+			<div class="main-area">
+				<div class="row">
+					<form th:action="@{/user/add}" th:object="${user}" method="post">
+						<div class="row">
+							<label>名前 :</label>
+							<input type="text" th:field="*{name}" maxlength="50"  placeholder="名前を入力してください">
+						</div>
+						<div id="nameError" style="color: red;"></div>
+						<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red;">
+						</div>
+						<div class="row">
+							<label>パスワード :</label>
+							<input type="password" th:field="*{password}" maxlength="50" placeholder="パスワードを入力してください">
+						</div>
+						<div id="passwordError" style="color: red;"></div>
+						<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color:red;">
+						</div>
+						<div class="row">
+							<label>メールアドレス :</label>
+							<input type="text" th:field="*{mail}" maxlength="256" placeholder="メールアドレスを入力してください">
+						</div>
+						<div id="mailError" style="color: red;"></div>
+						<div th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}" style="color:red;">
+						</div>
+						<div class="row">
+							<label>権限 :</label>
+							<select th:field="*{role}">
+								<option th:if="${isAdmin}" value="ROLE_ADMIN">管理者</option>
+								<option value="ROLE_USER">ユーザー</option>
+								<option value="ROLE_TODO">TODO管理者</option>
+							</select>
+						</div>
+						<div th:if="${#fields.hasErrors('role')}" th:errors="*{role}" style="color:red;">
+						</div>
+						<div class="row">
+							<label>備考 :</label>
+							<textarea th:field="*{remarks}" maxlength="2000" rows="20" cols="100"
+								placeholder="備考がある場合は入力してください。"></textarea>
+						</div>
+						<div id="remarksError" style="color: red;"></div>
+						<button class="action-button" type="submit">登録する</button>
+					</form>
+				</div>
+			</div>
+		</main>
+		<div th:replace="~{common/footer :: footer}"></div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script th:src="@{/js/user/useradd.js}"></script>
+</body>
+</html>

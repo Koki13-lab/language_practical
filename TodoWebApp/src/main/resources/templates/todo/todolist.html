@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>ホーム</title>
+	<link rel="stylesheet" th:href="@{/css/common/common.css}">
+	<link rel="stylesheet" th:href="@{/css/todo/todolist.css}">
+</head>
+
+<body>
+	<div class="layout">
+		<div th:replace="~{common/header :: header}"></div>
+		<main class="main">
+			<h1>〇TODOリスト</h1>
+			<div class="main-area">
+				<form th:action="@{/todo/list/search}" th:object="${todo}" method="get">
+					<div class="row">
+						<label>ユーザーの情報で絞込　: </label>
+						<input type="text" th:field="*{userId}" placeholder="ユーザーidを指定">
+						<input type="text" th:field="*{name}" placeholder="ユーザー名を指定">
+					</div>
+					<div class="row">
+						<label>TODOの項目で絞込 : </label>
+						<input type="text" th:field="*{id}" placeholder="Todoidを指定">
+						<input type="text" th:field="*{title}" placeholder="検索したい題名を指定">
+						<select th:field="*{priority}">
+							<option value="">優先度を選択</option>
+							<option value="1">低</option>
+							<option value="2">中</option>
+							<option value="3">高</option>
+						</select>
+						<input type="date" th:field="*{dueDateFrom}" placeholder="検索したい題名を指定">
+						<label>～</label>
+						<input type="date" th:field="*{dueDateTo}" placeholder="検索したい題名を指定">
+						<select th:field="*{categoryId}">
+							<option value="">カテゴリを選択</option>
+							<option th:each="category : ${categoryList}" th:value="${category.id}"
+								th:text="${category.category}">
+							</option>
+						</select>
+						<input type="text" th:field="*{content}" placeholder="備考で指定">
+						<button type="submit">ユーザーを絞込んで検索</button>
+					</div>
+				</form>
+				<div class="table-area">
+					<table border="1" class="table-a">
+						<thead>
+							<tr>
+								<th>id</th>
+								<th>題名
+								<th>優先度</th>
+								<th>期日</th>
+								<th>カテゴリー</th>
+								<th>内容</th>
+								<th>詳細情報</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<tr th:each="todo : ${todoList}">
+								<td th:text="${todo.id}"></td>
+								<td th:text="${todo.title}"></td>
+								<td th:text="${todo.priority == 1 ? '低' :
+				todo.priority == 2 ? '中' : '高'}"></td>
+								<td th:text="${todo.dueDate}"></td>
+								<td th:text="${todo.category}"></td>
+								<td th:text="${todo.content}"></td>
+								<td>
+									<form th:action="@{/todo/info}" method="get">
+										<input type="hidden" name="id" th:value="${todo.id}">
+										<button type="submit">詳細情報</button>
+									</form>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<form th:action="@{/todo/add}" method="get">
+					<button class="action-button" type="submit">TODO追加</button>
+				</form>
+				<div class="row">
+					<span>ステータス　: </span>
+					<span th:if="${dataT}" th:text="${dataT}" style="color: red;"></span>
+					<span th:if="${messageT}" th:text="${messageT}" style="color: red;"></span>
+				</div>
+			</div>
+		</main>
+		<div th:replace="~{common/footer :: footer}"></div>
+	</div>
+</body>
+</html>

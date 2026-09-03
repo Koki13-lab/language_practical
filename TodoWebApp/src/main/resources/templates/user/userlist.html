@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>ホーム</title>
+	<link rel="stylesheet" th:href="@{/css/common/common.css}">
+	<link rel="stylesheet" th:href="@{/css/user/userlist.css}">
+</head>
+
+<body>
+	<div class="layout">
+		<div th:replace="~{common/header :: header}"></div>
+		<main class="main">
+			<h1>〇ユーザーリスト</h1>
+			<div class="main-area">
+				<form th:action="@{/user/list/search}" th:object="${user}" method="get">
+					<label>ユーザー検索　: </label>
+					<input type="text" th:field="*{id}" placeholder="検索したいidを入力してください">
+					<input type="text" th:field="*{name}" placeholder="検索したい名前を入力してください">
+					<input type="text" th:field="*{mail}" placeholder="検索したいメールアドレスを入力してください">
+					<select th:field="*{role}">
+						<option value="">検索したい権限を選択</option>
+						<option value="ROLE_ADMIN">管理者</option>
+						<option value="ROLE_USER">ユーザー</option>
+						<option value="ROLE_TODO">Todo管理者</option>
+					</select>
+					<input type="text" th:field="*{remarks}" placeholder="検索したい備考を入力してください">
+					<button type="submit">ユーザーを絞り込んで検索</button>
+				</form>
+				<div class="table-area">
+					<table border="1" class="table-a">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>名前</th>
+								<th>メールアドレス</th>
+								<th>権限</th>
+								<th>備考</th>
+								<th>詳細情報</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="user : ${userList}">
+								<td th:text="${user.id}"></td>
+								<td th:text="${user.name}"></td>
+								<td th:text="${user.mail}"></td>
+								<td th:text="${user.role == 'ROLE_ADMIN' ? '管理者' : user.role == 'ROLE_TODO' ? 'TODO管理者' : 'ユーザー'}"></td>
+								<td th:text="${user.remarks}"></td>
+								<td>
+									<form th:action="@{/user/info}" method="get">
+										<input type="hidden" name="id" th:value="${user.id}">
+										<button type="submit">詳細情報</button>
+									</form>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<form th:action="@{/user/add}" method="get">
+					<button class="action-button" type="submit">ユーザー追加</button>
+				</form>
+				<div class="row">
+					<span>ステータス　: </span>
+					<span th:if="${dataU}" th:text="${dataU}" style="color: red;"></span>
+					<span th:if="${messageU}" th:text="${messageU}" style="color: red;"></span>
+				</div>
+			</div>
+		</main>
+		<div th:replace="~{common/footer :: footer}"></div>
+	</div>
+</body>

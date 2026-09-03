@@ -1,0 +1,21 @@
+ALTER TABLE user_todo
+ADD COLUMN created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ADD COLUMN created_by INTEGER;
+
+
+UPDATE user_todo
+SET created_by = 1;
+
+
+ALTER TABLE user_todo
+ALTER COLUMN created_by SET NOT NULL;
+
+
+ALTER TABLE user_todo
+ADD COLUMN updated_at TIMESTAMP,
+ADD COLUMN updated_by INTEGER,
+
+ADD COLUMN deleted_at TIMESTAMP,
+ADD COLUMN deleted_by INTEGER,
+
+ADD COLUMN is_deleted BOOLEAN NOT NULL DEFAULT FALSE;

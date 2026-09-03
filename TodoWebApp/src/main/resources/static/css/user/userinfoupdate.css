@@ -1,0 +1,49 @@
+.main-area {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-height: 70vh;
+	width :100%;
+	gap: 10px;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.row {
+	display: flex;
+	gap: 10px;
+}
+
+/*--------------
+テーブル設定
+--------------*/
+
+.table-a {
+	width: 60%;
+}
+
+.table-a th:nth-child(1),
+.table-a td:nth-child(1) {
+	width: 10%;
+	white-space: nowrap;
+}
+
+.table-a th:nth-child(2),
+.table-a td:nth-child(2) {
+	overflow-wrap: break-word;
+}
+
+/*--------------
+ボタン設定
+--------------*/
+
+.main .action-button {
+	padding: 10px 20px;
+	cursor: pointer;
+	align-self: center;
+}
