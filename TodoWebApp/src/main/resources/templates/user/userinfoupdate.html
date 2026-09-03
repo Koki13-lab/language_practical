@@ -55,7 +55,7 @@
 						<div class="row">
 							<label>権限 :</label>
 							<select th:field="*{role}">
-								<option value="ROLE_ADMIN">管理者</option>
+								<option th:if="${isAdmin}" value="ROLE_ADMIN">管理者</option>
 								<option value="ROLE_USER">ユーザー</option>
 								<option value="ROLE_TODO">TODO管理者</option>
 							</select>

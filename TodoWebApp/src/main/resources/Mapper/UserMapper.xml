@@ -52,7 +52,9 @@
 	<select id="existsByName" resultType="boolean">
 		SELECT EXISTS (SELECT 1 FROM users
 		WHERE name= #{name}
+		<if test="id != null">
 		AND id != #{id}
+		</if>
 		AND deleted = false
 		)
 	</select>
@@ -60,7 +62,9 @@
 	<select id="existsByMail" resultType="boolean">
 		SELECT EXISTS (SELECT 1 FROM users
 		WHERE mail= #{mail}
+		<if test="id != null">
 		AND id != #{id}
+		</if>
 		AND deleted = false
 		)
 	</select>

@@ -49,8 +49,8 @@
 						<input type="hidden" name="id" th:value="${userInfo.id}">
 						<button class="action-button" type="submit">ユーザー情報削除 </button>
 					</form>
-					<span th:if="${messageU}" th:text="${messageU}" style="color: red;"></span>
 				</div>
+				<span th:if="${messageU}" th:text="${messageU}" style="color: red;"></span>
 			</div>
 		</main>
 		<div th:replace="~{common/footer :: footer}"></div>

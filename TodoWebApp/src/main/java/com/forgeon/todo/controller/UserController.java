@@ -103,6 +103,7 @@ public class UserController {
 		model.addAttribute("user", user);
 		model.addAttribute("userInfo", userInfo);
 		model.addAttribute("isSelf", id.equals(loginUser.getUser().getId()));
+		model.addAttribute("isAdmin", "ROLE_ADMIN".equals(loginUser.getUser().getRole()));
 		model.addAttribute("loginName", loginName);
 
 		return "user/userinfoupdate";
@@ -129,6 +130,7 @@ public class UserController {
 			model.addAttribute("user", user);
 			model.addAttribute("userInfo", userInfo);
 			model.addAttribute("isSelf", user.getId().equals(loginUser.getUser().getId()));
+			model.addAttribute("isAdmin", "ROLE_ADMIN".equals(loginUser.getUser().getRole()));
 			model.addAttribute("loginName", loginName);
 
 			return "user/userinfoupdate";
@@ -149,6 +151,7 @@ public class UserController {
 		model.addAttribute("user", user);
 		model.addAttribute("userInfo", userInfo);
 		model.addAttribute("isSelf", user.getId().equals(loginUser.getUser().getId()));
+		model.addAttribute("isAdmin", "ROLE_ADMIN".equals(loginUser.getUser().getRole()));
 		model.addAttribute("loginName", loginName);
 		model.addAttribute("messageU",message);
 
@@ -229,10 +232,12 @@ public class UserController {
 		}
 		
 		if (userService.existsByName(user.getId(),user.getName())) {
+			System.out.println("name");
 	        result.rejectValue("name", null, "既に登録されている名前です。");
 	    }
 		
 		if (userService.existsByMail(user.getId(),user.getMail())) {
+			System.out.println("mail");
 	        result.rejectValue("mail", null, "既に登録されているメールアドレスです。");
 	    }
 
@@ -240,6 +245,7 @@ public class UserController {
 
 			String loginName = loginUser.getUser().getName();
 
+			model.addAttribute("isAdmin", "ROLE_ADMIN".equals(loginUser.getUser().getRole()));
 			model.addAttribute("loginName", loginName);
 
 			return "user/useradd";
