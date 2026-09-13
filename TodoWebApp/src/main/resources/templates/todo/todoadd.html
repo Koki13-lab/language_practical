@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>TODO追加</title>
+	<link rel="stylesheet" th:href="@{/css/common/common.css}">
+	<link rel="stylesheet" th:href="@{/css/todo/todoadd.css}">
+</head>
+
+<body>
+	<div class="layout">
+		<div th:replace="~{common/header :: header}"></div>
+		<main class="main">
+			<h1>〇TODO追加画面</h1>
+			<div class="main-area">
+				<div class="row">
+					<form th:action="@{/todo/add}" th:object="${todo}" method="post">
+						<div class="row">
+							<label>題名 :</label>
+							<input type="text" th:field="*{title}" maxlength="50" placeholder="題名を入力してください">
+						</div>
+						<div id="titleError" style="color: red;"></div>
+						<div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color:red;">
+						</div>
+						<div class="row">
+							<label>優先度 :</label>
+							<select th:field="*{priority}">
+								<option value="1">低</option>
+								<option value="2">中</option>
+								<option value="3">高</option>
+							</select>
+						</div>
+						<div class="row">
+							<label>カテゴリ :</label>
+							<select th:field="*{categoryId}">
+								<option value="">カテゴリを選択</option>
+								<option th:each="category : ${categoryList}" th:value="${category.id}"
+									th:text="${category.category}">
+								</option>
+							</select>
+						</div>
+						<div th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}" style="color:red;">
+						</div>
+						<div class="row">
+							<label>期限 :</label>
+							<input type="date" th:field="*{dueDate}">
+						</div>
+						<div class="row">
+							<label>内容 :</label>
+							<textarea th:field="*{content}" maxlength="2000" rows="20" cols="100"
+								placeholder="内容がある場合は入力してください。"></textarea>
+						</div>
+						<div id="contentError" style="color: red;"></div>
+						<div th:if="${#fields.hasErrors('content')}" th:errors="*{content}" style="color:red;">
+						</div>
+						<button class="action-button" type="submit">登録する</button>
+					</form>
+				</div>
+			</div>
+		</main>
+		<div th:replace="~{common/footer :: footer}"></div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script th:src="@{/js/todo/todoadd.js}"></script>
+</body>

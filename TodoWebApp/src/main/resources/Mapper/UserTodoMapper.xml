@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forgeon.todo.mapper.UserTodoMapper">
+
+	<select id="getUserTodo" resultType="com.forgeon.todo.dto.UserTodo">
+		SELECT ut.id,ut.user_id AS userId,u.name FROM user_todo AS ut JOIN users
+		AS u ON ut.user_id = u.id
+		WHERE ut.todo_id = #{id} AND ut.deleted != true
+		ORDER BY id ASC
+	</select>
+
+	<select id="existsUserTodo" resultType="boolean">
+		SELECT EXISTS ( SELECT 1 FROM user_todo WHERE todo_id = #{todoId} AND
+		user_id = #{loginId} )
+	</select>
+	
+	<select id="existsActiveUserTodo" resultType="boolean">
+		SELECT EXISTS ( SELECT 1 FROM user_todo WHERE todo_id = #{todoId} AND
+		user_id = #{userId} AND deleted = false)
+	</select>
+
+	<insert id="insertUserTodo" parameterType="com.forgeon.todo.dto.UserTodo">
+		INSERT INTO user_todo(user_id,todo_id,created_by)
+		VALUES(#{userId},#{todoId},#{createdBy})
+	</insert>
+
+	<update id="deleteUserTodo" parameterType="com.forgeon.todo.dto.UserTodo">
+		UPDATE user_todo SET
+		deleted_at = #{deletedAt},deleted_by = #{deletedBy},deleted = #{deleted}
+		Where id = #{id}
+	</update>
+	
+	<update id="deleteUserTodoByUserId" parameterType="com.forgeon.todo.dto.UserTodo">
+		UPDATE user_todo SET
+		deleted_at = #{deletedAt},deleted_by = #{deletedBy},deleted = #{deleted}
+		Where user_id = #{userId}
+		AND deleted = false
+	</update>
+	
+	<update id="deleteUserTodoByTodoId" parameterType="com.forgeon.todo.dto.UserTodo">
+		UPDATE user_todo SET
+		deleted_at = #{deletedAt},deleted_by = #{deletedBy},deleted = #{deleted}
+		Where todo_id = #{todoId}
+		AND deleted = false
+	</update>
+
+</mapper>

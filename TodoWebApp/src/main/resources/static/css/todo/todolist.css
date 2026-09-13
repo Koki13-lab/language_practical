@@ -1,0 +1,110 @@
+.main-area {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-height: 70vh;
+	gap: 10px;
+}
+
+.main-area form {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.row {
+	display: flex;
+	gap: 10px;
+}
+
+/*--------------
+テーブル設定
+--------------*/
+
+.table-area {
+	width: 95%;
+	max-height: 400px;
+	overflow-y: auto;
+}
+
+.table-area th {
+	position: sticky;
+	top: 0;
+	background: white;
+}
+
+table {
+	width: 95%;
+}
+
+table th:nth-child(1),
+table td:nth-child(1) {
+	width: 5%;
+	white-space: nowrap;
+}
+
+table th:nth-child(2),
+table td:nth-child(2) {
+	width: 20%;
+	overflow-wrap: break-word;
+}
+
+table th:nth-child(3),
+table td:nth-child(3) {
+	width: 5%;
+	white-space: nowrap;
+}
+
+table th:nth-child(4),
+table td:nth-child(4) {
+	width: 5%;
+	white-space: nowrap;
+}
+
+table th:nth-child(5),
+table td:nth-child(5) {
+	width: 5%;
+	white-space: nowrap;
+}
+
+table th:nth-child(6),
+table td:nth-child(6) {
+	width: 55%;
+	overflow-wrap: break-word;
+}
+
+table th:nth-child(7),
+table td:nth-child(7) {
+	width: 5%;
+	white-space: nowrap;
+}
+
+th {
+	text-align: center;
+	padding: 3px;
+}
+
+td {
+	text-align: center;
+	padding: 3px;
+}
+
+td form {
+	display: flex;
+	justify-content: center;
+}
+
+.main button {
+	padding: 1px 3px;
+	cursor: pointer;
+}
+
+/*--------------
+ボタン設定
+--------------*/
+
+.main .action-button {
+	padding: 10px 20px;
+	cursor: pointer;
+}

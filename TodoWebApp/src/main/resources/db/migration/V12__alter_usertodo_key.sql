@@ -1,0 +1,2 @@
+ALTER TABLE user_todo
+DROP CONSTRAINT user_todo_user_id_todo_id_key;

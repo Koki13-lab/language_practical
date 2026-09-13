@@ -1,0 +1,95 @@
+.main-area {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-height: 80vh;
+	width: 100%;
+	gap: 10px;
+}
+
+.row {
+	width: 100%;
+	display: flex;
+		justify-content: center;
+	gap: 10px;
+	
+}
+
+/*--------------
+テーブル設定
+--------------*/
+.table-wrapper {
+	display: flex; 
+	padding-top: 15px;
+	flex-direction: column;
+	width: 100%;
+}
+
+.table-area {
+	max-height: 200px;
+	
+	overflow-y: auto;
+}
+
+.table-area th {
+	position: sticky;
+	top: 0;
+	background: white;
+}
+
+.table-a {
+	width: 60%;
+	margin: 0 auto;
+}
+
+.table-b{
+	width:40%;
+	margin: 0 auto;
+}
+
+.table-a th:nth-child(1),
+.table-a td:nth-child(1) {
+	width: 10%;
+	white-space: nowrap;
+}
+
+.table-a th:nth-child(2),
+.table-a td:nth-child(2) {
+	overflow-wrap: break-word;
+}
+
+.table-b th:nth-child(1),
+.table-b td:nth-child(1) {
+	width: 10%;
+	white-space: nowrap;
+}
+
+.table-b th:nth-child(2),
+.table-b td:nth-child(2) {
+	width: 65%;
+	overflow-wrap: break-word;
+}
+
+th {
+	text-align: center;
+	padding: 3px;
+}
+
+td {
+	text-align: center;
+	padding: 3px;
+}
+
+/*--------------
+ボタン設定
+--------------*/
+
+.button-row {
+	justify-content: center;
+}
+
+.main .action-button {
+	padding: 10px 20px;
+	cursor: pointer;
+}

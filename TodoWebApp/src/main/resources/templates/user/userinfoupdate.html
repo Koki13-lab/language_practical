@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>ホーム</title>
+	<link rel="stylesheet" th:href="@{/css/common/common.css}">
+	<link rel="stylesheet" th:href="@{/css/user/userinfoupdate.css}">
+</head>
+
+<body>
+	<div class="layout">
+		<div th:replace="~{common/header :: header}"></div>
+		<main class="main">
+			<h1>〇ユーザー情報更新</h1>
+			<div class="main-area">
+				<table border="1" class="table-a">
+					<tr>
+						<th>id</th>
+						<td th:text="${userInfo.id}"></td>
+					</tr>
+					<tr>
+						<th>名前</th>
+						<td th:text="${userInfo.name}"></td>
+					</tr>
+					<tr>
+						<th>メールアドレス</th>
+						<td th:text="${userInfo.mail}"></td>
+					</tr>
+					<tr>
+						<th>権限</th>
+						<td th:text="${userInfo.role == 'ROLE_ADMIN' ? '管理者' : userInfo.role == 'ROLE_TODO' ? 'TODO管理者' : 'ユーザー'}"></td>
+					</tr>
+					<tr>
+						<th>備考</th>
+						<td th:text="${userInfo.remarks}"></td>
+					</tr>
+				</table>
+				<form th:action="@{/user/info/update/Complete}" th:object="${user}" method="post">
+					<input type="hidden" th:field="*{id}">
+					<div class="row">
+						<label>名前 :</label>
+						<input type="text" th:field="*{name}" maxlength="50" placeholder="名前を入力してください">
+					</div>
+					<div id="nameError" style="color: red;"></div>
+					<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red;">
+					</div>
+					<div class="row">
+						<label>メールアドレス :</label>
+						<input type="text" th:field="*{mail}" maxlength="256" placeholder="メールアドレスを入力してください">
+					</div>
+					<div id="mailError" style="color: red;"></div>
+					<div th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}" style="color:red;">
+					</div>
+					<div th:if="${!isSelf}">
+						<div class="row">
+							<label>権限 :</label>
+							<select th:field="*{role}">
+								<option th:if="${isAdmin}" value="ROLE_ADMIN">管理者</option>
+								<option value="ROLE_USER">ユーザー</option>
+								<option value="ROLE_TODO">TODO管理者</option>
+							</select>
+						</div>
+					</div>
+					<div class="row">
+						<label>備考 :</label>
+						<textarea th:field="*{remarks}" maxlength="2000" rows="20" cols="100"
+							placeholder="備考がある場合は入力"></textarea>
+					</div>
+					<div id="remarksError" style="color: red;"></div>
+					<button class="action-button" type="submit">更新する</button>
+				</form>
+				<span>ステータス　: </span>
+				<span th:if="${messageU}" th:text="${messageU}" style="color: red;"></span>
+			</div>
+		</main>
+		<div th:replace="~{common/footer :: footer}"></div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script th:src="@{/js/user/userinfoupdate.js}"></script>
+</body>

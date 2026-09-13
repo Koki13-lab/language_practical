@@ -1,0 +1,2 @@
+ALTER TABLE todo
+ALTER COLUMN category_id SET NOT NULL;

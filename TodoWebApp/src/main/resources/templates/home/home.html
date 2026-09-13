@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>ホーム</title>
+	<link rel="stylesheet" th:href="@{/css/common/common.css}">
+	<link rel="stylesheet" th:href="@{/css/home/home.css}">
+</head>
+
+<body>
+	<div class="layout">
+		<div th:replace="~{common/header :: header}"></div>
+		<main class="main">
+			<div class="form-area">
+				<h1>ようこそ <span th:text="${loginName}"></span> さん</h1>
+				<div class="row">
+					<form th:action="@{/user/list}" method="get">
+						<button type="submit">ユーザーリスト</button>
+					</form>
+					<form th:action="@{/todo/list}" method="get">
+						<button type="submit">TODOリスト</button>
+					</form>
+				</div>
+			</div>
+		</main>
+		<div th:replace="~{common/footer :: footer}"></div>
+	</div>
+</body>

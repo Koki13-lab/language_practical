@@ -1,0 +1,127 @@
+.main-area {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-height: 70vh;
+	width: 100%;
+	gap: 10px;
+}
+
+.row {
+	display: flex;
+	gap: 10px;
+	width: 95%;
+}
+
+/*--------------
+テーブル設定
+--------------*/
+.table-wrapper {
+	flex: 1;
+	display: flex;
+	padding-top: 15px;
+	flex-direction: column;
+}
+
+.table-header{
+	display: flex ;
+	justify-content: space-between;
+	align-items: center;
+	padding-right: 45px;
+}
+
+.table-area {
+	width: 95%;
+	max-height: 200px;
+
+	overflow-y: auto;
+}
+
+.table-area th {
+	position: sticky;
+	top: 0;
+	background: white;
+}
+
+.table-a {
+	width: 60%;
+}
+
+.table-b,
+.table-c {
+	width: 95%;
+}
+
+.table-a th:nth-child(1),
+.table-a td:nth-child(1) {
+	width: 10%;
+	white-space: nowrap;
+}
+
+.table-a th:nth-child(2),
+.table-a td:nth-child(2) {
+	overflow-wrap: break-word;
+}
+
+.table-b th:nth-child(1),
+.table-b td:nth-child(1) {
+	width: 10%;
+	white-space: nowrap;
+}
+
+.table-b th:nth-child(2),
+.table-b td:nth-child(2) {
+	width: 65%;
+	overflow-wrap: break-word;
+}
+
+.table-b th:nth-child(3),
+.table-b td:nth-child(3) {
+	white-space: nowrap;
+}
+
+.table-c th:nth-child(1),
+.table-c td:nth-child(1) {
+	width: 10%;
+	white-space: nowrap;
+}
+
+.table-c th:nth-child(2),
+.table-c td:nth-child(2) {
+	width: 25%;
+	overflow-wrap: break-word;
+}
+
+.table-c th:nth-child(3),
+.table-c td:nth-child(3) {
+	white-space: nowrap;
+}
+
+th {
+	text-align: center;
+	padding: 3px;
+}
+
+td {
+	text-align: center;
+	padding: 3px;
+}
+
+td form {
+	display: flex;
+	justify-content: center;
+}
+
+/*--------------
+ボタン設定
+--------------*/
+
+.button-row {
+	justify-content: center;
+}
+
+.main .action-button {
+	padding: 10px 20px;
+	cursor: pointer;
+}

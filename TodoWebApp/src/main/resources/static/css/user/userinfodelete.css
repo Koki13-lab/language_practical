@@ -1,0 +1,40 @@
+.main-area {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-height: 70vh;
+	gap: 20px;
+}
+
+.row {
+	display: flex;
+	gap: 30px;
+}
+
+/*--------------
+テーブル設定
+--------------*/
+
+.table-a{
+		width: 60%;
+}
+
+.table-a th{
+	width: 1%;
+	white-space: nowrap;
+}
+
+.table-a td{
+	padding: 5px;
+}
+
+/*--------------
+ボタン設定
+--------------*/
+
+.main .action-button {
+	width: 200px;
+	padding: 20px 40px;
+	cursor: pointer;
+}
