@@ -28,14 +28,24 @@
 					<button type="submit">ユーザーを絞り込んで検索</button>
 				</form>
 				<div class="table-area">
-					<table border="1" class="table-a">
+					<table id="userTable" border="1" class="table-a">
 						<thead>
 							<tr>
-								<th>ID</th>
-								<th>名前</th>
-								<th>メールアドレス</th>
-								<th>権限</th>
-								<th>備考</th>
+								<th>ID
+									<button type="button" class="sortBtn" data-column="0">▲</button>
+								</th>
+								<th>名前
+									<button type="button" class="sortBtn" data-column="1">-</button>
+								</th>
+								<th>メールアドレス
+									<button type="button" class="sortBtn" data-column="2">-</button>
+								</th>
+								<th>権限
+									<button type="button" class="sortBtn" data-column="3">-</button>
+								</th>
+								<th>備考
+									<button type="button" class="sortBtn" data-column="4">-</button>
+								</th>
 								<th>詳細情報</th>
 							</tr>
 						</thead>
@@ -68,4 +78,6 @@
 		</main>
 		<div th:replace="~{common/footer :: footer}"></div>
 	</div>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script th:src="@{/js/user/userlist.js}"></script>
 </body>
