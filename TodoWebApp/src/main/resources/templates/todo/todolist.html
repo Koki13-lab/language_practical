@@ -43,15 +43,27 @@
 					</div>
 				</form>
 				<div class="table-area">
-					<table border="1" class="table-a">
+					<table id="todoTable" border="1" class="table-a">
 						<thead>
 							<tr>
-								<th>id</th>
+								<th>id
+									<button type="button" class="sortBtn" data-column="0">▲</button>
+								</th>
 								<th>題名
-								<th>優先度</th>
-								<th>期日</th>
-								<th>カテゴリー</th>
-								<th>内容</th>
+									<button type="button" class="sortBtn" data-column="1">-</button>
+								</th>
+								<th>優先度
+									<button type="button" class="sortBtn" data-column="2">-</button>
+								</th>
+								<th>期日
+									<button type="button" class="sortBtn" data-column="3">-</button>
+								</th>
+								<th>カテゴリー
+									<button type="button" class="sortBtn" data-column="4">-</button>
+								</th>
+								<th>内容
+									<button type="button" class="sortBtn" data-column="5">-</button>
+								</th>
 								<th>詳細情報</th>
 							</tr>
 						</thead>
@@ -87,5 +99,7 @@
 		</main>
 		<div th:replace="~{common/footer :: footer}"></div>
 	</div>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script th:src="@{/js/todo/todolist.js}"></script>
 </body>
 </html>

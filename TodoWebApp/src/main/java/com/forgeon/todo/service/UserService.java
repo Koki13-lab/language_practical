@@ -17,7 +17,7 @@ public class UserService {
 
 	@Autowired
 	UserMapper userMapper;
-	
+
 	@Autowired
 	UserTodoMapper userTodoMapper;
 
@@ -41,13 +41,13 @@ public class UserService {
 		return !("ROLE_TODO".equals(role) && !(id.equals(loginId)));
 
 	}
-	
-	public boolean existsByName(Integer id,String name) {
-	    return userMapper.existsByName(id,name);
+
+	public boolean existsByName(Integer id, String name) {
+		return userMapper.existsByName(id, name);
 	}
-	
-	public boolean existsByMail(Integer id,String mail) {
-	    return userMapper.existsByMail(id,mail);
+
+	public boolean existsByMail(Integer id, String mail) {
+		return userMapper.existsByMail(id, mail);
 	}
 
 	public String updateUser(User user, CustomUserDetails loginUser) {
@@ -55,10 +55,13 @@ public class UserService {
 
 			String loginRole = loginUser.getUser().getRole();
 			User dbUser = userMapper.getUserInfo(user.getId());
+			
+			System.out.println(user);
 
-			if (!"ROLE_ADMIN".equals(loginRole) && !dbUser.getRole().equals(user.getRole())) {
+			if (!"ROLE_ADMIN".equals(loginRole) && user.getRole() != null && !dbUser.getRole().equals(user.getRole())) {
 				return "不正な操作です。";
 			}
+
 			if (!"ROLE_ADMIN".equals(loginRole)) {
 				user.setRole(dbUser.getRole());
 			}
@@ -97,14 +100,14 @@ public class UserService {
 	public String deleteUser(User user) {
 		try {
 			userMapper.deleteUser(user);
-			
+
 			UserTodo userTodo = new UserTodo();
-			
+
 			userTodo.setDeletedAt(user.getDeletedAt());
 			userTodo.setDeletedBy(user.getDeletedBy());
 			userTodo.setDeleted(true);
 			userTodo.setUserId(user.getId());
-			
+
 			userTodoMapper.deleteUserTodoByUserId(userTodo);
 			return "削除に成功しました。";
 		} catch (org.postgresql.util.PSQLException e) {
